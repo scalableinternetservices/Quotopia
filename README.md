@@ -1,7 +1,7 @@
 # Quotopia
 A web application to share quotes with reddit style upvoting and downvoting 
 
-[Pivoltal Tracker](https://www.pivotaltracker.com/n/projects/1321098)
+[Pivotal Tracker](https://www.pivotaltracker.com/n/projects/1321098)
 
 Roger Chen ([@rchen93](https://github.com/rchen93))  
 
