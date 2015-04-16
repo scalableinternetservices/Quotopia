@@ -1,4 +1,6 @@
 language: ruby
 rvm:
     - 2.2.1
+notifications:
+    slack: quotopia:Ke5v36gZYzX3TeH9uP1tKnFx
 
