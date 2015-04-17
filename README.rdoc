@@ -27,6 +27,7 @@ rails generate scaffold Quote content:text time:date
 rails generate scaffold Author name:string
 rails generate scaffold Category content:string
 rails generate scaffold Comment content:text
+rails generate scaffold Upvote
 
 
 Please feel free to use a different markup language if you do not plan to run
