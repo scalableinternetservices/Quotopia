@@ -7,10 +7,8 @@
   <%= submit_tag "Search" %>
 <% end %>
 
-<% if @quotes.present? %>
-  <% @quotes.each do |quote| %>
-    <p><%= quote.content %></p>
-  <% end %> 
+<% if @search_quotes.present? %>
+  <%= render :partial => "quote", :collection => @search_quotes %> 
 <% else %>
   <p>There are no quotes containing the term(s) <%= params[:search] %>.</p>
 <% end %>
