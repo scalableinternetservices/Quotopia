@@ -5,6 +5,12 @@ class QuotesController < ApplicationController
   # GET /quotes.json
   def index
     @quotes = Quote.all
+    if params[:search] && !params[:search].empty?
+      @has_search = true
+      @search_quotes = Quote.search(params[:search]).order("created_at DESC")
+    else
+      @search_quotes = nil #Quote.all.order('created_at DESC')
+    end
   end
 
   # GET /quotes/1

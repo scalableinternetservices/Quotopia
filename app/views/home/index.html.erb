@@ -2,14 +2,32 @@
   <div class="page-header">
       <h1>Some kind of cool header here <small>ideas pls</small></h1>
   </div>
-  <div class="input-group">
-    <span class="input-group-addon" id="search-label">Search</span>
-    <input type="text" class="form-control" placeholder="Query" aria-describedby="search-label">
-    <span class="input-group-btn">
-        <button class="btn btn-default" type="button">
-            <span class="fa fa-search" aria-hidden="true"></span>
-        </button>
-    </span>
+  <!--<input type="text" class="form-control" placeholder="Query" aria-describedby="search-label">
+-->
+  <%= form_tag(quotes_path, :method => "get", id: "search-form",
+               :class => "form-inline") do %>
+      <div class="input-group">
+        <span class="input-group-addon searchbar" id="search-label">Search</span>
+
+        <div class="form-group searchbar-text">
+          <%= text_field_tag :search, params[:search],
+                             placeholder: "Search Quotes or Authors",
+                             class: "form-control searchbar-text" %>
+        </div>
+        <span class="input-group-btn searchbar">
+            <button type="submit" class="btn btn-default">
+              <span class="fa fa-search" aria-hidden="true"></span>
+            </button>
+        </span>
+      </div>
+  <% end %>
+
+  <div>
+    <% if @search_quotes.present? %>
+        <%= render :partial => "quote", :collection => @search_quotes %>
+    <% elsif @has_search %>
+        <p>There are no quotes containing the term(s) <%= params[:search] %>.</p>
+    <% end %>
   </div>
   <br>
   <div class="nav">

@@ -2,6 +2,19 @@
 
 <h1>Listing Quotes</h1>
 
+<%= form_tag(quotes_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Quotes or Authors" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<% if @quotes.present? %>
+  <% @quotes.each do |quote| %>
+    <p><%= quote.content %></p>
+  <% end %> 
+<% else %>
+  <p>There are no quotes containing the term(s) <%= params[:search] %>.</p>
+<% end %>
+
 <table>
   <thead>
     <tr>
