@@ -8,7 +8,7 @@
 <% end %>
 
 <% if @search_quotes.present? %>
-  <%= render :partial => "quote", :collection => @search_quotes %> 
+  <%= render :partial => "quote", :collection => @search_quotes %>
 <% elsif @has_search %>
     <% if @quotes.present? %>
         <% @quotes.each do |quote| %>
