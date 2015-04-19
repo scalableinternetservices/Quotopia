@@ -2,9 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .quote {
+    margin-bottom: 10px;
     .center {
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: 15px;
         height: 50px;
     }
     button {
@@ -17,4 +17,8 @@
 
 .vote {
     text-align: center;
+    .vote-count {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
 }
