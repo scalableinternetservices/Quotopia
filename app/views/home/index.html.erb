@@ -13,87 +13,92 @@
   </div>
   <br>
   <div class="nav">
-      <ul class="nav nav-tabs nav-justified">
-        <li role="presentation" class="active"><a href="#">Trending</a></li>
-        <li role="presentation"><a href="#">All Time</a></li>
-        <li role="presentation"><a href="#">Random</a></li>
-        <li role="presentation"><a href="#">Categories</a></li>
+      <ul class="nav nav-tabs nav-justified" role="tablist" id="quoteTabs">
+          <li role="presentation" class="active">
+              <a href="#trending" aria-controls="trending" role="tab" data-toggle="tab">Trending</a>
+          </li>
+          <li role="presentation">
+              <a href="#all-time" aria-controls="all-time" role="tab" data-toggle="tab">All Time</a>
+          </li>
+          <li role="presentation">
+              <a href="#random" aria-controls="random" role="tab" data-toggle="tab">Random</a>
+          </li>
+          <li role="presentation">
+              <a href="#categories" aria-controls="categories" role="tab" data-toggle="tab">Categories</a>
+          </li>
       </ul>
   </div>
 </div>
 <br>
 <div class="row" id="quotes">
-    <div class="quote row">
-        <div class="col-xs-2 vote">
-            <a href="#"><span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span></a>
-            <h4 class="vote-count">1337</h4>
-            <a href="#"><span class="fa fa-2x fa-chevron-down" aria-hidden="true"></span></a>
-        </div>
-        <div class="col-xs-8 quote-text panel panel-default center">
-            <div class="panel-body"> this is a quote blah blah blah </div>
-        </div>
-        <div class="col-xs-2 center quote-buttons">
-            <div class="btn-group ">
-                <button type="button" class="btn btn-default">
-                    <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-default">
-                    <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
-                </button>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="trending">
+            <div class="quote row">
+                <div class="col-xs-2 vote">
+                    <a href="#"><span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span></a>
+                    <h4 class="vote-count">1337</h4>
+                    <a href="#"><span class="fa fa-2x fa-chevron-down" aria-hidden="true"></span></a>
+                </div>
+                <div class="col-xs-8 quote-text panel panel-default center">
+                    <div class="panel-body"> this is a quote blah blah blah </div>
+                </div>
+                <div class="col-xs-2 center quote-buttons">
+                    <div class="btn-group ">
+                        <button type="button" class="btn btn-default">
+                            <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                            <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="quote row">
+                <div class="col-xs-2 vote">
+                    <a href="#"><span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span></a>
+                    <h4 class="vote-count">1337</h4>
+                    <a href="#"><span class="fa fa-2x fa-chevron-down" aria-hidden="true"></span></a>
+                </div>
+                <div class="col-xs-8 quote-text panel panel-default center">
+                    <div class="panel-body"> this is a quote blah blah blah </div>
+                </div>
+                <div class="col-xs-2 center quote-buttons">
+                    <div class="btn-group ">
+                        <button type="button" class="btn btn-default">
+                            <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                            <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+                <!--
+                <div class="col-xs-1 quote-favorite panel panel-default">
+                    <div class="panel-body">
+                        <a href="#">
+                            <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-1 quote-comments panel panel-default">
+                    <div class="panel-body">
+                        <a href="#">
+                            <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+                -->
             </div>
         </div>
-        <!--
-        <div class="col-xs-1 quote-favorite panel panel-default">
-            <div class="panel-body">
-                <a href="#">
-                    <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
-                </a>
-            </div>
+        <div role="tabpanel" class="tab-pane" id="all-time">
+            <h1>all-time</h1>
         </div>
-        <div class="col-xs-1 quote-comments panel panel-default">
-            <div class="panel-body">
-                <a href="#">
-                    <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
-                </a>
-            </div>
+        <div role="tabpanel" class="tab-pane" id="random">
+            <h1>random</h1>
         </div>
-        -->
-    </div>
-    <div class="quote row">
-        <div class="col-xs-2 vote">
-            <a href="#"><span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span></a>
-            <h4 class="vote-count">1337</h4>
-            <a href="#"><span class="fa fa-2x fa-chevron-down" aria-hidden="true"></span></a>
-        </div>
-        <div class="col-xs-8 quote-text panel panel-default center">
-            <div class="panel-body"> this is a quote blah blah blah </div>
-        </div>
-        <div class="col-xs-2 center quote-buttons">
-            <div class="btn-group ">
-                <button type="button" class="btn btn-default">
-                    <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-default">
-                    <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
-                </button>
-            </div>
-        </div>
-        <!--
-        <div class="col-xs-1 quote-favorite panel panel-default">
-            <div class="panel-body">
-                <a href="#">
-                    <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-        <div class="col-xs-1 quote-comments panel panel-default">
-            <div class="panel-body">
-                <a href="#">
-                    <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-        -->
-    </div>
+        <div role="tabpanel" class="tab-pane" id="categories">
+            <h1>categories</h1>
+        </div> 
 
+    </div>
 </div>
