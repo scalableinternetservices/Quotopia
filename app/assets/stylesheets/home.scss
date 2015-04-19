@@ -2,11 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .quote {
-    .panel {
+    .center {
         margin-top: 20px;
         margin-bottom: 20px;
         height: 50px;
     }
+    button {
+        height: 50px;
+    }
+}
+.quote-buttons {
+    padding: 0px;
 }
 
 .vote {
