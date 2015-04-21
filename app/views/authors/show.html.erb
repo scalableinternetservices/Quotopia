@@ -5,10 +5,13 @@
   <%= @author.name %>
   <br/>
   <strong>Quotes:</strong>
-  <% @author.quotes.each do |q| %>
-    <%= q.content %>
-      <br/>
-  <% end %>
+  <ul>
+    <% @author.quotes.each do |q| %>
+        <li>
+          <%= q.content %>
+        </li>
+    <% end %>
+  </ul>
 </p>
 
 <%= link_to 'Edit', edit_author_path(@author) %> |
