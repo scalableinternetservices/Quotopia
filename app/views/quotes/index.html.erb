@@ -14,8 +14,9 @@
         <% @quotes.each do |quote| %>
             <p><%= quote.content %></p>
         <% end %>
-<% else %>
+    <% else %>
   <p>There are no quotes containing the term(s) <%= params[:search] %>.</p>
+    <% end %>
 <% end %>
 
 <table>
@@ -45,3 +46,4 @@
 <br>
 
 <%= link_to 'New Quote', new_quote_path %>
+
