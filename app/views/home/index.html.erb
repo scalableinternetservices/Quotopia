@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="page-header">
+      <h1>Some kind of cool header here <small>ideas pls</small></h1>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon" id="search-label">Search</span>
+    <input type="text" class="form-control" placeholder="Query" aria-describedby="search-label">
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+            <span class="fa fa-search" aria-hidden="true"></span>
+        </button>
+    </span>
+  </div>
+  <br>
+  <div class="nav">
+      <ul class="nav nav-tabs nav-justified" role="tablist" id="quoteTabs">
+          <li role="presentation" class="active">
+              <a href="#trending" aria-controls="trending" role="tab" data-toggle="tab">Trending</a>
+          </li>
+          <li role="presentation">
+              <a href="#all-time" aria-controls="all-time" role="tab" data-toggle="tab">All Time</a>
+          </li>
+          <li role="presentation">
+              <a href="#random" aria-controls="random" role="tab" data-toggle="tab">Random</a>
+          </li>
+          <li role="presentation">
+              <a href="#categories" aria-controls="categories" role="tab" data-toggle="tab">Categories</a>
+          </li>
+      </ul>
+  </div>
+</div>
+<br>
+<div class="row" id="quotes">
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="trending">
+            <%= render partial: "quotes/quote_block", locals: {quotes: @quotes} %>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="all-time">
+            <h1>all-time</h1>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="random">
+            <h1>random</h1>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="categories">
+            <h1>categories</h1>
+        </div> 
+
+    </div>
+</div>

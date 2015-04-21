@@ -1,0 +1,24 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.quote {
+    margin-bottom: 10px;
+    .center {
+        margin-top: 15px;
+        height: 50px;
+    }
+    button {
+        height: 50px;
+    }
+}
+.quote-buttons {
+    padding: 0px;
+}
+
+.vote {
+    text-align: center;
+    .vote-count {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
