@@ -22,6 +22,7 @@
       </div>
   <% end %>
 
+
   <div>
     <% if @search_quotes.present? %>
         <%= render :partial => "quote", :collection => @search_quotes %>
@@ -29,6 +30,7 @@
         <p>There are no quotes containing the term(s) <%= params[:search] %>.</p>
     <% end %>
   </div>
+
 
   <br>
   <div class="nav">
