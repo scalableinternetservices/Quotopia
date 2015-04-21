@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Content</th>
+      <th>Quote</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +15,7 @@
     <% @categories.each do |category| %>
       <tr>
         <td><%= category.content %></td>
+        <td><%= category.quotes %></td> <!-- THIS IS PROBABLY GOING TO BREAK -->
         <td><%= link_to 'Show', category %></td>
         <td><%= link_to 'Edit', edit_category_path(category) %></td>
         <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>

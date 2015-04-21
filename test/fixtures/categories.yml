@@ -2,6 +2,8 @@
 
 one:
   content: MyString
+  quote_id: 1
 
 two:
   content: MyString
+  quote_id: 1

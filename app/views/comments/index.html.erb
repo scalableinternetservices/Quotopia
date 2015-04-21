@@ -6,6 +6,8 @@
   <thead>
     <tr>
       <th>Content</th>
+      <th>Quote</th>
+      <th>User</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +16,8 @@
     <% @comments.each do |comment| %>
       <tr>
         <td><%= comment.content %></td>
+        <td><%= comment.quote %></td>
+        <td><%= comment.user %></td>
         <td><%= link_to 'Show', comment %></td>
         <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
         <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
