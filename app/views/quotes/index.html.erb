@@ -9,7 +9,7 @@
 
 <% if @search_quotes.present? %>
   <%= render :partial => "quote", :collection => @search_quotes %> 
-<% else %>
+<% elsif @has_search %>
   <p>There are no quotes containing the term(s) <%= params[:search] %>.</p>
 <% end %>
 
