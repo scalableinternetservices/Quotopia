@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class QuotesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @quote = quotes(:one)
+    @update = {
+        content: "This is a new quote"
+    }
   end
 
   test "should get index" do
@@ -18,7 +23,7 @@ class QuotesControllerTest < ActionController::TestCase
 
   test "should create quote" do
     assert_difference('Quote.count') do
-      post :create, quote: { author_id: @quote.author_id, content: @quote.content, user_id: @quote.user_id }
+      post :create, quote: @update
     end
 
     assert_redirected_to quote_path(assigns(:quote))
@@ -35,7 +40,7 @@ class QuotesControllerTest < ActionController::TestCase
   end
 
   test "should update quote" do
-    patch :update, id: @quote, quote: { author_id: @quote.author_id, content: @quote.content, user_id: @quote.user_id }
+    patch :update, id: @quote, quote: @update
     assert_redirected_to quote_path(assigns(:quote))
   end
 

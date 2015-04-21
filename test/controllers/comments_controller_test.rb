@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @comment = comments(:one)
+    @update = {
+        content: "This is a new comment"
+    }
   end
 
   test "should get index" do
@@ -18,7 +23,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "should create comment" do
     assert_difference('Comment.count') do
-      post :create, comment: { content: @comment.content, quote_id: @comment.quote_id, user_id: @comment.user_id }
+      post :create, comment: @update
     end
 
     assert_redirected_to comment_path(assigns(:comment))
@@ -35,7 +40,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "should update comment" do
-    patch :update, id: @comment, comment: { content: @comment.content, quote_id: @comment.quote_id, user_id: @comment.user_id }
+    patch :update, id: @comment, comment: @update
     assert_redirected_to comment_path(assigns(:comment))
   end
 

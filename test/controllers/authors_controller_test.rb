@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class AuthorsControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @author = authors(:one)
+    @update = {
+        name: "New Author"
+    }
   end
 
   test "should get index" do
@@ -18,7 +23,7 @@ class AuthorsControllerTest < ActionController::TestCase
 
   test "should create author" do
     assert_difference('Author.count') do
-      post :create, author: { name: @author.name }
+      post :create, author: @update
     end
 
     assert_redirected_to author_path(assigns(:author))
@@ -35,7 +40,7 @@ class AuthorsControllerTest < ActionController::TestCase
   end
 
   test "should update author" do
-    patch :update, id: @author, author: { name: @author.name }
+    patch :update, id: @author, author: @update
     assert_redirected_to author_path(assigns(:author))
   end
 

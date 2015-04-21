@@ -2,10 +2,15 @@
 
 one:
   content: MyText
-  author_id: 
-  user_id: 
+  author_id: 1
+  user_id: 1
 
 two:
   content: MyText
-  author_id: 
-  user_id: 
+  author_id: 1
+  user_id: 1
+
+thomas_aquinas_quote:
+  content: There is nothing on this earth more to be prized than true friendship
+  author_id: 1
+  user_id: 1

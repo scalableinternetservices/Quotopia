@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class CategoriesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @category = categories(:one)
+    @update = {
+        content: "New Category"
+    }
   end
 
   test "should get index" do
@@ -18,7 +23,7 @@ class CategoriesControllerTest < ActionController::TestCase
 
   test "should create category" do
     assert_difference('Category.count') do
-      post :create, category: { content: @category.content, quote_id: @category.quote_id }
+      post :create, category: @update
     end
 
     assert_redirected_to category_path(assigns(:category))
@@ -35,7 +40,7 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   test "should update category" do
-    patch :update, id: @category, category: { content: @category.content, quote_id: @category.quote_id }
+    patch :update, id: @category, category: @update
     assert_redirected_to category_path(assigns(:category))
   end
 
