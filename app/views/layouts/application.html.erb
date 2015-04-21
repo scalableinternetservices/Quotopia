@@ -19,10 +19,17 @@
         </div>
         <div class="collapse navbar-collapse">
             <div class="nav navbar-nav navbar-right">
-                <%= link_to "Login", new_user_session_path, :id => "login-btn", 
-                    :class => "btn btn-default navbar-btn", :method => :get %>
-                <%= link_to "Sign up", new_user_registration_path, :id => "sign-up-btn",
-                    :class => "btn btn-default navbar-btn", :method => :get %>
+                <% unless user_signed_in? %>
+                    <%= link_to "Login", new_user_session_path, :id => "login-btn", 
+                        :class => "btn btn-default navbar-btn", :method => :get %>
+                    <%= link_to "Sign up", new_user_registration_path, :id => "sign-up-btn",
+                        :class => "btn btn-default navbar-btn", :method => :get %>
+                <% else %>
+                    <%= link_to "Logout", destroy_user_session_path, :id => "sign-up-btn",
+                        :class => "btn btn-default navbar-btn", :method => :delete %>
+
+                    <p class="navbar-text"><b><%= current_user.email %></b></p>
+                <% end %>
             </div>
         </div>
     </nav>
