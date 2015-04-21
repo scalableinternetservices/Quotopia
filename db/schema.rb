@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419062752) do
+ActiveRecord::Schema.define(version: 20150421051249) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "name"
@@ -21,32 +21,42 @@ ActiveRecord::Schema.define(version: 20150419062752) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "content"
+    t.integer  "quote_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "categories", ["quote_id"], name: "index_categories_on_quote_id"
 
   create_table "categories_quotes", force: :cascade do |t|
     t.integer "category_id"
     t.integer "quote_id"
   end
 
+  add_index "categories_quotes", ["category_id"], name: "index_categories_quotes_on_category_id"
+  add_index "categories_quotes", ["quote_id"], name: "index_categories_quotes_on_quote_id"
+
   create_table "comments", force: :cascade do |t|
     t.text     "content"
+    t.integer  "quote_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "comments", ["quote_id"], name: "index_comments_on_quote_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "quotes", force: :cascade do |t|
     t.text     "content"
-    t.date     "time"
+    t.integer  "author_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "upvotes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  add_index "quotes", ["author_id"], name: "index_quotes_on_author_id"
+  add_index "quotes", ["user_id"], name: "index_quotes_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -65,5 +75,16 @@ ActiveRecord::Schema.define(version: 20150419062752) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "value"
+    t.integer  "user_id"
+    t.integer  "quote_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "votes", ["quote_id"], name: "index_votes_on_quote_id"
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 
 end

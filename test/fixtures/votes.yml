@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  content: MyText
-  author_id: 
+  value: 1
   user_id: 
+  quote_id: 
 
 two:
-  content: MyText
-  author_id: 
+  value: 1
   user_id: 
+  quote_id: 
