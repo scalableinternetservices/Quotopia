@@ -14,7 +14,6 @@ class QuotesController < ApplicationController
 
   # GET /quotes/new
   def new
-    @authors = Author.all
     @quote = Quote.new
   end
 

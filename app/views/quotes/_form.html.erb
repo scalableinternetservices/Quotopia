@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :author_id %><br>
-    <%= f.select :author_id, options_for_select(@authors.all.map{|a|[a.name, a.id]}) %>
+    <%= f.select :author_id, options_for_select(Author.all.map{|a|[a.name, a.id]}) %>
   </div>
   <div class="actions">
     <%= f.submit %>
