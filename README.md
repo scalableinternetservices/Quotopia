@@ -1,8 +1,12 @@
 # Quotopia
+[![Build Status](https://travis-ci.org/scalableinternetservices/Quotopia.svg?branch=master)](https://travis-ci.org/scalableinternetservices/quotopia)
+
 A web application to share quotes with reddit style upvoting and downvoting 
 
 [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/1321098)
 
+
+## Team Quotopia
 Roger Chen ([@rchen93](https://github.com/rchen93))  
 
 ![Roger Chen](https://media.licdn.com/media/p/7/005/03f/3b1/0ea3675.jpg)  
