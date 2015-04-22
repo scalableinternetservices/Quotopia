@@ -18,15 +18,11 @@
 
     <%= f.fields_for :author do |ff| %>
         <div class="field">
-          <%= ff.label :name %><br>
-          <%= ff.text_area :name %>
+          <%= ff.label :name, "Author"%><br>
+          <%= ff.text_field :name %>
         </div>
     <% end %>
-    <!--<div class="field">-->
-    <!--<%= f.label :author_id %><br>-->
-    <!--<%= f.select :author_id, options_for_select(Author.all.map{|a|[a.name, a.id]}) %>-->
-    <!--</div>-->
     <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit"%>
 </div>
 <% end %>
