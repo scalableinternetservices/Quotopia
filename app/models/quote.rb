@@ -1,5 +1,6 @@
 class Quote < ActiveRecord::Base
   belongs_to :author
+  # belongs_to :submitter, class_name: 'User', foreign_key: 'user_id' if keep tracking of user-submissions does not work
   belongs_to :user
   has_many :votes
   has_many :users, :through => :votes
