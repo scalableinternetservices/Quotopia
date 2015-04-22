@@ -1,5 +1,5 @@
-<%= form_for(@quote) do |f| %>
-  <% if @quote.errors.any? %>
+<%= form_for(setup_quote(@quote)) do |f| %>
+    <% if @quote.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@quote.errors.count, "error") %> prohibited this quote from being saved:</h2>
 
@@ -9,17 +9,24 @@
       <% end %>
       </ul>
     </div>
-  <% end %>
+    <% end %>
 
-  <div class="field">
+    <div class="field">
     <%= f.label :content %><br>
     <%= f.text_area :content %>
-  </div>
-  <div class="field">
-    <%= f.label :author_id %><br>
-    <%= f.select :author_id, options_for_select(Author.all.map{|a|[a.name, a.id]}) %>
-  </div>
-  <div class="actions">
+    </div>
+
+    <%= f.fields_for :author do |ff| %>
+        <div class="field">
+          <%= ff.label :name %><br>
+          <%= ff.text_area :name %>
+        </div>
+    <% end %>
+    <!--<div class="field">-->
+    <!--<%= f.label :author_id %><br>-->
+    <!--<%= f.select :author_id, options_for_select(Author.all.map{|a|[a.name, a.id]}) %>-->
+    <!--</div>-->
+    <div class="actions">
     <%= f.submit %>
-  </div>
+</div>
 <% end %>

@@ -24,7 +24,10 @@ class QuotesController < ApplicationController
   # POST /quotes
   # POST /quotes.json
   def create
+    author_attributes = quote_params.delete("author_attributes")
+    @author = Author.find_or_create_by(name: author_attributes[:name])
     @quote = Quote.new(quote_params)
+    @quote.author = @author
 
     respond_to do |format|
       if @quote.save
@@ -69,6 +72,6 @@ class QuotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quote_params
-      params.require(:quote).permit(:content, :author_id, :user_id)
+      params.require(:quote).permit(:content, :user_id, :author_attributes => [:name])
     end
 end

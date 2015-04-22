@@ -8,7 +8,9 @@ class QuotesControllerTest < ActionController::TestCase
     @quote = quotes(:one)
     @update = {
         content: "This is a new quote",
-        author_id: ActiveRecord::FixtureSet.identify(:one)
+        author_attributes: {
+            name: authors(:one)
+        }
     }
   end
 
