@@ -3,6 +3,15 @@
 <p>
   <strong>Name:</strong>
   <%= @author.name %>
+  <br/>
+  <strong>Quotes:</strong>
+  <ul>
+    <% @author.quotes.each do |q| %>
+        <li>
+          <%= q.content %>
+        </li>
+    <% end %>
+  </ul>
 </p>
 
 <%= link_to 'Edit', edit_author_path(@author) %> |

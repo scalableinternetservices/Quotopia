@@ -16,7 +16,7 @@
     <% @quotes.each do |quote| %>
       <tr>
         <td><%= quote.content %></td>
-        <td><%= quote.author %></td>
+        <td><%= quote.author.name if quote.author %></td>
         <td><%= quote.user %></td>
         <td><%= link_to 'Show', quote %></td>
         <td><%= link_to 'Edit', edit_quote_path(quote) %></td>

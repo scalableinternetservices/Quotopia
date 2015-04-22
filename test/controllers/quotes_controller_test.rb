@@ -2,11 +2,15 @@ require 'test_helper'
 
 class QuotesControllerTest < ActionController::TestCase
   include Devise::TestHelpers
+  fixtures :authors
 
   setup do
     @quote = quotes(:one)
     @update = {
-        content: "This is a new quote"
+        content: "This is a new quote",
+        author_attributes: {
+            name: authors(:one)
+        }
     }
   end
 
