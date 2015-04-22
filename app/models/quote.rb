@@ -6,6 +6,8 @@ class Quote < ActiveRecord::Base
   has_many :comments
   has_and_belongs_to_many :categories
 
+
   validates :content, presence: true
   validates :content, uniqueness: true
+  validates :author, presence: true
 end
