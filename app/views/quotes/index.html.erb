@@ -1,15 +1,16 @@
+<script type="text/javascript" src="validate.js"></script>
+
 <div class="row">
   <div class="page-header">
     <h1>Search Results </h1>
   </div>
-  <!--<input type="text" class="form-control" placeholder="Query" aria-describedby="search-label">
--->
+
   <%= form_tag(quotes_path, :method => "get", id: "search-form",
-               :class => "form-inline") do %>
+               :class => "form-inline", :name => "search-form", :onsubmit => "return (validate());") do %>
       <div class="input-group">
         <span class="input-group-addon searchbar" id="search-label">Search</span>
 
-        <div class="form-group searchbar-text">
+        <div class="form-group searchbar-text" name="search-bar">
           <%= text_field_tag :search, params[:search],
                              placeholder: "Search Quotes or Authors",
                              class: "form-control searchbar-text" %>
