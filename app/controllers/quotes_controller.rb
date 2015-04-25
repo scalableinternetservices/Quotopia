@@ -25,7 +25,14 @@ class QuotesController < ApplicationController
   # POST /quotes.json
   def create
     author_attributes = quote_params.delete("author_attributes")
+    category_attributes = quote_params.delete("category")
+
+    #@categories = []
+
+
     @author = Author.find_or_create_by(name: author_attributes[:name])
+    #@categories = Category.find_or_create_by(content: category_attributes[:content])
+
     @quote = Quote.new(quote_params)
     @quote.author = @author
 
@@ -72,6 +79,6 @@ class QuotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quote_params
-      params.require(:quote).permit(:content, :user_id, :author_attributes => [:name])
+      params.require(:quote).permit(:content, :user_id, :author_attributes => [:name], :category_ids => [])
     end
 end

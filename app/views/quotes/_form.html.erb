@@ -22,7 +22,13 @@
           <%= ff.text_field :name %>
         </div>
     <% end %>
+
+    <div class="field">
+      <%= f.label :category_ids, "Categories" %><br>
+      <%= f.select :category_ids, Category.all.collect {|c| [c.content, c.id]}, {}, :multiple => true %>
+    </div>
+
     <div class="actions">
     <%= f.submit "Submit"%>
-</div>
+    </div>
 <% end %>
