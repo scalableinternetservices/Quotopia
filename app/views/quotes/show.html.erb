@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>content:</strong>
+  <strong>Content:</strong>
   <%= @quote.content %>
 </p>
 
@@ -11,9 +11,20 @@
 </p>
 
 <p>
+  <strong>Categories:</strong>
+  <ul>
+    <% @quote.categories.each do |c| %>
+       <li><%= c.content %></li>
+    <% end %>
+  </ul>
+</p>
+
+<p>
   <strong>User:</strong>
   <%= @quote.user %>
 </p>
+
+
 
 <%= link_to 'Edit', edit_quote_path(@quote) %> |
 <%= link_to 'Back', quotes_path %>
