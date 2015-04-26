@@ -4,10 +4,6 @@ one:
   content: MyString
   quote_id: 1
 
-two:
-  content: MyString
-  quote_id: 1
-
 friendship:
   content: Friendship
   quote_id: 1
