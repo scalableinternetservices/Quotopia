@@ -2,7 +2,7 @@ require 'test_helper'
 
 class QuotesControllerTest < ActionController::TestCase
   include Devise::TestHelpers
-  fixtures :authors
+  fixtures :authors, :users
 
   setup do
     @quote = quotes(:one)
@@ -12,6 +12,7 @@ class QuotesControllerTest < ActionController::TestCase
             name: authors(:one)
         }
     }
+    sign_in users(:lonelyguy)
   end
 
   test "should get index" do
