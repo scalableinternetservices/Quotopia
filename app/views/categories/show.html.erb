@@ -1,15 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Content:</strong>
+  <strong>Name:</strong>
   <%= @category.content %>
 </p>
 
 <p>
   <strong>Quote(s):</strong>
   <ul>
-    <% @category.quotes.each do |q| %>
-        <li><%= q.content %></li>
+    <% @category.quotes.each do |quote| %>
+        <li>
+          <%= link_to quote.content, quote_path(quote) %>
+        </li>
     <% end %>
   </ul>
 </p>
