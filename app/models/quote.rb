@@ -10,7 +10,8 @@ class Quote < ActiveRecord::Base
   accepts_nested_attributes_for :categories
 
   validates :content, presence: true
-  validates :content, uniqueness: true
+  validates :content, uniqueness: {scope: :author,
+                    message: "quote should be unique per author"}
   validates :author, presence: true
 
 	def self.search(search)
