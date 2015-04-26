@@ -1,9 +1,36 @@
 <% @quotes.each do |quote| %>
     <div class="quote row">
         <div class="col-xs-2 vote">
-            <a href="#"><span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span></a>
-            <h4 class="vote-count">1337</h4>
-            <a href="#"><span class="fa fa-2x fa-chevron-down" aria-hidden="true"></span></a>
+            <% if user_signed_in? %>
+                <!--<a class="vote-link" data-id="<%=quote.id%>" data-voteType="up">
+                    <span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span>
+                </a>
+                -->
+                <%= link_to votes_path, 
+                    data: { :method => :post, 
+                            :remote => true, 
+                            params: { vote: {value: 1, quote_id: quote.id, user_id: current_user.id }}.to_param
+                    },
+                    class: "vote-link" do
+                %>
+
+                    <span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span>
+                <% end %>
+                <h4 class="vote-count-<%=quote.id%>"><%= Vote.quote_count(quote.id) %> </h4>
+                <%= link_to votes_path, 
+                    data: { :method => :post, 
+                            :remote => true, 
+                            params: { vote: {value: -1, quote_id: quote.id, user_id: current_user.id }}.to_param
+                    },
+                    class: "vote-link" do
+                %>
+                    <span class="fa fa-2x fa-chevron-down" aria-hidden="true"></span>
+                <% end %>
+            <% else %>
+                <a href="#"><span class="fa fa-2x fa-chevron-up" aria-hidden="true" style="color: red"></span></a>
+                <h4 class="vote-count"><%= Vote.quote_count(quote.id) %> </h4>
+                <a href="#"><span class="fa fa-2x fa-chevron-down" aria-hidden="true" style="color: red"></span></a>
+            <% end %>
         </div>
         <div class="col-xs-8 quote-text panel panel-default center">
             <div class="panel-body"><%= quote.content %></div>
@@ -21,6 +48,17 @@
     </div>
 
 <% end %>
+
+<script>
+    $(document).ready(function(){
+        $('.vote-link').bind("ajax:success",
+            function(evt, data, status, xhr){
+                
+            }
+        );
+        
+    });
+</script>
 <!--
     <div class="quote row">
         <div class="col-xs-1 quote-favorite panel panel-default">
