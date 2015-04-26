@@ -6,8 +6,12 @@
 </p>
 
 <p>
-  <strong>Quote:</strong>
-  <%= @category.quotes %> <!-- THIS IS PROBABLY GOING TO BREAK -->
+  <strong>Quote(s):</strong>
+  <ul>
+    <% @category.quotes.each do |q| %>
+        <li><%= q.content %></li>
+    <% end %>
+  </ul>
 </p>
 
 <%= link_to 'Edit', edit_category_path(@category) %> |
