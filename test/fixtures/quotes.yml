@@ -5,11 +5,6 @@ one:
   author: one
   user: one
 
-two:
-  content: MyText
-  author: two
-  user: two
-
 thomas_aquinas_quote:
   content: There is nothing on this earth more to be prized than true friendship
   author: thomas_aquinas
