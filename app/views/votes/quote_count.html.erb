@@ -1,0 +1,15 @@
+
+Quote id requested: <%= @quote_id %>
+
+<% @votes.each do |vote| %>
+    <p>
+        Vote Id:<%= vote.id %><br>
+        Value:<%= vote.value %><br>
+        Quote_id:<%= vote.quote_id %><br>
+    </p>
+
+<% end %>
+
+
+<%= @count %>
+
