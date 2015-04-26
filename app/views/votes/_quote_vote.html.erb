@@ -4,14 +4,18 @@
     @votepath = votes_path
     @method = :post
     @upvote_value = 1
+    @upvote_class = "fa-chevron-up"
     @downvote_value = -1
+    @downvote_class = "fa-chevron-down"
     if @vote != nil 
         @votepath = vote_path(@vote)
         @method = :put
         if @vote.value == 1
             @upvote_value = 0
+            @upvote_class = "fa-chevron-circle-up"
         elsif @vote.value == -1
             @downvote_value = 0
+            @downvote_class = "fa-chevron-circle-down"
         end
     end
 %>
@@ -23,7 +27,7 @@
     class: "vote-link" do
 %>
 
-    <span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span>
+    <span class="fa fa-2x <%= @upvote_class %>" aria-hidden="true"></span>
 <% end %>
 <h4 class="vote-count-<%=quote.id%>"><%= Vote.quote_count(quote.id) %> </h4>
 <%= link_to @votepath, 
@@ -33,6 +37,6 @@
     },
     class: "vote-link" do
 %>
-    <span class="fa fa-2x fa-chevron-down" aria-hidden="true"></span>
+    <span class="fa fa-2x <%= @downvote_class %>" aria-hidden="true"></span>
 <% end %>
 
