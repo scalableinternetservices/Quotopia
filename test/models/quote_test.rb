@@ -60,10 +60,5 @@ class QuoteTest < ActiveSupport::TestCase
     quote = Quote.new(content: quotes(:one), author: Author.new(name: 'Roger'))
     assert quote.save
   end
-
-  test "quote is not valid without an author" do
-    quote = Quote.new(content: "MyString")
-    assert quote.invalid?
-    assert_equal ["can't be blank"], quote.errors[:author]
-  end
+  
 end
