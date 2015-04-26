@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class VotesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @vote = votes(:one)
   end
@@ -18,7 +20,7 @@ class VotesControllerTest < ActionController::TestCase
 
   test "should create vote" do
     assert_difference('Vote.count') do
-      post :create, vote: {  }
+      post :create, vote: { vote: { } }
     end
 
     assert_redirected_to vote_path(assigns(:vote))
@@ -35,7 +37,7 @@ class VotesControllerTest < ActionController::TestCase
   end
 
   test "should update vote" do
-    patch :update, id: @vote, vote: {  }
+    patch :update, id: @vote, vote: { vote: { }  }
     assert_redirected_to vote_path(assigns(:vote))
   end
 
