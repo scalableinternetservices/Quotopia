@@ -25,6 +25,17 @@ class QuoteTest < ActiveSupport::TestCase
     assert_not quote.save
   end
 
+  test "quote is not valid without unique content (case insensitive) and author" do
+    quote = Quote.new(content: quotes(:thomas_aquinas_quote).content.downcase, author: quotes(:thomas_aquinas_quote).author)
+    assert quote.invalid?
+    assert_equal ["quote should be unique per author"], quote.errors[:content]
+  end
+
+  test "should not save quote without unique content (case insensitive) and author" do
+    quote = Quote.new(content: quotes(:thomas_aquinas_quote).content.downcase, author: quotes(:thomas_aquinas_quote).author)
+    assert_not quote.save
+  end
+
   test "should save quote with unique content and author" do
     quote = Quote.new(content: "MyString", author: Author.new(name: 'Roger'))
     assert quote.save
@@ -56,8 +67,18 @@ class QuoteTest < ActiveSupport::TestCase
     assert quote.valid?
   end
 
+  test "quote is valid with non-unique content (case-insensitive) and unique author" do
+    quote = Quote.new(content: quotes(:one).content.upcase, author: Author.new(name: 'Roger'))
+    assert quote.valid?
+  end
+
   test "should save quote with non-unique content and unique author" do
     quote = Quote.new(content: quotes(:one), author: Author.new(name: 'Roger'))
+    assert quote.save
+  end
+
+  test "should save quote with non-unique content (case-insensitive) and unique author" do
+    quote = Quote.new(content: quotes(:one).content.upcase, author: Author.new(name: 'Roger'))
     assert quote.save
   end
 
