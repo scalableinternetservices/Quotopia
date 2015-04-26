@@ -35,16 +35,12 @@ class QuotesController < ApplicationController
   # POST /quotes.json
   def create
     author_attributes = quote_params.delete("author_attributes")
-    # category_attributes = quote_params.delete("category")
-
-    #@categories = []
-
 
     @author = Author.find_or_create_by(name: author_attributes[:name])
-    #@categories = Category.find_or_create_by(content: category_attributes[:content])
 
     @quote = Quote.new(quote_params)
     @quote.author = @author
+    @quote.user_id = current_user.id
 
     respond_to do |format|
       if @quote.save
