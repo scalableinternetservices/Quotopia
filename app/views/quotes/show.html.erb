@@ -7,14 +7,16 @@
 
 <p>
   <strong>Author:</strong>
-  <%= @quote.author.name if @quote.author %>
+  <%= link_to @quote.author.name, author_path(@quote.author) %>
 </p>
 
 <p>
   <strong>Categories:</strong>
   <ul>
-    <% @quote.categories.each do |c| %>
-       <li><%= c.content %></li>
+    <% @quote.categories.each do |category| %>
+      <li>
+        <%= link_to category.content, category_path(category) %>
+      </li>
     <% end %>
   </ul>
 </p>

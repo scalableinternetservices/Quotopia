@@ -6,9 +6,9 @@
   <br/>
   <strong>Quotes:</strong>
   <ul>
-    <% @author.quotes.each do |q| %>
+    <% @author.quotes.each do |quote| %>
         <li>
-          <%= q.content %>
+          <%= link_to quote.content, quote_path(quote) %>
         </li>
     <% end %>
   </ul>
