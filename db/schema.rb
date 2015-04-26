@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421051249) do
+ActiveRecord::Schema.define(version: 20150426081449) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "name"
@@ -28,13 +28,15 @@ ActiveRecord::Schema.define(version: 20150421051249) do
 
   add_index "categories", ["quote_id"], name: "index_categories_on_quote_id"
 
-  create_table "categories_quotes", force: :cascade do |t|
-    t.integer "category_id"
-    t.integer "quote_id"
+  create_table "categorizations", force: :cascade do |t|
+    t.integer  "quote_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "categories_quotes", ["category_id"], name: "index_categories_quotes_on_category_id"
-  add_index "categories_quotes", ["quote_id"], name: "index_categories_quotes_on_quote_id"
+  add_index "categorizations", ["category_id"], name: "index_categorizations_on_category_id"
+  add_index "categorizations", ["quote_id"], name: "index_categorizations_on_quote_id"
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"

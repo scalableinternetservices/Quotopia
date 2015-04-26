@@ -1,6 +1,8 @@
 class QuotesController < ApplicationController
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
 
+  before_filter :authenticate_user!, :only => [:new]
+
   # GET /quotes
   # GET /quotes.json
   def index
@@ -33,16 +35,12 @@ class QuotesController < ApplicationController
   # POST /quotes.json
   def create
     author_attributes = quote_params.delete("author_attributes")
-    category_attributes = quote_params.delete("category")
-
-    #@categories = []
-
 
     @author = Author.find_or_create_by(name: author_attributes[:name])
-    #@categories = Category.find_or_create_by(content: category_attributes[:content])
 
     @quote = Quote.new(quote_params)
     @quote.author = @author
+    @quote.user_id = current_user.id
 
     respond_to do |format|
       if @quote.save
@@ -87,6 +85,6 @@ class QuotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quote_params
-      params.require(:quote).permit(:content, :user_id, :author_attributes => [:name], :category_ids => [])
+      params.require(:quote).permit(:content, :user_id,  :category_list, :author_attributes => [:name])
     end
 end

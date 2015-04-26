@@ -24,9 +24,9 @@
     <% end %>
 
     <div class="field">
-      <%= f.label :category_ids, "Categories" %><br>
-      <%= f.select :category_ids, Category.all.collect {|c| [c.content, c.id]}, {}, :multiple => true %>
+      <%= f.text_field :category_list, placeholder: "Categories separated with comma" %>
     </div>
+
 
     <div class="actions">
     <%= f.submit "Submit"%>
