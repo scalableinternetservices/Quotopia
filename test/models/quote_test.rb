@@ -60,4 +60,5 @@ class QuoteTest < ActiveSupport::TestCase
     quote = Quote.new(content: quotes(:one), author: Author.new(name: 'Roger'))
     assert quote.save
   end
+
 end
