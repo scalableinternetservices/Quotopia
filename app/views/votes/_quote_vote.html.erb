@@ -1,0 +1,38 @@
+<!-- Needs quote and current_user -->
+<% 
+    @vote = Vote.already_voted(quote.id, @current_user_id) 
+    @votepath = votes_path
+    @method = :post
+    @upvote_value = 1
+    @downvote_value = -1
+    if @vote != nil 
+        @votepath = vote_path(@vote)
+        @method = :put
+        if @vote.value == 1
+            @upvote_value = 0
+        elsif @vote.value == -1
+            @downvote_value = 0
+        end
+    end
+%>
+<%= link_to @votepath, 
+    data: { :method => @method, 
+            :remote => true, 
+            params: { vote: {value: @upvote_value, quote_id: quote.id, user_id: @current_user_id }}.to_param
+    },
+    class: "vote-link" do
+%>
+
+    <span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span>
+<% end %>
+<h4 class="vote-count-<%=quote.id%>"><%= Vote.quote_count(quote.id) %> </h4>
+<%= link_to @votepath, 
+    data: { :method => @method, 
+            :remote => true, 
+            params: { vote: {value: @downvote_value, quote_id: quote.id, user_id: @current_user_id }}.to_param
+    },
+    class: "vote-link" do
+%>
+    <span class="fa fa-2x fa-chevron-down" aria-hidden="true"></span>
+<% end %>
+
