@@ -51,13 +51,16 @@ class VotesController < ApplicationController
   # PATCH/PUT /votes/1
   # PATCH/PUT /votes/1.json
   def update
+    @quote_id = @vote.quote_id
     respond_to do |format|
       if @vote.update(vote_params)
         format.html { redirect_to @vote, notice: 'Vote was successfully updated.' }
         format.json { render :show, status: :ok, location: @vote }
+        format.js {}
       else
         format.html { render :edit }
         format.json { render json: @vote.errors, status: :unprocessable_entity }
+        format.js {}
       end
     end
   end
