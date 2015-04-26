@@ -25,9 +25,10 @@
                     <%= link_to "Sign up", new_user_registration_path, :id => "sign-up-btn",
                         :class => "btn btn-default navbar-btn", :method => :get %>
                 <% else %>
+                    <%= link_to "My Account", edit_user_registration_path, :id => "my-acct-btn",
+                        :class => "btn btn-default navbar-btn", :method => :get %>
                     <%= link_to "Logout", destroy_user_session_path, :id => "sign-up-btn",
                         :class => "btn btn-default navbar-btn", :method => :delete %>
-
                     <p class="navbar-text"><b><%= current_user.email %></b></p>
                 <% end %>
             </div>
