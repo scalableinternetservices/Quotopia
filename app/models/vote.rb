@@ -6,4 +6,8 @@ class Vote < ActiveRecord::Base
     @votes = Vote.where(quote_id: requested_quote_id)
     @count = @votes.inject(0) { |result, vote| result + vote.value }
   end
+
+  def self.already_voted(requested_quote_id, requested_user_id)
+        @vote = Vote.where(quote_id: requested_quote_id, user_id: requested_user_id).first()
+  end
 end
