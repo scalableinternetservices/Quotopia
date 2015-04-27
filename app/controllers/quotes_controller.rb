@@ -6,21 +6,30 @@ class QuotesController < ApplicationController
   # GET /quotes
   # GET /quotes.json
   def index
-    @quotes = Quote.all
+    #@quotes = Quote.all
     @has_search = false
 
     if params[:search] && !params[:search].empty?
       @has_search = true
-      @search_quotes = Quote.search(params[:search]).order("created_at DESC")
+      @search_quotes = Quote.search(params[:search])
+
+      if @search_quotes.class == Array
+        @search_quotes = Kaminari.paginate_array(@search_quotes).page(params[:page]).per(2)
+      else
+        @search_quotes = @search_quotes.page(params[:page]).per(2)
+      end
     else
-      @search_quotes = nil #Quote.all.order('created_at DESC')
+      @search_quotes = nil
     end
   end
+
+
 
   # GET /quotes/1
   # GET /quotes/1.json
   def show
   end
+
 
   # GET /quotes/new
   def new
