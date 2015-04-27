@@ -6,7 +6,6 @@ import json
 from sets import Set
 from bs4 import BeautifulSoup
 
-
 #Will store quote and author in csv file
 #Note: May have errors. Wikiquote pages do not have standard format.
 #		Does not deal with special case pages (ignores them unless they have specific "Quotes" section)
@@ -17,6 +16,7 @@ from bs4 import BeautifulSoup
 
 init_page="/wiki/List_of_literary_works"
 links_set=Set([init_page]) #Only go to links not seen before
+
 
 def addCSVRow(quote, author):
 	print "ADDING ROW"
@@ -249,7 +249,7 @@ def parsePage(relative_link):
 	
 	for link in soup.find_all("a"):
 		href=str(link.get("href"))
-		if "/wiki" in href and "wikipedia" not in href and href not in links_set:
+		if "/wiki" in href and "wikipedia" not in href and "File" not in href and href not in links_set:
 
 			links_set.add(href)
 			parsePage(href)
