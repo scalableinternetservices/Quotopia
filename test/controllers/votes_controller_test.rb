@@ -2,9 +2,15 @@ require 'test_helper'
 
 class VotesControllerTest < ActionController::TestCase
   include Devise::TestHelpers
+  fixtures :votes, :quotes, :users
 
   setup do
-    @vote = votes(:one)
+    @vote = votes(:upvote)
+    @create = {
+        value: 1,
+        quote: quotes(:thomas_aquinas_quote),
+        user: users(:lonelyguy)
+    }
   end
 
   test "should get index" do
@@ -20,7 +26,7 @@ class VotesControllerTest < ActionController::TestCase
 
   test "should create vote" do
     assert_difference('Vote.count') do
-      post :create, vote: { vote: { value: 1, quote_id: 1, user_id: 1 } }
+      post :create, vote: @create
     end
 
     assert_redirected_to vote_path(assigns(:vote))
@@ -29,9 +35,9 @@ class VotesControllerTest < ActionController::TestCase
   test "should not create vote with same user_id and quote_id" do
     post :create, vote: { vote: { value: 1, quote_id: 1, user_id: 1 } }
  
-#    assert_no_difference('Vote.count') do
-#        post :create, vote: { vote: { value: 1, quote_id: 1, user_id: 1 } }
-#    end
+   assert_no_difference('Vote.count') do
+       post :create, vote: { vote: { value: 1, quote_id: 1, user_id: 1 } }
+   end
   end
 
   test "should show vote" do

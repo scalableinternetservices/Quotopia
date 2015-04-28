@@ -1,7 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+upvote:
   value: 1
-  user_id: 
-  quote_id: 
+  user: bruhpls
+  quote: thomas_aquinas_quote
+
+downvote:
+  value: -1
+  user: lonelyguy
+  quote: thomas_aquinas_quote
 
