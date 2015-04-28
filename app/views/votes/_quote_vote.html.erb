@@ -9,15 +9,13 @@
     @downvote_class = "fa-chevron-down"
     @downvote_value = -1
     @downvote_class = "fa-chevron-down"
+    
     if @vote != nil 
         @votepath = vote_path(@vote)
         @method = :put
         if @vote.value == 1
             @upvote_value = 0
             @upvote_class = "fa-chevron-circle-up"
-        elsif @vote.value == -1
-            @downvote_value = 0
-            @downvote_class = "fa-chevron-circle-down"
         elsif @vote.value == -1
             @downvote_value = 0
             @downvote_class = "fa-chevron-circle-down"
