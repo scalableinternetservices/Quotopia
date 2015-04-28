@@ -13,18 +13,19 @@
 
     <div class="field">
     <%= f.label :content %><br>
-    <%= f.text_area :content %>
+    <%= f.text_area :content, style: "width: 500px; height: 100px"%>
     </div>
 
     <%= f.fields_for :author do |ff| %>
         <div class="field">
           <%= ff.label :name, "Author"%><br>
-          <%= ff.text_field :name %>
+          <%= ff.text_field :name, style: "width: 500px" %>
         </div>
     <% end %>
 
     <div class="field">
-      <%= f.text_field :category_list, placeholder: "Categories separated with comma" %>
+      <%= f.label :category_list, "Categories" %> <br>
+      <%= f.text_field :category_list, placeholder: "Categories separated with comma", style: "width: 500px" %>
     </div>
 
 
