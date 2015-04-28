@@ -4,9 +4,9 @@
             <% if user_signed_in? %>
                 <%= render partial: "votes/quote_vote", locals: {quote: quote, current_user_id: current_user.id} %>
             <% else %>
-                <a href="#"><span class="fa fa-2x fa-chevron-up" aria-hidden="true" style="color: gray"></span></a>
+                <span class="fa fa-2x fa-chevron-up gray" aria-hidden="true"></span>
                 <h4 class="vote-count"><%= Vote.quote_count(quote.id) %> </h4>
-                <a href="#"><span class="fa fa-2x fa-chevron-down" aria-hidden="true" style="color: gray"></span></a>
+                <span class="fa fa-2x fa-chevron-down gray" aria-hidden="true"></span>
             <% end %>
         </div>
         <div class="col-xs-8 quote-text panel panel-default center">
