@@ -20,10 +20,18 @@ class VotesControllerTest < ActionController::TestCase
 
   test "should create vote" do
     assert_difference('Vote.count') do
-      post :create, vote: { vote: { } }
+      post :create, vote: { vote: { value: 1, quote_id: 1, user_id: 1 } }
     end
 
     assert_redirected_to vote_path(assigns(:vote))
+  end
+
+  test "should not create vote with same user_id and quote_id" do
+    post :create, vote: { vote: { value: 1, quote_id: 1, user_id: 1 } }
+ 
+#    assert_no_difference('Vote.count') do
+#        post :create, vote: { vote: { value: 1, quote_id: 1, user_id: 1 } }
+#    end
   end
 
   test "should show vote" do
