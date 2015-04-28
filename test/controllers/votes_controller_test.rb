@@ -8,8 +8,8 @@ class VotesControllerTest < ActionController::TestCase
     @vote = votes(:upvote)
     @create = {
         value: 1,
-        quote: quotes(:thomas_aquinas_quote),
-        user: users(:lonelyguy)
+        quote_id: quotes(:one),
+        user_id: users(:quotopia)
     }
   end
 

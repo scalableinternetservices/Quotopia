@@ -3,6 +3,12 @@ class Vote < ActiveRecord::Base
   belongs_to :quote
 
   validates :value, presence: true
+  validates :quote, presence: {scope: :user,
+                              message: "a vote must reference both a quote and a user"}
+  validates :quote, uniqueness: {scope: :user,
+                                message: "a vote for a quote should be unique per user"}
+  validates :user, presence: {scope: :quote,
+                 message: "a vote must reference both a quote and a user"}
   validates :user, uniqueness: {scope: :quote,
                  message: "a vote for a quote should be unique per user"}
 

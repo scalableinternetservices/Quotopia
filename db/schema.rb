@@ -28,14 +28,6 @@ ActiveRecord::Schema.define(version: 20150428035543) do
 
   add_index "categories", ["quote_id"], name: "index_categories_on_quote_id"
 
-  create_table "categories_quotes", force: :cascade do |t|
-    t.integer "category_id"
-    t.integer "quote_id"
-  end
-
-  add_index "categories_quotes", ["category_id"], name: "index_categories_quotes_on_category_id"
-  add_index "categories_quotes", ["quote_id"], name: "index_categories_quotes_on_quote_id"
-
   create_table "categorizations", force: :cascade do |t|
     t.integer  "quote_id"
     t.integer  "category_id"
