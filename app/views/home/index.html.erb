@@ -26,16 +26,6 @@
       </div>
   <% end %>
 
-
-  <div>
-    <% if @search_quotes.present? %>
-        <%= render :partial => "quote", :collection => @search_quotes %>
-    <% elsif @has_search %>
-        <p>There are no quotes containing the term(s) <%= params[:search] %>.</p>
-    <% end %>
-  </div>
-
-
   <br>
   <div class="nav">
       <ul class="nav nav-tabs nav-justified" role="tablist" id="quoteTabs">
@@ -72,3 +62,10 @@
 
     </div>
 </div>
+
+<div>
+    <%= paginate @quotes %>
+    <%= page_entries_info @quotes %>
+</div>
+
+<br>

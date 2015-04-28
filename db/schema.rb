@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426081449) do
+ActiveRecord::Schema.define(version: 20150428035543) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "name"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20150426081449) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "votes", ["quote_id", "user_id"], name: "index_votes_on_quote_id_and_user_id", unique: true
   add_index "votes", ["quote_id"], name: "index_votes_on_quote_id"
   add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 

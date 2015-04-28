@@ -18,8 +18,6 @@ class Quote < ActiveRecord::Base
   validates :author, presence: true
 
 	def self.search(search)
-  	#@author = Author.where("name Like ?",  "%#{search}%").quotes.content
-    #@quote = Quote.where("content LIKE ?", "%#{search}%")
     @quote = Quote.joins(:author)
                   .select("quotes.content, authors.name")
                   .where("authors.name LIKE ? or content LIKE ?", "%#{search}%", "%#{search}%")
