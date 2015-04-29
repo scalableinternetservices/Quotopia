@@ -76,8 +76,6 @@ class QuotesController < ApplicationController
       return
     end
 
-    @quote = Quote.find(params[:id])
-
     respond_to do |format|
       if @quote.update(quote_params)
         format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
