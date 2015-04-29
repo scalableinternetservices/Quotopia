@@ -38,11 +38,17 @@ class QuotesController < ApplicationController
 
   # GET /quotes/1/edit
   def edit
+    @quote = Quote.find(params[:id])
   end
 
   # POST /quotes
   # POST /quotes.json
   def create
+    if params[:cancel].present?
+      redirect_to root_url
+      return
+    end
+
     author_attributes = quote_params.delete("author_attributes")
 
     @author = Author.find_or_create_by(name: author_attributes[:name])
@@ -65,6 +71,11 @@ class QuotesController < ApplicationController
   # PATCH/PUT /quotes/1
   # PATCH/PUT /quotes/1.json
   def update
+    if params[:cancel].present?
+      redirect_to root_url
+      return
+    end
+
     respond_to do |format|
       if @quote.update(quote_params)
         format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
@@ -94,6 +105,7 @@ class QuotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quote_params
-      params.require(:quote).permit(:content, :user_id,  :category_list, :author_attributes => [:name])
+      params.require(:quote).permit(:content, :user_id,  :category_list, :author_attributes => [:name, :id])
     end
+
 end
