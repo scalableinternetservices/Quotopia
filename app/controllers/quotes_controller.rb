@@ -43,6 +43,11 @@ class QuotesController < ApplicationController
   # POST /quotes
   # POST /quotes.json
   def create
+    if params[:cancel].present?
+      redirect_to root_url
+      return
+    end
+
     author_attributes = quote_params.delete("author_attributes")
 
     @author = Author.find_or_create_by(name: author_attributes[:name])
@@ -96,4 +101,5 @@ class QuotesController < ApplicationController
     def quote_params
       params.require(:quote).permit(:content, :user_id,  :category_list, :author_attributes => [:name])
     end
+
 end

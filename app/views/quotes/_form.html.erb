@@ -30,12 +30,14 @@
     <div class="form-group">
       <div class="field">
         <%= f.label :category_list, "Categories" %> <br>
-        <%= f.text_field :category_list, placeholder: "Enter categories separated with comma", class: "form-control" %>
+        <%= f.text_field :category_list, placeholder: "Enter categories separated by comma", class: "form-control" %>
       </div>
     </div>
 
-    <%= button_tag class: "btn btn-default" do %>
+    <%= button_tag class: "btn btn-primary" do %>
       Submit
     <% end%>
+
+    <%= f.submit 'Cancel', :name => 'cancel', class: "btn btn-default", style: "float: right"%>
 
 <% end %>
