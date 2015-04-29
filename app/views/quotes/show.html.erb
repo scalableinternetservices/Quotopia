@@ -1,32 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Content:</strong>
-  <%= @quote.content %>
-</p>
+<h2><%= "\"#{@quote.content}\""%></h2>
+<strong><i><%= link_to @quote.author.name, author_path(@quote.author) %></i></strong>
 
-<p>
-  <strong>Author:</strong>
-  <%= link_to @quote.author.name, author_path(@quote.author) %>
-</p>
+<hr class="no-pad">
+
+<p style="font-size: 10px; float: right">Submitted by: <%= @quote.user.email %></p>
+
+<br>
 
 <p>
   <strong>Categories:</strong>
-  <ul>
     <% @quote.categories.each do |category| %>
-      <li>
-        <%= link_to category.content, category_path(category) %>
-      </li>
+        <%= link_to category.content.capitalize, category_path(category)%><%=',' unless category.equal? @quote.categories.last %>
     <% end %>
-  </ul>
 </p>
-
-<p>
-  <strong>User:</strong>
-  <%= @quote.user.email %>
-</p>
-
-
 
 <%= link_to 'Edit', edit_quote_path(@quote) %> |
 <%= link_to 'Back', quotes_path %>
