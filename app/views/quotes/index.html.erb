@@ -34,9 +34,9 @@
   <% end %>
 </div>
 
-<div>
-  <%= paginate @search_quotes, :remote => true, :params => @search_pages  %>
-  <%= page_entries_info @search_quotes %>
-</div>
-
-<!--  :collection => @search_quotes, -->
+<% unless @search_quotes.nil? %>
+    <div>
+      <%= paginate @search_quotes %>
+      <%= page_entries_info @search_quotes %>
+    </div>
+<% end %>

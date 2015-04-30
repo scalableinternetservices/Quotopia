@@ -1,29 +1,19 @@
 class QuotesController < ApplicationController
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
-
   before_filter :authenticate_user!, :only => [:new]
 
   # GET /quotes
   # GET /quotes.json
   def index
-    #@quotes = Quote.all
     @has_search = false
 
     if params[:search] && !params[:search].empty?
       @has_search = true
-      @search_quotes = Quote.search(params[:search])
-
-      if @search_quotes.class == Array
-        @search_quotes = Kaminari.paginate_array(@search_quotes).page(params[:page]).per(2)
-      else
-        @search_quotes = @search_quotes.page(params[:page]).per(2)
-      end
+      @search_quotes = Quote.search(params[:search]).page(params[:page])
     else
       @search_quotes = nil
     end
   end
-
-
 
   # GET /quotes/1
   # GET /quotes/1.json
