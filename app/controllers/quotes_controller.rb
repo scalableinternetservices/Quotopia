@@ -39,11 +39,10 @@ class QuotesController < ApplicationController
       return
     end
 
-    author_attributes = quote_params.delete("author_attributes")
+    author_name = quote_params[:author_attributes][:name]
+    @author = Author.where(name: author_name).first_or_create
 
-    @author = Author.find_or_create_by(name: author_attributes[:name])
-
-    @quote = Quote.new(quote_params)
+    @quote = Quote.new(quote_params.except("author_attributes"))
     @quote.author = @author
     @quote.user_id = current_user.id
 
