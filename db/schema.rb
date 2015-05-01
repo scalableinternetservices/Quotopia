@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(version: 20150428225334) do
   end
 
   add_index "quotes", ["author_id"], name: "index_quotes_on_author_id"
-  add_index "quotes", ["content", "author_id"], name: "index_quotes_on_content_and_author_id", unique: true
   add_index "quotes", ["user_id"], name: "index_quotes_on_user_id"
 
   create_table "users", force: :cascade do |t|
