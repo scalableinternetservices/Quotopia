@@ -11,13 +11,6 @@ default: &default
   username: root
   password: password
 
-mysqltest:
-  adapter: mysql
-  database: test
-  username: root
-  password: password
-  host: localhost
-
 development:
   <<: *default
   database: quotopia_development
