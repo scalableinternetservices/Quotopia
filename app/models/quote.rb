@@ -7,6 +7,8 @@ class Quote < ActiveRecord::Base
   has_many :comments
   has_many :categorizations
   has_many :categories, :through => :categorizations
+  has_many :favorite_quotes
+  has_many :favorited_by, through: :favorite_quotes, source: :user  # users that favorite a quote
 
   accepts_nested_attributes_for :author
   accepts_nested_attributes_for :categories

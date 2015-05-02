@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428225334) do
+ActiveRecord::Schema.define(version: 20150502051020) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "name"
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(version: 20150428225334) do
   add_index "comments", ["quote_id"], name: "index_comments_on_quote_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
+  create_table "favorite_quotes", force: :cascade do |t|
+    t.integer  "quote_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "favorite_quotes", ["quote_id"], name: "index_favorite_quotes_on_quote_id"
+  add_index "favorite_quotes", ["user_id"], name: "index_favorite_quotes_on_user_id"
+
   create_table "quotes", force: :cascade do |t|
     t.text     "content"
     t.integer  "author_id"
@@ -58,6 +68,7 @@ ActiveRecord::Schema.define(version: 20150428225334) do
   end
 
   add_index "quotes", ["author_id"], name: "index_quotes_on_author_id"
+  add_index "quotes", ["content", "author_id"], name: "index_quotes_on_content_and_author_id", unique: true
   add_index "quotes", ["user_id"], name: "index_quotes_on_user_id"
 
   create_table "users", force: :cascade do |t|

@@ -57,6 +57,10 @@ class QuotesController < ApplicationController
     end
   end
 
+  def favorite
+
+  end
+
   # PATCH/PUT /quotes/1
   # PATCH/PUT /quotes/1.json
   def update
