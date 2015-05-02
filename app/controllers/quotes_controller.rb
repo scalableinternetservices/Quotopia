@@ -1,4 +1,6 @@
 class QuotesController < ApplicationController
+  require 'digest/md5'
+
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, :only => [:new]
 
@@ -45,6 +47,7 @@ class QuotesController < ApplicationController
     @quote = Quote.new(quote_params.except("author_attributes"))
     @quote.author = @author
     @quote.user_id = current_user.id
+    @quote.content_hash =  Digest::MD5.hexdigest(quote_params[:content])
 
     respond_to do |format|
       if @quote.save

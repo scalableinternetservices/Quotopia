@@ -60,14 +60,17 @@ ActiveRecord::Schema.define(version: 20150509182058) do
   add_index "favorite_quotes", ["user_id"], name: "index_favorite_quotes_on_user_id", using: :btree
 
   create_table "quotes", force: :cascade do |t|
-    t.text     "content",    limit: 65535
-    t.integer  "author_id",  limit: 4
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "content",      limit: 65535
+    t.integer  "author_id",    limit: 4
+    t.integer  "user_id",      limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "content_hash", limit: 255
   end
 
+  add_index "quotes", ["author_id", "content_hash"], name: "index_quotes_on_author_id_and_content_hash", unique: true, using: :btree
   add_index "quotes", ["author_id"], name: "index_quotes_on_author_id", using: :btree
+  add_index "quotes", ["content_hash"], name: "index_quotes_on_content_hash", using: :btree
   add_index "quotes", ["user_id"], name: "index_quotes_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|

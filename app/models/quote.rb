@@ -14,7 +14,7 @@ class Quote < ActiveRecord::Base
   accepts_nested_attributes_for :categories
 
   validates :content, presence: true
-  validates :content, uniqueness: {scope: :author, case_sensitive: false,
+  validates :content_hash, uniqueness: {scope: :author, case_sensitive: false,
                     message: "quote should be unique per author"}
   validates :author, presence: true
 
