@@ -1,6 +1,10 @@
 language: ruby
 rvm:
     - 2.2.1
+env:
+    - DB=mysql
+before_script:
+    - mysql -e 'create database quotopia_test;'
 notifications:
     slack: quotopia:Ke5v36gZYzX3TeH9uP1tKnFx
 
