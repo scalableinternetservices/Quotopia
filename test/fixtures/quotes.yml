@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  content_hash: <%= string_md5 'MyText' %>
   content: MyText
   author: one
   user: lonelyguy
 
 thomas_aquinas_quote:
+  content_hash: <%= string_md5 'There is nothing on this earth more to be prized than true friendship' %>
   content: There is nothing on this earth more to be prized than true friendship
   author: thomas_aquinas
   user: bruhpls
