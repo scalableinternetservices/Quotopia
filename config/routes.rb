@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   
   resources :votes
   resources :categories
-  resources :quotes
+  resources :quotes do
+    put :favorite, on: :member    # favorite_quote_path(@quote)
+  end
   resources :authors
   devise_for :users
   resources :comments
