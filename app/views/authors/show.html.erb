@@ -1,18 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @author.name %>
-  <br/>
-  <strong>Quotes:</strong>
-  <ul>
-    <% @author.quotes.each do |quote| %>
-        <li>
-          <%= link_to quote.content, quote_path(quote) %>
-        </li>
-    <% end %>
-  </ul>
-</p>
+<h2> <%="What has #{@author.name} said?"%></h2>
+<hr>
+
+<ul>
+<% @author.quotes.each do |quote| %>
+    <li>
+      <%= link_to quote.content, quote_path(quote) %>
+    </li>
+<% end %>
+</ul>
 
 <%= link_to 'Edit', edit_author_path(@author) %> |
 <%= link_to 'Back', authors_path %>

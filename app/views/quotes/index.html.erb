@@ -28,9 +28,15 @@
 
 <div>
   <% if @search_quotes.present? %>
-      <%= render :partial => "quote", :collection => @search_quotes %>
+      <%= render partial: "quotes/quote", locals: {search_quotes: @search_quotes} %>
   <% elsif @has_search %>
       <p>There are no quotes containing the term(s) <%= params[:search] %>.</p>
   <% end %>
 </div>
 
+<% unless @search_quotes.nil? %>
+    <div>
+      <%= paginate @search_quotes %>
+      <%= page_entries_info @search_quotes %>
+    </div>
+<% end %>

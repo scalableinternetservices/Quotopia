@@ -1,19 +1,17 @@
 class QuotesController < ApplicationController
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
-
   before_filter :authenticate_user!, :only => [:new]
 
   # GET /quotes
   # GET /quotes.json
   def index
-    @quotes = Quote.all
     @has_search = false
 
     if params[:search] && !params[:search].empty?
       @has_search = true
-      @search_quotes = Quote.search(params[:search]).order("created_at DESC")
+      @search_quotes = Quote.search(params[:search]).page(params[:page])
     else
-      @search_quotes = nil #Quote.all.order('created_at DESC')
+      @search_quotes = nil
     end
   end
 
@@ -22,6 +20,7 @@ class QuotesController < ApplicationController
   def show
   end
 
+
   # GET /quotes/new
   def new
     @quote = Quote.new
@@ -29,16 +28,21 @@ class QuotesController < ApplicationController
 
   # GET /quotes/1/edit
   def edit
+    @quote = Quote.find(params[:id])
   end
 
   # POST /quotes
   # POST /quotes.json
   def create
-    author_attributes = quote_params.delete("author_attributes")
+    if params[:cancel].present?
+      redirect_to root_url
+      return
+    end
 
-    @author = Author.find_or_create_by(name: author_attributes[:name])
+    author_name = quote_params[:author_attributes][:name]
+    @author = Author.where(name: author_name).first_or_create
 
-    @quote = Quote.new(quote_params)
+    @quote = Quote.new(quote_params.except("author_attributes"))
     @quote.author = @author
     @quote.user_id = current_user.id
 
@@ -53,9 +57,18 @@ class QuotesController < ApplicationController
     end
   end
 
+  def favorite
+
+  end
+
   # PATCH/PUT /quotes/1
   # PATCH/PUT /quotes/1.json
   def update
+    if params[:cancel].present?
+      redirect_to root_url
+      return
+    end
+
     respond_to do |format|
       if @quote.update(quote_params)
         format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
@@ -85,6 +98,7 @@ class QuotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quote_params
-      params.require(:quote).permit(:content, :user_id,  :category_list, :author_attributes => [:name])
+      params.require(:quote).permit(:content, :user_id,  :category_list, :author_attributes => [:name, :id])
     end
+
 end

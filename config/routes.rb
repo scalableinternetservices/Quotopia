@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
   get 'home/index'
-
+  get '/vote/quote_count/:quote_id', to: 'votes#quote_count'
+  
   resources :votes
   resources :categories
-  resources :quotes
+  resources :quotes do
+    put :favorite, on: :member    # favorite_quote_path(@quote)
+  end
   resources :authors
   devise_for :users
   resources :comments
+  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

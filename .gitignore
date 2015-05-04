@@ -15,3 +15,7 @@
 /log/*
 !/log/.keep
 /tmp
+# Ignore vim buffer files
+*.swp
+# Ignore .idea project files
+.idea/*

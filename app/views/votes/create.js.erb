@@ -1,0 +1,10 @@
+//$('.vote-count-<%=@quote_id%>').text(<%= Vote.quote_count(@quote_id)%>);
+$('.vote-<%=@quote_id%>').html(
+    "<%= j render(
+        :partial => "votes/quote_vote", 
+        :locals => { 
+            :quote => Quote.find(@quote_id), 
+            :current_user_id => @vote.user_id
+        }
+    ) %>");
+

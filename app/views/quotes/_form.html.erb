@@ -11,24 +11,33 @@
     </div>
     <% end %>
 
-    <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :content %><br>
+        <%= f.text_area :content, placeholder: "Enter quote text", class: "form-control"%>
+      </div>
     </div>
 
     <%= f.fields_for :author do |ff| %>
-        <div class="field">
-          <%= ff.label :name, "Author"%><br>
-          <%= ff.text_field :name %>
+        <div class="form-group">
+          <div class="field">
+            <%= ff.label :name, "Author"%><br>
+            <%= ff.text_field :name, placeholder: "Enter author's name", class: "form-control" %>
+          </div>
         </div>
     <% end %>
 
-    <div class="field">
-      <%= f.text_field :category_list, placeholder: "Categories separated with comma" %>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :category_list, "Categories" %> <br>
+        <%= f.text_field :category_list, placeholder: "Enter categories separated by comma", class: "form-control" %>
+      </div>
     </div>
 
+    <%= button_tag class: "btn btn-primary" do %>
+      Submit
+    <% end%>
 
-    <div class="actions">
-    <%= f.submit "Submit"%>
-    </div>
+    <%= f.submit 'Cancel', :name => 'cancel', class: "btn btn-default", style: "float: right"%>
+
 <% end %>
