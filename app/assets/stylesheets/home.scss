@@ -10,12 +10,29 @@
 
 .quote {
     margin-bottom: 10px;
+    div#quote-panel.col-xs-8.quote-text.panel.panel-default.center{
+        padding:15px;
+    }
     .center {
-        margin-top: 15px;
-        height: 50px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+	   //margin-top:15px;
+    }
+    .btn-group{
+        //min-height:50px;
+        //display: table-cell;
+        //vertical-align:middle;
+        margin: 0 default;
     }
     button {
         height: 50px;
+    }
+    #quote-content {
+	   padding:0px;
+    	//overflow-y: scroll;
+        overflow-y:hidden;
+        max-height: 58px;
+    	min-height:20px;
     }
 }
 .quote-buttons {
