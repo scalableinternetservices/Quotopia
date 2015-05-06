@@ -17,11 +17,14 @@ class Quote < ActiveRecord::Base
                     message: "quote should be unique per author"}
   validates :author, presence: true
 
+  # This determines how many quotes to display per page
+  paginates_per 7
+
 	def self.search(search)
     @quote = Quote.joins(:author)
                   .select("quotes.content, authors.name")
                   .where("authors.name LIKE ? or content LIKE ?", "%#{search}%", "%#{search}%")
-                  .order("authors.created_at DESC;")
+                  #.order("authors.created_at DESC;")
   end
 
   def category_list=(categories_string)

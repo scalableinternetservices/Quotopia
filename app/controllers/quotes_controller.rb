@@ -11,13 +11,7 @@ class QuotesController < ApplicationController
 
     if params[:search] && !params[:search].empty?
       @has_search = true
-      @search_quotes = Quote.search(params[:search])
-
-      if @search_quotes.class == Array
-        @search_quotes = Kaminari.paginate_array(@search_quotes).page(params[:page]).per(2)
-      else
-        @search_quotes = @search_quotes.page(params[:page]).per(2)
-      end
+      @search_quotes = Quote.search(params[:search]).page(params[:page])
     else
       @search_quotes = nil
     end

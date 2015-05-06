@@ -1,4 +1,4 @@
-<script type="text/javascript" src="validate.js"></script>
+<%= javascript_include_tag "validate" %>
 
 <div class="row">
   <%= link_to new_quote_path do %>
@@ -58,14 +58,15 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="categories">
             <h1>categories</h1>
-        </div> 
+        </div>
 
+      <div>
+        <%= paginate @quotes %>
+        <%= page_entries_info @quotes %>
+      </div>
     </div>
 </div>
 
-<div>
-    <%= paginate @quotes %>
-    <%= page_entries_info @quotes %>
-</div>
+
 
 <br>
