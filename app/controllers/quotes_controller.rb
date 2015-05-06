@@ -1,12 +1,10 @@
 class QuotesController < ApplicationController
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
-
   before_filter :authenticate_user!, :only => [:new]
 
   # GET /quotes
   # GET /quotes.json
   def index
-    #@quotes = Quote.all
     @has_search = false
 
     if params[:search] && !params[:search].empty?
@@ -16,8 +14,6 @@ class QuotesController < ApplicationController
       @search_quotes = nil
     end
   end
-
-
 
   # GET /quotes/1
   # GET /quotes/1.json
@@ -43,11 +39,10 @@ class QuotesController < ApplicationController
       return
     end
 
-    author_attributes = quote_params.delete("author_attributes")
+    author_name = quote_params[:author_attributes][:name]
+    @author = Author.where(name: author_name).first_or_create
 
-    @author = Author.find_or_create_by(name: author_attributes[:name])
-
-    @quote = Quote.new(quote_params)
+    @quote = Quote.new(quote_params.except("author_attributes"))
     @quote.author = @author
     @quote.user_id = current_user.id
 
@@ -60,6 +55,10 @@ class QuotesController < ApplicationController
         format.json { render json: @quote.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def favorite
+
   end
 
   # PATCH/PUT /quotes/1

@@ -5,9 +5,10 @@ class Quote < ActiveRecord::Base
   has_many :votes
   has_many :users, :through => :votes
   has_many :comments
-  # has_and_belongs_to_many :categories
   has_many :categorizations
   has_many :categories, :through => :categorizations
+  has_many :favorite_quotes
+  has_many :favorited_by, through: :favorite_quotes, source: :user  # users that favorite a quote
 
   accepts_nested_attributes_for :author
   accepts_nested_attributes_for :categories
@@ -24,7 +25,6 @@ class Quote < ActiveRecord::Base
     @quote = Quote.joins(:author)
                   .select("quotes.content, authors.name")
                   .where("authors.name LIKE ? or content LIKE ?", "%#{search}%", "%#{search}%")
-                  #.order("authors.created_at DESC;")
   end
 
   def category_list=(categories_string)

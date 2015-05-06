@@ -48,7 +48,13 @@
 <div class="row" id="quotes">
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="trending">
-            <%= render partial: "quotes/quote_block", locals: {quotes: @quotes} %>
+          <%= render partial: "quotes/quote_block", locals: {quotes: @quotes} %>
+          <% unless @quotes.nil? %>
+              <div>
+                <%= paginate @quotes, :params => {:tab => "trending"} %>
+                <%= page_entries_info @quotes %>
+              </div>
+          <% end %>
         </div>
         <div role="tabpanel" class="tab-pane" id="all-time">
             <h1>all-time</h1>
@@ -60,13 +66,15 @@
             <h1>categories</h1>
         </div>
 
-      <div>
-        <%= paginate @quotes %>
-        <%= page_entries_info @quotes %>
-      </div>
     </div>
 </div>
 
+<% @tab_id = params[:tab] ? "#quoteTabs a[href=" + %Q(##{params[:tab]}) + "]" : "#quoteTabs a:trending" %>
 
-
-<br>
+<% content_for :footer do %>
+    <script>
+        $(function () {
+            $('#<%= @tab_id %>').tab('show');
+        })
+    </script>
+<% end %>
