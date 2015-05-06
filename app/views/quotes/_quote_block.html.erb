@@ -1,4 +1,4 @@
-<script type="text/javascript" src="home.js"></script>
+<!--<script type="text/javascript" src="home.js"></script> DOESN"t WORK ATM-->
 
 <% @quotes.each do |quote| %>
     <div class="quote row">
@@ -13,38 +13,40 @@
         </div>
         <div class="col-xs-8 quote-text panel panel-default center" id="quote-panel">
             <script type="text/javascript">
+
+                function isOverflowed(elem) {
+                    return elem.scrollHeight > elem.clientHeight || elem.scrollWidth > elem.clientWidth;
+                }
+
                 function showMoreOrLess( elem ) {
+
                     var link=elem;
             
                     do {
                         elem = elem.previousSibling;
                     } while ( elem && elem.nodeType !== 1);
 
+
                     if(link.innerHTML == "Show More"){
                         elem.style.maxHeight="none";
-                        link.innerHTML="See Less";
+                        link.innerHTML="Show Less";
                     } else {
                         elem.style.maxHeight="58px";
                         link.innerHTML="Show More";
                     }
-                }
 
-                function ifOverflow(elem){ //NOT WORKING
-                    if(elem.scrollHeight > elem.clientHeight || elem.scrollWidth > elem.clientWidth) {
-                        elem.style.backgroundColor="#009900";
-                        //elem.append('<a class="see-more" onclick="showMoreOrLess(this);" style="float:right;">Show More</a>');
-                    } else{
-                         do {
-                            elem = elem.nextSibling;
-                        } while (elem && elem.nodeType !== 1);
-                        elem.style.display = 'none';
-                    }
                 }
             </script>
-            <div class="panel-body" id="quote-content"><%= quote.content %></div>
-            <!--<script type="text/javascript">ifOverflow(this)</script>-->
-            <a class="see-more" onclick="showMoreOrLess(this);" style="float:right;">Show More</a>
-            <!--<a href="#" onclick="this.previousSibling.style.maxHeight='none';">See more</a>-->
+            <% div_id = "quote_#{quote.id}" %>
+            <div class="panel-body quote-content" id="<%= div_id %>">
+              <%= quote.content %>
+              <%= javascript_tag do %>
+                  var curr = document.getElementById("<%= div_id %>");
+                  if (isOverflowed(curr)) {
+                    $("<a class='see-more' onclick='showMoreOrLess(this);' style='float:right;'>Show More</a>").insertAfter(curr);
+                  }
+              <% end %>
+            </div>
 
         </div>
         <div class="col-xs-2 center quote-buttons">
@@ -61,21 +63,3 @@
 
 <% end %>
 
-<!--
-    <div class="quote row">
-        <div class="col-xs-1 quote-favorite panel panel-default">
-            <div class="panel-body">
-                <a href="#">
-                    <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-        <div class="col-xs-1 quote-comments panel panel-default">
-            <div class="panel-body">
-                <a href="#">
-                    <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-    </div>
--->
