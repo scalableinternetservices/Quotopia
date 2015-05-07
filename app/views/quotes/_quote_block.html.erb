@@ -1,5 +1,4 @@
-<!--<script type="text/javascript" src="home.js"></script> DOESN"t WORK ATM-->
-<%= javascript_include_tag "home" %>
+
 <% @quotes.each do |quote| %>
     <div class="quote row">
         <div class="col-xs-2 vote vote-<%=quote.id%>">
@@ -12,30 +11,7 @@
             <% end %>
         </div>
         <div class="col-xs-8 quote-text panel panel-default center" id="quote-panel">
-            <!--<script type="text/javascript">
 
-                function isOverflowed(elem) {
-                    return elem.scrollHeight > elem.clientHeight || elem.scrollWidth > elem.clientWidth;
-                }
-
-                function showMoreOrLess( elem ) {
-
-                    var link=elem;
-            
-                    do {
-                        elem = elem.previousSibling;
-                    } while ( elem && elem.nodeType !== 1);
-
-
-                    if(link.innerHTML == "Show More"){
-                        elem.style.maxHeight="none";
-                        link.innerHTML="Show Less";
-                    } else {
-                        elem.style.maxHeight="58px";
-                        link.innerHTML="Show More";
-                    }
-
-                }
             </script> -->
             <% div_id = "quote_#{quote.id}" %>
             <div class="panel-body quote-content" id="<%= div_id %>">
