@@ -4,12 +4,40 @@
 <hr>
 
 <ul>
-<% @author.quotes.each do |quote| %>
-    <li>
-      <%= link_to quote.content, quote_path(quote) %>
-    </li>
+
+
+<% @author_quotes.each do |quote| %>
+      <div class="quote row">
+        <div class="col-xs-2 vote">
+          <a href="#"><span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span></a>
+          <h4 class="vote-count">1337</h4>
+          <a href="#"><span class="fa fa-2x fa-chevron-down" aria-hidden="true"></span></a>
+        </div>
+        <div class="col-xs-8 quote-text panel panel-default center">
+          <div class="panel-body"><%= quote.content %> - <%= quote.author.name %></div>
+        </div>
+        <div class="col-xs-2 center quote-buttons">
+          <div class="btn-group ">
+            <button type="button" class="btn btn-default">
+              <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-default">
+              <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
 <% end %>
 </ul>
 
-<%= link_to 'Edit', edit_author_path(@author) %> |
-<%= link_to 'Back', authors_path %>
+<!--<%= link_to 'Edit', edit_author_path(@author) %> -->
+
+<%= paginate @author_quotes, :params => {:tab => "authors"} %>
+<%= page_entries_info @author_quotes %>
+
+<br>
+<div>
+    <%= link_to 'Back', url_for(:action => 'index', :anchor => 'authors', :controller => 'home') %>
+</div>
+
