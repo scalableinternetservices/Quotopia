@@ -40,7 +40,6 @@
             <% div_id = "quote_#{quote.id}" %>
             <div class="panel-body quote-content" id="<%= div_id %>">
               <%= quote.content %>
-              "<a onclick='test();' style='float:right;'>Test</a>"
               <%= javascript_tag do %>
                   var curr = document.getElementById("<%= div_id %>");
                   if (isOverflowed(curr)) {
