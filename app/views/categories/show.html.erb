@@ -4,7 +4,7 @@
 <hr>
 
 <ul>
-<% @category.quotes.each do |quote| %>
+<% @category_quotes.each do |quote| %>
       <div class="quote row">
         <div class="col-xs-2 vote">
           <a href="#"><span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span></a>
@@ -30,4 +30,15 @@
 </ul>
 
 <!--<%= link_to 'Edit', edit_category_path(@category) %> |-->
-<%= link_to 'Back', url_for(:action => 'index', :anchor => 'categories', :controller => 'home') %>
+
+<% unless @category_quotes.nil? %>
+    <div>
+      <%= paginate @category_quotes, :params => {:tab => "categories"} %>
+      <%= page_entries_info @category_quotes %>
+    </div>
+<% end %>
+
+<br>
+<div>
+    <%= link_to 'Back', url_for(:action => 'index', :anchor => 'categories', :controller => 'home') %>
+</div>
