@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
-    @category_quotes = @category.quotes.all.page(params[:page])
+    @quotes = @category.quotes.all.page(params[:page])
   end
 
   # GET /categories/new

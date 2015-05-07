@@ -4,37 +4,15 @@
 <hr>
 
 <ul>
-<% @category_quotes.each do |quote| %>
-      <div class="quote row">
-        <div class="col-xs-2 vote">
-          <a href="#"><span class="fa fa-2x fa-chevron-up" aria-hidden="true"></span></a>
-          <h4 class="vote-count">1337</h4>
-          <a href="#"><span class="fa fa-2x fa-chevron-down" aria-hidden="true"></span></a>
-        </div>
-        <div class="col-xs-8 quote-text panel panel-default center">
-          <div class="panel-body"><%= quote.content %> - <%= quote.author.name %></div>
-        </div>
-        <div class="col-xs-2 center quote-buttons">
-          <div class="btn-group ">
-            <button type="button" class="btn btn-default">
-              <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
-            </button>
-            <button type="button" class="btn btn-default">
-              <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <!--<%= link_to quote.content, quote_path(quote) %>-->
-<% end %>
+  <%= render partial: "quotes/quote_block", locals: {quotes: @quotes} %>
 </ul>
 
 <!--<%= link_to 'Edit', edit_category_path(@category) %> |-->
 
-<% unless @category_quotes.nil? %>
+<% unless @quotes.nil? %>
     <div>
-      <%= paginate @category_quotes, :params => {:tab => "categories"} %>
-      <%= page_entries_info @category_quotes %>
+      <%= paginate @quotes, :params => {:tab => "categories"} %>
+      <%= page_entries_info @quotes %>
     </div>
 <% end %>
 
