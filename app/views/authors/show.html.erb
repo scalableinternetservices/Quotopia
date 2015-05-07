@@ -14,7 +14,7 @@
           <a href="#"><span class="fa fa-2x fa-chevron-down" aria-hidden="true"></span></a>
         </div>
         <div class="col-xs-8 quote-text panel panel-default center">
-          <div class="panel-body"><%= quote.content %> - <%= quote.author.name %></div>
+          <div class="panel-body"><%= quote.content %></div>
         </div>
         <div class="col-xs-2 center quote-buttons">
           <div class="btn-group ">
@@ -33,8 +33,12 @@
 
 <!--<%= link_to 'Edit', edit_author_path(@author) %> -->
 
-<%= paginate @author_quotes, :params => {:tab => "authors"} %>
-<%= page_entries_info @author_quotes %>
+<% unless @author_quotes.nil? %>
+    <div>
+        <%= paginate @author_quotes, :params => {:tab => "authors"} %>
+        <%= page_entries_info @author_quotes %>
+    </div>
+<% end %>
 
 <br>
 <div>
