@@ -25,7 +25,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # devise for user accounts
 gem 'devise'
-
+gem 'seed_dump'
 # Use kaminari as the pagination engine
 gem 'kaminari'
 
