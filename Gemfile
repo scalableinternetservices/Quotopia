@@ -29,6 +29,8 @@ gem 'seed_dump'
 # Use kaminari as the pagination engine
 gem 'kaminari'
 
+# mysql gem driver for prod and test
+gem 'mysql'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
