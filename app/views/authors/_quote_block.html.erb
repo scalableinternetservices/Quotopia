@@ -1,0 +1,27 @@
+<% @author_quotes.each do |quote| %>
+    <div class="quote row">
+      <div class="col-xs-2 vote vote-<%=quote.id%>">
+        <% if user_signed_in? %>
+            <%= render partial: "votes/quote_vote", locals: {quote: quote, current_user_id: current_user.id} %>
+        <% else %>
+            <span class="fa fa-2x fa-chevron-up gray" aria-hidden="true"></span>
+            <h4 class="vote-count"><%= Vote.quote_count(quote.id) %> </h4>
+            <span class="fa fa-2x fa-chevron-down gray" aria-hidden="true"></span>
+        <% end %>
+      </div>
+      <div class="col-xs-8 quote-text panel panel-default center">
+        <div class="panel-body"><%= quote.content %></div>
+      </div>
+      <div class="col-xs-2 center quote-buttons">
+        <div class="btn-group ">
+          <button type="button" class="btn btn-default">
+            <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="btn btn-default">
+            <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+<% end %>

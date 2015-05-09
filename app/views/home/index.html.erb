@@ -1,4 +1,4 @@
-<%= javascript_include_tag "validate" %>
+<!--<%= javascript_include_tag "validate" %>-->
 
 <div class="row">
   <%= link_to new_quote_path do %>
@@ -41,6 +41,9 @@
           <li role="presentation">
               <a href="#categories" aria-controls="categories" role="tab" data-toggle="tab">Categories</a>
           </li>
+          <li role="presentation">
+              <a href="#authors" aria-controls="categories" role="tab" data-toggle="tab">Authors</a>
+          </li>
       </ul>
   </div>
 </div>
@@ -70,7 +73,14 @@
                 </div>
             <% end %>
         </div>
-
+        <div role="tabpanel" class="tab-pane" id="authors">
+            <h1>authors</h1>
+            <% @authors.each do |author| %>
+                <div>
+                  <%= link_to author.name, author %>
+                </div>
+            <% end %>
+        </div>
     </div>
 </div>
 
@@ -99,4 +109,6 @@
             window.location.hash = e.target.hash;
         });
     });
+
 </script>
+
