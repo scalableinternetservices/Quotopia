@@ -38,12 +38,6 @@
           <li role="presentation">
               <a href="#random" aria-controls="random" role="tab" data-toggle="tab">Random</a>
           </li>
-          <li role="presentation">
-              <a href="#categories" aria-controls="categories" role="tab" data-toggle="tab">Categories</a>
-          </li>
-          <li role="presentation">
-              <a href="#authors" aria-controls="categories" role="tab" data-toggle="tab">Authors</a>
-          </li>
       </ul>
   </div>
 </div>
@@ -64,22 +58,6 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="random">
             <h1>random</h1>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="categories">
-            <h1>categories</h1>
-            <% @categories.each do |category| %>
-                <div>
-                  <%= link_to category.content, category %>
-                </div>
-            <% end %>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="authors">
-            <h1>authors</h1>
-            <% @authors.each do |author| %>
-                <div>
-                  <%= link_to author.name, author %>
-                </div>
-            <% end %>
         </div>
     </div>
 </div>
@@ -111,4 +89,3 @@
     });
 
 </script>
-
