@@ -22,9 +22,17 @@ class Quote < ActiveRecord::Base
   paginates_per 7
 
 	def self.search(search)
-    @quote = Quote.joins(:author)
+    @quote = Quote.joins(:author, :categories)
                   .select("quotes.content, authors.name")
-                  .where("authors.name LIKE ? or content LIKE ?", "%#{search}%", "%#{search}%")
+                  .where("categories.content LIKE ?", "#{search}")
+
+    if @quote.empty?
+      @quote = Quote.joins(:author)
+                    .select("quotes.content, authors.name")
+                    .where("authors.name LIKE ? or content LIKE ?", "%#{search}%", "%#{search}%")
+    end
+
+    return @quote
   end
 
   def category_list=(categories_string)

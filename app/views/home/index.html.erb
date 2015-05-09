@@ -1,4 +1,5 @@
 <%= javascript_include_tag "validate" %>
+
 <div class="row">
   <%= link_to new_quote_path do %>
     <i class="fa fa-plus fa-3x pull-right" style="color:green"></i>
@@ -63,6 +64,11 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="categories">
             <h1>categories</h1>
+            <% @categories.each do |category| %>
+                <div>
+                  <%= link_to category.content, category %>
+                </div>
+            <% end %>
         </div>
 
     </div>
@@ -77,3 +83,20 @@
         })
     </script>
 <% end %>
+
+<!-- A lot faster when left inline instead of in a separate js file -->
+<script type="text/javascript">
+    $(function() {
+        // Javascript to enable link to tab
+        var hash = document.location.hash;
+        if (hash) {
+            console.log(hash);
+            $('.nav-tabs a[href='+hash+']').tab('show');
+        }
+
+        // Change hash for page-reload
+        $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+            window.location.hash = e.target.hash;
+        });
+    });
+</script>
