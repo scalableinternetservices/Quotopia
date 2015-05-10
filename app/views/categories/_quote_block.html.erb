@@ -1,7 +1,6 @@
 <% @quotes.each do |quote| %>
-    <div class="quote row vertical-align">
-        <div class="row-same-height">
-        <div class="col-xs-2 col-xs-height col-middle vote vote-<%=quote.id%>">
+    <div class="quote row">
+        <div class="col-xs-2 vote vote-<%=quote.id%>">
             <% if user_signed_in? %>
                 <%= render partial: "votes/quote_vote", locals: {quote: quote, current_user_id: current_user.id} %>
             <% else %>
@@ -10,11 +9,10 @@
                 <span class="fa fa-2x fa-chevron-down gray" aria-hidden="true"></span>
             <% end %>
         </div>
-        <div class="col-xs-8 col-xs-height quote-text panel panel-default center" id="quote-panel">
+        <div class="col-xs-8 quote-text panel panel-default center" id="quote-panel">
             <% div_id = "quote_#{quote.id}" %>
             <div class="panel-body quote-content" id="<%= div_id %>">
-                <%= quote.content %>
-                <p class="author-name">- <%= quote.name %></p>
+              <%= quote.content %> - <%= quote.author.name %>
               <%= javascript_tag do %>
                   var curr = document.getElementById("<%= div_id %>");
                   if (isOverflowed(curr)) {
@@ -24,16 +22,15 @@
             </div>
 
         </div>
-        <div class="col-xs-2 col-xs-height col-middle center quote-buttons">
-            <div class="btn-group">
+        <div class="col-xs-2 center quote-buttons">
+            <div class="btn-group ">
                 <button type="button" class="btn btn-default">
-                    <span class="fa fa-2x fa-heart-o" aria-hidden="true"></span>
+                    <span class="fa fa-lg fa-heart-o" aria-hidden="true"></span>
                 </button>
                 <button type="button" class="btn btn-default">
-                    <span class="fa fa-2x fa-comment" aria-hidden="true"></span>
+                    <span class="fa fa-lg fa-comment" aria-hidden="true"></span>
                 </button>
             </div>
-        </div>
         </div>
     </div>
 

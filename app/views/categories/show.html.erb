@@ -4,12 +4,20 @@
 <hr>
 
 <ul>
-<% @category.quotes.each do |quote| %>
-    <li>
-      <%= link_to quote.content, quote_path(quote) %>
-    </li>
-<% end %>
+  <%= render partial: "categories/quote_block", locals: {quotes: @search_quotes} %>
 </ul>
 
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
+<!--<%= link_to 'Edit', edit_category_path(@category) %> |-->
+
+<% unless @quotes.nil? %>
+    <div>
+      <%= paginate @quotes, :params => {:tab => "categories"} %>
+      <%= page_entries_info @quotes %>
+    </div>
+<% end %>
+
+<br>
+<div>
+    <%= link_to 'Back', url_for(:action => 'index', :anchor => 'categories', :controller => 'home') %>
+</div>
+

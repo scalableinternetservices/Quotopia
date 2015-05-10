@@ -4,12 +4,20 @@
 <hr>
 
 <ul>
-<% @author.quotes.each do |quote| %>
-    <li>
-      <%= link_to quote.content, quote_path(quote) %>
-    </li>
-<% end %>
+    <%= render partial: "authors/quote_block", locals: {quotes: @author_quotes} %>
 </ul>
 
-<%= link_to 'Edit', edit_author_path(@author) %> |
-<%= link_to 'Back', authors_path %>
+<!--<%= link_to 'Edit', edit_author_path(@author) %> -->
+
+<% unless @author_quotes.nil? %>
+    <div>
+        <%= paginate @author_quotes, :params => {:tab => "authors"} %>
+        <%= page_entries_info @author_quotes %>
+    </div>
+<% end %>
+
+<br>
+<div>
+    <%= link_to 'Back', url_for(:action => 'index', :anchor => 'authors', :controller => 'home') %>
+</div>
+

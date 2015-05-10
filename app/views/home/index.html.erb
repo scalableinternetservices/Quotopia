@@ -1,4 +1,4 @@
-<%= javascript_include_tag "validate" %>
+<!--<%= javascript_include_tag "validate" %>-->
 
 <div class="row">
   <%= link_to new_quote_path do %>
@@ -29,43 +29,34 @@
   <br>
   <div class="nav">
       <ul class="nav nav-tabs nav-justified" role="tablist" id="quoteTabs">
-          <li role="presentation" class="active">
-              <a href="#trending" aria-controls="trending" role="tab" data-toggle="tab">Trending</a>
+          <li role="presentation">
+             <!-- used to be <a href="#trending" aria-controls="trending" role="tab" data-toggle="tab"> -->
+              <a href="?tab=trending" aria-controls="trending">Trending</a>
           </li>
           <li role="presentation">
-              <a href="#all-time" aria-controls="all-time" role="tab" data-toggle="tab">All Time</a>
+              <a href="?tab=all-time" aria-controls="all-time">All Time</a>
           </li>
           <li role="presentation">
-              <a href="#random" aria-controls="random" role="tab" data-toggle="tab">Random</a>
-          </li>
-          <li role="presentation">
-              <a href="#categories" aria-controls="categories" role="tab" data-toggle="tab">Categories</a>
+              <a href="?tab=new" aria-controls="new">New</a>
           </li>
       </ul>
   </div>
 </div>
 <br>
+
+<!-- @quotes is populated depending on the "tab" parameter(defaults to trending) -->
 <div class="row" id="quotes">
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="trending">
+        <div role="tabpanel" class="tab-pane active">
           <%= render partial: "quotes/quote_block", locals: {quotes: @quotes} %>
           <% unless @quotes.nil? %>
               <div>
-                <%= paginate @quotes, :params => {:tab => "trending"} %>
+                <%= paginate @quotes, :params => {:tab => @tab_id} %>
                 <%= page_entries_info @quotes %>
               </div>
           <% end %>
         </div>
-        <div role="tabpanel" class="tab-pane" id="all-time">
-            <h1>all-time</h1>
         </div>
-        <div role="tabpanel" class="tab-pane" id="random">
-            <h1>random</h1>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="categories">
-            <h1>categories</h1>
-        </div>
-
     </div>
 </div>
 
@@ -78,3 +69,24 @@
         })
     </script>
 <% end %>
+<<<<<<< HEAD
+=======
+
+<!-- A lot faster when left inline instead of in a separate js file -->
+<script type="text/javascript">
+    $(function() {
+        // Javascript to enable link to tab
+        var hash = document.location.hash;
+        if (hash) {
+            console.log(hash);
+            $('.nav-tabs a[href='+hash+']').tab('show');
+        }
+
+        // Change hash for page-reload
+        $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+            window.location.hash = e.target.hash;
+        });
+    });
+
+</script>
+>>>>>>> master

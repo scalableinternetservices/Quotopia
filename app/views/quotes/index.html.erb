@@ -1,4 +1,4 @@
-<%= javascript_include_tag "validate" %>
+<!--<%= javascript_include_tag "validate" %>-->
 
 <div class="row">
   <div class="page-header">
@@ -28,7 +28,8 @@
 
 <div>
   <% if @search_quotes.present? %>
-      <%= render partial: "quotes/quote", locals: {search_quotes: @search_quotes} %>
+      <% @quotes = @search_quotes %>
+      <%= render partial: "quotes/quote_block" %>
   <% elsif @has_search %>
       <p>There are no quotes containing the term(s) <%= params[:search] %>.</p>
   <% end %>
