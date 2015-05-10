@@ -1,16 +1,17 @@
 require 'csv'
+require 'digest/md5'
 
 # Use command:
 # rake csv_to_db:add_quotes
 # CSV file header: content,name
 # CSV file format: separated by ','. quote_char is '|'
 	# Example CSV file:
-		#content,name
-		#|Ow,my arm hurts.|,Steven Collison
+		#content,name,extra
+		#|Ow,my arm hurts.|,Steven Collison, 
 
 namespace :csv_to_db do
 	task :add_quotes => :environment do
-		csv_text = File.read('data/quotes_16000.csv') #
+		csv_text = File.read('data/4000_quotes.csv') #
 		csv = CSV.parse(csv_text, col_sep: ",", quote_char: "|", :headers => true)
 		csv.each do |row| 
 
@@ -35,17 +36,21 @@ namespace :csv_to_db do
 
 		 	###Get author_id attribute from author entry
 			quote_row['author_id']=author['id']
+			if(quote_row['content'] != nil)
+				quote_row['content_hash']=Digest::MD5.hexdigest(quote_row['content'].downcase)
 
-			###Symbolize the row
-			quote_row = quote_row.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
-			#puts "#{quote_row}"
+				###Symbolize the row
+				quote_row = quote_row.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+				#puts "#{quote_row}"
+				
+				begin
+			 		Quote.create!(quote_row)
+			 	rescue Exception => e  
+			 		puts "#{e.message}. Did not add quote: #{quote_row}"
+			 		next
+			 	end
+			end
 			
-			begin
-		 		Quote.create!(quote_row)
-		 	rescue Exception => e  
-		 		puts "#{e.message}. Did not add quote: #{quote_row}"
-		 		next
-		 	end
 		end
 	end
 end

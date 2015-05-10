@@ -13,17 +13,16 @@ from bs4 import BeautifulSoup
 #			/wiki/Fight_Club_(novel) (Novel organized my character)
 
 
-
 init_page="/wiki/List_of_literary_works"
 links_set=Set([init_page]) #Only go to links not seen before
 
 
-def addCSVRow(quote, author):
+def addCSVRow(quote, author, extra):
 	print "ADDING ROW"
-	with open('quotes.csv', 'ab') as csvfile:
+	with open('new_quotes.csv', 'ab') as csvfile:
 		writer=csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 		try:
-			writer.writerow([quote.encode('utf-8'), author.encode('utf-8')])
+			writer.writerow([quote.encode('utf-8'), author.encode('utf-8'), extra.encode('utf-8')])
 		except UnicodeEncodeError as e:
 			print quote
 			print e
@@ -61,18 +60,20 @@ def getQuotesWithSublist(sib, title, author):
 			li_element=sib.find("li")
 
 			if li_element.find("ul") is not None:
-				extra=li_element.ul.extract().get_text().rstrip('\n')
+				context=li_element.ul.extract().get_text().rstrip('\n')
 			else:
-				extra=None
+				context=" "
 				
 			
 			quote=extractQuote(li_element)
 			#print quote
 			
-			if extra is not None:
-				addCSVRow(quote, extra+" in <i>"+title+"</i> by "+author)
-			else:
-				addCSVRow(quote, "<i>"+title+"</i> by "+author)
+			#if extra is not None:
+			#	addCSVRow(quote, extra+" in <i>"+title+"</i> by "+author)
+			#else:
+			#	addCSVRow(quote, "<i>"+title+"</i> by "+author)
+
+			addCSVRow(quote, "<i>"+title+"</i> by "+author, context)
 			
 
 		else:
@@ -101,20 +102,24 @@ def getNovelQuotes(soup, title):
 	sections=soup.find_all("span", class_="mw-headline")
 
 	if sections is not None:
-		if sections[0].string=="Quotes":
+		try:
+			if sections[0].string=="Quotes":
 
-			sib=sections[0].parent.next_sibling
-			getQuotesWithSublist(sib, title, author)
+				sib=sections[0].parent.next_sibling
+				getQuotesWithSublist(sib, title, author)
+					
+			elif "Chapter" in sections[0].string:
 				
-		elif "Chapter" in sections[0].string:
-			
-			for section in sections:
-				
-				if "Chapter" not in section.string:
-					break
+				for section in sections:
+					
+					if "Chapter" not in section.string:
+						break
 
-				sib=section.parent.next_sibling
-				getQuotesWithSublist(sib, title, author)	
+					sib=section.parent.next_sibling
+					getQuotesWithSublist(sib, title, author)	
+		except TypeError:
+			print "TypeError: returning"
+			return
 				
 
 #currently prints speaker then all the quotes for that speaker underneath
@@ -145,7 +150,7 @@ def getFilmQuotes(soup,title):
 
 	
 					#print quote
-					addCSVRow(quote, speaker+" in <i>"+title+"</i>")
+					addCSVRow(quote, speaker+" in <i>"+title+"</i>", " ")
 
 				#reached end of ul tags
 				else:
@@ -157,7 +162,6 @@ def getQuotes(soup, name):
 	sections=soup.find_all("span", class_="mw-headline")
 
 	#print sections
-	currname=name
 	try:
 		if sections is not None:
 			if sections[0].string=="Quotes":
@@ -170,18 +174,18 @@ def getQuotes(soup, name):
 						li_element=sib.find("li")
 						
 						if li_element.find("ul") is not None:
-							extra=li_element.ul.extract().get_text().rstrip('\n')
+							extra=li_element.ul.find("li").extract().get_text().rstrip('\n')
 						else:
-							extra=None
+							extra=" "
 			
 						quote= extractQuote(li_element)
 						#print quote
-						if extra is not None:
-							info=currname+" ("+extra+")"
-						else:
-							info=currname
-						#print info
-						addCSVRow(quote, info)
+						#if extra is not None:
+						#	info=currname+" ("+extra+")"
+						#else:
+						#	info=currname
+						
+						addCSVRow(quote, name, extra)
 					#reached end of ul tags
 					elif tag_name=="h3":
 						head=sib.find("span", class_="mw-headline")
@@ -196,6 +200,12 @@ def getQuotes(soup, name):
 		print "IndexError: returning"
 		return
 
+def scrape(soup):
+	for link in soup.find_all("a"):
+		href=str(link.get("href"))
+		if "/wiki" in href and "wikipedia" not in href and "File" not in href and href not in links_set:
+			links_set.add(href)
+			parsePage(href)
 
 def parsePage(relative_link):
 
@@ -234,46 +244,52 @@ def parsePage(relative_link):
 		if "(born" in p_text or re.compile("[a-vA-S]*\s?[0-9]*,?\s?[0-9]\) was").search(p_text) is not None: 
 			#Is person
 			getQuotes(soup, title)
+			#scrape(soup)
 		elif "film" in p_text:
 			#Is film
 			print "film"
 			getFilmQuotes(soup, title)
+			#scrape(soup)
 		elif "novel " in p_text:
 			#Is novel
 			print "novel"
 			getNovelQuotes(soup, title)
-		else:
-			#Try if they have h2 with value "Quotes"
-			getQuotes(soup, title)
-	
-	
-	for link in soup.find_all("a"):
-		href=str(link.get("href"))
-		if "/wiki" in href and "wikipedia" not in href and "File" not in href and href not in links_set:
+			#scrape(soup)
 
-			links_set.add(href)
-			parsePage(href)
+		#"""
+		for link in soup.find_all("a"):
+			href=str(link.get("href"))
+			if "/wiki" in href and "wikipedia" not in href and "File" not in href and href not in links_set:
+				links_set.add(href)
+				parsePage(href)
+		#"""
+	
+	
+
 	
 
 #TESTING
-#link="/wiki/Fight_Club_(film)
-#link="/wiki/Forrest_Gump
-#link="/wiki/To_Kill_a_Mockingbird_(film)
-#link="/wiki/The_Shawshank_Redemption
-#link="/wiki/Pride_and_Prejudice\"" #Novel with Quotes section & chapter headers
+#link="/wiki/Fight_Club_(film)"
+#link="/wiki/Forrest_Gump"
+#link="/wiki/To_Kill_a_Mockingbird_(film)"
+#link="/wiki/The_Shawshank_Redemption"
+#link="/wiki/Pride_and_Prejudice" #Novel with Quotes section & chapter headers
 #link="/wiki/The_Grapes_of_Wrath" #Novel with Quotes section
-#link="/wiki/The_Great_Gatsby #Novel with Chapters sections
-#link="/wiki/Barack_Obama
-#link="/wiki/John_Steinbeck
-#link="/wiki/Jane_Austen
-#link="/wiki/Jesus #Does not return any quotes (has different sections i.e. New Testament)
-#link="/wiki/King_Arthur
-#link="/wiki/Confucius
-#link="/wiki/Fight_Club_(novel)"" #Does not return any quotes (It is a Novel without a quotes section)
+#link="/wiki/The_Great_Gatsby" #Novel with Chapters sections
+#link="/wiki/Barack_Obama"
+#link="/wiki/John_Steinbeck"
+#link="/wiki/Jane_Austen"
+#link="/wiki/Jesus" #Does not return any quotes (has different sections i.e. New Testament)
+#link="/wiki/King_Arthur"
+#link="/wiki/Confucius"
+#link="/wiki/Fight_Club_(novel)" #Does not return any quotes (It is a Novel without a quotes section)
 #link="/wiki/Les_Miserables"
 #link="/wiki/William_Shakespeare"
 #link="/wiki/The_Incredible_Shrinking_Man"
+#link="/wiki/Through_the_Looking-Glass"
 #parsePage(link)
+
+
 parsePage(init_page)
 
 
