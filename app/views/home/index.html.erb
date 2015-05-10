@@ -1,3 +1,5 @@
+<%= javascript_include_tag "validate" %>
+
 <div class="row">
   <%= link_to new_quote_path do %>
     <i class="fa fa-plus fa-3x pull-right" style="color:green"></i>
@@ -46,7 +48,13 @@
 <div class="row" id="quotes">
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="trending">
-            <%= render partial: "quotes/quote_block", locals: {quotes: @quotes} %>
+          <%= render partial: "quotes/quote_block", locals: {quotes: @quotes} %>
+          <% unless @quotes.nil? %>
+              <div>
+                <%= paginate @quotes, :params => {:tab => "trending"} %>
+                <%= page_entries_info @quotes %>
+              </div>
+          <% end %>
         </div>
         <div role="tabpanel" class="tab-pane" id="all-time">
             <h1>all-time</h1>
@@ -56,14 +64,17 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="categories">
             <h1>categories</h1>
-        </div> 
+        </div>
 
     </div>
 </div>
 
-<div>
-    <%= paginate @quotes %>
-    <%= page_entries_info @quotes %>
-</div>
+<% @tab_id = params[:tab] ? "#quoteTabs a[href=" + %Q(##{params[:tab]}) + "]" : "#quoteTabs a:trending" %>
 
-<br>
+<% content_for :footer do %>
+    <script>
+        $(function () {
+            $('#<%= @tab_id %>').tab('show');
+        })
+    </script>
+<% end %>
