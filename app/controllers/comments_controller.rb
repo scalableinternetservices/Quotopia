@@ -14,6 +14,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
+    @quote = Quote.find(params[:quote_id])
     @comment = Comment.new
   end
 

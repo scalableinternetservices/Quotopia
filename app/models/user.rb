@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :quotes
   has_many :votes
   has_many :quotes, :through => :votes
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :favorite_quotes
   has_many :favorites, through: :favorite_quotes, source: :quote  # quotes that a user favorites
   # has_many :submissions

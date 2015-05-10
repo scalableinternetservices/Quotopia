@@ -4,7 +4,7 @@ class Quote < ActiveRecord::Base
   belongs_to :user
   has_many :votes, dependent: :destroy
   has_many :users, :through => :votes
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :categorizations
   has_many :categories, :through => :categorizations
   has_many :favorite_quotes
