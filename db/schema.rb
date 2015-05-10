@@ -20,95 +20,87 @@ ActiveRecord::Schema.define(version: 20150509182058) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "content",    limit: 255
-    t.integer  "quote_id",   limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "content"
+    t.integer  "quote_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "categories", ["quote_id"], name: "index_categories_on_quote_id", using: :btree
+  add_index "categories", ["quote_id"], name: "index_categories_on_quote_id"
 
   create_table "categorizations", force: :cascade do |t|
-    t.integer  "quote_id",    limit: 4
-    t.integer  "category_id", limit: 4
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.integer  "quote_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "categorizations", ["category_id"], name: "index_categorizations_on_category_id", using: :btree
-  add_index "categorizations", ["quote_id"], name: "index_categorizations_on_quote_id", using: :btree
+  add_index "categorizations", ["category_id"], name: "index_categorizations_on_category_id"
+  add_index "categorizations", ["quote_id"], name: "index_categorizations_on_quote_id"
 
   create_table "comments", force: :cascade do |t|
-    t.text     "content",    limit: 65535
-    t.integer  "quote_id",   limit: 4
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "content"
+    t.integer  "quote_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "comments", ["quote_id"], name: "index_comments_on_quote_id", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+  add_index "comments", ["quote_id"], name: "index_comments_on_quote_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "favorite_quotes", force: :cascade do |t|
-    t.integer  "quote_id",   limit: 4
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.integer  "quote_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "favorite_quotes", ["quote_id"], name: "index_favorite_quotes_on_quote_id", using: :btree
-  add_index "favorite_quotes", ["user_id"], name: "index_favorite_quotes_on_user_id", using: :btree
+  add_index "favorite_quotes", ["quote_id"], name: "index_favorite_quotes_on_quote_id"
+  add_index "favorite_quotes", ["user_id"], name: "index_favorite_quotes_on_user_id"
 
   create_table "quotes", force: :cascade do |t|
-    t.text     "content",    limit: 65535
-    t.integer  "author_id",  limit: 4
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "content"
+    t.integer  "author_id"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "content_hash"
   end
 
-  add_index "quotes", ["author_id"], name: "index_quotes_on_author_id", using: :btree
-  add_index "quotes", ["user_id"], name: "index_quotes_on_user_id", using: :btree
+  add_index "quotes", ["author_id", "content_hash"], name: "index_quotes_on_author_id_and_content_hash", unique: true
+  add_index "quotes", ["author_id"], name: "index_quotes_on_author_id"
+  add_index "quotes", ["content_hash"], name: "index_quotes_on_content_hash"
+  add_index "quotes", ["user_id"], name: "index_quotes_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "votes", force: :cascade do |t|
-    t.integer  "value",      limit: 4
-    t.integer  "user_id",    limit: 4
-    t.integer  "quote_id",   limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.integer  "value"
+    t.integer  "user_id"
+    t.integer  "quote_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "votes", ["quote_id", "user_id"], name: "index_votes_on_quote_id_and_user_id", unique: true, using: :btree
-  add_index "votes", ["quote_id"], name: "index_votes_on_quote_id", using: :btree
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
+  add_index "votes", ["quote_id", "user_id"], name: "index_votes_on_quote_id_and_user_id", unique: true
+  add_index "votes", ["quote_id"], name: "index_votes_on_quote_id"
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 
-  add_foreign_key "categories", "quotes"
-  add_foreign_key "categorizations", "categories"
-  add_foreign_key "categorizations", "quotes"
-  add_foreign_key "comments", "quotes"
-  add_foreign_key "comments", "users"
-  add_foreign_key "favorite_quotes", "quotes"
-  add_foreign_key "favorite_quotes", "users"
-  add_foreign_key "quotes", "authors"
-  add_foreign_key "quotes", "users"
-  add_foreign_key "votes", "quotes"
-  add_foreign_key "votes", "users"
 end

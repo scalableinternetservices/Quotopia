@@ -2,7 +2,7 @@ class Quote < ActiveRecord::Base
   belongs_to :author
   # belongs_to :submitter, class_name: 'User', foreign_key: 'user_id' if keep tracking of user-submissions does not work
   belongs_to :user
-  has_many :votes
+  has_many :votes, dependent: :destroy
   has_many :users, :through => :votes
   has_many :comments
   has_many :categorizations
@@ -14,7 +14,7 @@ class Quote < ActiveRecord::Base
   accepts_nested_attributes_for :categories
 
   validates :content, presence: true
-  validates :content, uniqueness: {scope: :author, case_sensitive: false,
+  validates :content_hash, uniqueness: {scope: :author, case_sensitive: false,
                     message: "quote should be unique per author"}
   validates :author, presence: true
 
