@@ -22,22 +22,22 @@
                   }
               <% end %>
             </div>
-
         </div>
-        <%
-            @favorite = FavoriteQuote.where(quote_id: quote.id, user_id: current_user.id).first
-        %>
         
     <div class="col-xs-2 col-xs-height col-middle center quote-buttons">
         <div class="quote-buttons">
-                <div class="favorite favorite-<%=quote.id%>">
+            <% if user_signed_in? %>
+                <%
+                   @favorite = FavoriteQuote.where(quote_id: quote.id, user_id: current_user.id).first
+                %>
+                <div class="favorite-<%=quote.id%>">
                     <%= render partial: "favorite_quotes/favorite_block", locals: {quote_id: quote.id, favorite: @favorite, current_user_id: current_user.id} %>
-                </div>               <!--
+                </div>      
+            <% else %>
                 <button type="submit" class="btn btn-default">
                     <span class="fa fa-2x fa-heart-o" aria-hidden="true"></span>
-                    </button>
-                    -->
-
+                </button>
+            <% end %>
                 <button type="button" class="btn btn-default">
                     <span class="fa fa-2x fa-comment" aria-hidden="true"></span>
                 </button>
