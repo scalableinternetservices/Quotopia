@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class FavoriteQuotesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @favorite_quote = favorite_quotes(:one)
   end
