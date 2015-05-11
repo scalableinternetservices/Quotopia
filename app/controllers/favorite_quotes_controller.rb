@@ -1,5 +1,6 @@
 class FavoriteQuotesController < ApplicationController
   before_action :set_favorite_quote, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:user]
 
   # GET /favorite_quotes
   # GET /favorite_quotes.json
@@ -63,6 +64,20 @@ class FavoriteQuotesController < ApplicationController
       format.json { head :no_content }
       format.js {}
     end
+  end
+
+  # GET /favorite_quotes/user
+  def user
+    @user_favorites = 
+        Quote.joins(
+           "INNER JOIN(  select quote_id 
+            from favorite_quotes 
+            where user_id = #{current_user.id}) 
+            as favorites on quotes.id = favorites.quote_id")
+                .joins(:author)
+                .select("quotes.id, quotes.content, authors.name")
+                .all
+
   end
 
   private

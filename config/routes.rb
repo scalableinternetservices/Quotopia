@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'home/index'
   get '/vote/quote_count/:quote_id', to: 'votes#quote_count'
-  
+  get '/favorite_quotes/user', to: 'favorite_quotes#user'
   resources :favorite_quotes
   resources :votes
   resources :categories
