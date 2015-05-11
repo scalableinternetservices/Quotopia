@@ -7,16 +7,45 @@
     <client host="localhost" use_controller_vm="true" maxusers='15000'/>
   </clients>
 
-  <!-- Server side setup -->
+  <!-- Server side setup, make sure to set the DNS  -->
   <servers>
-    <server host="www.google.com" port="80" type="tcp"></server>
+    <server host="quotopia.raycoll.me" port="80" type="tcp"></server>
   </servers>
 
 
   <load>
-    <arrivalphase phase="1" duration="10" unit="second">
+    <arrivalphase phase="1" duration="30" unit="second">
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
+    <arrivalphase phase="2" duration="30" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="30" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+<!--
+   <arrivalphase phase="4" duration="30" unit="second">
+     <users arrivalrate="8" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="5" duration="30" unit="second">
+     <users arrivalrate="16" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="6" duration="30" unit="second">
+     <users arrivalrate="32" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="7" duration="30" unit="second">
+     <users arrivalrate="64" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="8" duration="30" unit="second">
+     <users arrivalrate="128" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="9" duration="30" unit="second">
+     <users arrivalrate="256" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="10" duration="30" unit="second">
+     <users arrivalrate="512" unit="second"></users>
+   </arrivalphase>
+-->
   </load>
 
   <options>
@@ -29,10 +58,50 @@
   </options>
 
   <sessions>
+    <!--
+    <session name="unauthed-browse" type="ts_http">
+    </session>
+    <session name="authed-browse" type="ts_http">
+    </session>
+    <session name="authed-browse-create-quote" type="ts_http">
+    </session>
+    <session name="create-acct-browse" type="ts_http">
+    </session>
+    <session name="authed-browse=" type="ts_http">
     <session name="http-example" probability="100" type="ts_http">
+    -->
+
+      <!-- start at the home page -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
       </request>
+
+      <!-- wait for up to 2 seconds, user is looking at quotes -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- visit the next 4 pages -->
+      <for from="2" to="5" incr="1" var="pagenum">
+        <request> <http url="/?page=%%_pagenum%%&tab=trending"></http> </request>
+        <!-- wait for up to 2 seconds, user is looking at quotes -->
+        <thinktime value="2" random="true"></thinktime>
+      </for>
+
+      <!-- Look at new some quotes -->
+      <for from="1" to="5" incr="1" var="pagenum">
+        <request> <http url="/?page=%%_pagenum%%&tab=trending"></http> </request>
+        <!-- wait for up to 2 seconds, user is looking at quotes -->
+        <thinktime value="2" random="true"></thinktime>
+      </for>
+
+      <!-- Uncomment the following to debug print your dynamic variables  -->
+      <!--
+      <setdynvars sourcetype="eval" code="fun( {Pid, DynVars} ) ->
+        io:format([126, $p, 126, $n, 126, $n], [DynVars]),
+        ok end.">
+        <var name="dump" />
+      </setdynvars>
+      -->
+
     </session>
   </sessions>
 </tsung>
