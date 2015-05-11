@@ -14,11 +14,12 @@
             <% div_id = "quote_#{quote.id}" %>
             <div class="panel-body quote-content" id="<%= div_id %>">
                 <%= quote.content %>
-                <p class="author-name">- <%= quote.name %></p>
+                <div class="author-name">- <%= quote.name %> </div>
               <%= javascript_tag do %>
                   var curr = document.getElementById("<%= div_id %>");
                   if (isOverflowed(curr)) {
-                    $("<a class='see-more' onclick='showMoreOrLess(this);' style='float:right;'>Show More</a>").insertAfter(curr);
+                    $("<a class='see-more' onclick='showMoreOrLess(this);'>Show More</a>").insertAfter(curr);
+                    curr.classList.add("fade-overflow");
                   }
               <% end %>
             </div>
