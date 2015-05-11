@@ -1,0 +1,11 @@
+<div class="page-header">
+    <h1> What are your favorite quotes? </h1>
+</div>
+<div class="row" id = "quotes">
+    <% unless @user_favorites.nil? || @user_favorites.empty? %>
+        <%= render partial: "quotes/quote_block", locals: {quotes: @user_favorites} %>
+    <% else %>
+            <p id="notice"> Looks like you haven't added any quotes to favorites yet! </p>
+    <% end %>
+</div>
+

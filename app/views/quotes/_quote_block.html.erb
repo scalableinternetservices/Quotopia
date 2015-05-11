@@ -1,4 +1,4 @@
-<% @quotes.each do |quote| %>
+<% quotes.each do |quote| %>
     <div class="quote row vertical-align">
         <div class="row-same-height">
         <div class="col-xs-2 col-xs-height col-middle vote vote-<%=quote.id%>">
@@ -22,13 +22,22 @@
                   }
               <% end %>
             </div>
-
         </div>
-        <div class="col-xs-2 col-xs-height col-middle center quote-buttons">
-            <div class="btn-group">
-                <button type="button" class="btn btn-default">
+        
+    <div class="col-xs-2 col-xs-height col-middle center quote-buttons">
+        <div class="quote-buttons">
+            <% if user_signed_in? %>
+                <%
+                   @favorite = FavoriteQuote.where(quote_id: quote.id, user_id: current_user.id).first
+                %>
+                <div class="favorite-<%=quote.id%>">
+                    <%= render partial: "favorite_quotes/favorite_block", locals: {quote_id: quote.id, favorite: @favorite, current_user_id: current_user.id} %>
+                </div>      
+            <% else %>
+                <button type="submit" class="btn btn-default disabled">
                     <span class="fa fa-2x fa-heart-o" aria-hidden="true"></span>
                 </button>
+            <% end %>
                 <button type="button" class="btn btn-default">
                     <span class="fa fa-2x fa-comment" aria-hidden="true"></span>
                 </button>

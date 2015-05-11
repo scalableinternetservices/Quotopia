@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Favorite Quotes</h1>
+
+<table>
+  <thead>
+      <tr>
+          <th>Id </th>
+      <th>Quote</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @favorite_quotes.each do |favorite_quote| %>
+        <tr>
+            <td><%= favorite_quote.id %> </td>
+        <td><%= favorite_quote.quote_id %></td>
+        <td><%= favorite_quote.user_id %></td>
+        <td><%= link_to 'Show', favorite_quote %></td>
+        <td><%= link_to 'Edit', edit_favorite_quote_path(favorite_quote) %></td>
+        <td><%= link_to 'Destroy', favorite_quote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Favorite quote', new_favorite_quote_path %>

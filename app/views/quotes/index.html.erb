@@ -28,8 +28,7 @@
 
 <div>
   <% if @search_quotes.present? %>
-      <% @quotes = @search_quotes %>
-      <%= render partial: "quotes/quote_block" %>
+      <%= render partial: "quotes/quote_block", locals: {quotes: @search_quotes} %>
   <% elsif @has_search %>
       <p>There are no quotes containing the term(s) <%= params[:search] %>.</p>
   <% end %>

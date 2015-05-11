@@ -18,13 +18,15 @@
             <a class="navbar-brand" href="/">Quotopia</a>
         </div>
         <div class="collapse navbar-collapse">
-          <div class="nav navbar-nav navbar-left">
-                <%= link_to "Authors", authors_path, :id => "login-btn",
+            <div class="nav navbar-nav navbar-left">
+                <% if user_signed_in? %>
+                    <%= link_to "Favorites", '/favorite_quotes/user', 
+                        :class => "btn btn-default navbar-btn", :method => :get %>
+                <% end %>    
+                <%= link_to "Authors", authors_path, 
                     :class => "btn btn-default navbar-btn", :method => :get %>
-          </div>
-           <div class="nav navbar-nav navbar-left">
-                 <%= link_to "Categories", categories_path, :id => "login-btn",
-                     :class => "btn btn-default navbar-btn", :method => :get %>
+                <%= link_to "Categories", categories_path, 
+                    :class => "btn btn-default navbar-btn", :method => :get %>
            </div>
             <div class="nav navbar-nav navbar-right">
                 <% unless user_signed_in? %>
