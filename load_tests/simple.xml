@@ -7,7 +7,7 @@
     <client host="localhost" use_controller_vm="true" maxusers='15000'/>
   </clients>
 
-  <!-- Server side setup, make sure to set the DNS  -->
+  <!-- Server side setup, make sure to set the DNS(or replace the hostname here)  -->
   <servers>
     <server host="quotopia.raycoll.me" port="80" type="tcp"></server>
   </servers>
@@ -68,8 +68,8 @@
     <session name="create-acct-browse" type="ts_http">
     </session>
     <session name="authed-browse=" type="ts_http">
-    <session name="http-example" probability="100" type="ts_http">
     -->
+    <session name="http-example" probability="100" type="ts_http">
 
       <!-- start at the home page -->
       <request>
@@ -81,14 +81,14 @@
 
       <!-- visit the next 4 pages -->
       <for from="2" to="5" incr="1" var="pagenum">
-        <request> <http url="/?page=%%_pagenum%%&tab=trending"></http> </request>
+        <request subst="true"> <http url="/?page=%%_pagenum%%&#38;tab=trending"></http> </request>
         <!-- wait for up to 2 seconds, user is looking at quotes -->
         <thinktime value="2" random="true"></thinktime>
       </for>
 
       <!-- Look at new some quotes -->
       <for from="1" to="5" incr="1" var="pagenum">
-        <request> <http url="/?page=%%_pagenum%%&tab=trending"></http> </request>
+        <request subst="true"> <http url="/?page=%%_pagenum%%&#38;tab=new"></http> </request>
         <!-- wait for up to 2 seconds, user is looking at quotes -->
         <thinktime value="2" random="true"></thinktime>
       </for>
