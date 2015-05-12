@@ -2,12 +2,14 @@ require 'test_helper'
 
 class AuthorsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
+  fixtures :users
 
   setup do
     @author = authors(:one)
     @update = {
         name: "New Author"
     }
+    sign_in users(:lonelyguy)
   end
 
   test "should get index" do
