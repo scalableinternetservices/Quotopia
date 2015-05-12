@@ -16,7 +16,7 @@ class CommentTest < ActiveSupport::TestCase
 
   test "comment is valid with content and associated quote" do
     comment = Comment.new(content: "hi", quote: quotes(:one))
-    assert comment.valid
+    assert comment.valid?
   end
 
   test "should save comment with content and associated quote" do

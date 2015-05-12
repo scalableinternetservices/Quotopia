@@ -7,13 +7,13 @@
 
 <p>
   <strong>Quote:</strong>
-  <%= @comment.quote %>
+  <%= @comment.quote.content %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @comment.user %>
+  <%= @comment.user.email %>
 </p>
 
-<%= link_to 'Edit', edit_comment_path(@comment) %> |
-<%= link_to 'Back', comments_path %>
+<%= link_to 'Edit', edit_quote_comment_path(@comment.quote, @comment) %> |
+<%= link_to 'Back', quote_comments_path %>
