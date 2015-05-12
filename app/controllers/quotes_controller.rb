@@ -2,7 +2,7 @@ class QuotesController < ApplicationController
   require 'digest/md5'
 
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, :only => [:new]
+  before_filter :authenticate_user!, :only => [:new, :edit, :update, :destroy]
 
   # GET /quotes
   # GET /quotes.json
@@ -20,6 +20,7 @@ class QuotesController < ApplicationController
   # GET /quotes/1
   # GET /quotes/1.json
   def show
+    @comment = Comment.new
   end
 
 

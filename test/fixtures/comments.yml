@@ -2,6 +2,6 @@
 
 one:
   content: MyText
-  quote_id: 
-  user_id: 
+  quote: one
+  user: lonelyguy
 

@@ -1,4 +1,4 @@
-<%= form_for(@comment) do |f| %>
+<%= form_for [@quote, @comment] do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
@@ -11,19 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
+  <div class="form-group">
+    <div class="field">
+      <%= f.label :content, "Commenting as: #{current_user.email}" %><br>
+      <%= f.text_area :content, class:"form-control", rows:"4"%>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :quote_id %><br>
-    <%= f.text_field :quote_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+    <%= button_tag class: "btn btn-primary" do %>
+        Save
+    <% end%>
 <% end %>
