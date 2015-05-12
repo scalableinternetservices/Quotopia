@@ -2,13 +2,14 @@ require 'test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
-  fixtures :quotes
+  fixtures :quotes, :users
 
   setup do
     @comment = comments(:one)
     @update = {
         content: "This is a new comment",
     }
+    sign_in users(:lonelyguy)
   end
 
   test "should get index" do
@@ -18,7 +19,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "should get new" do
     get :new, :quote_id => quotes(:one)
-    assert_response :found
+    assert_response :success
   end
 
   test "should create comment" do
