@@ -11,12 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
+  <div class="form-group">
+    <div class="field">
+      <%= f.label :content, "Commenting as: #{current_user.email}" %><br>
+      <%= f.text_area :content, class:"form-control", rows:"4"%>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= button_tag class: "btn btn-primary" do %>
+        Save
+    <% end%>
 <% end %>

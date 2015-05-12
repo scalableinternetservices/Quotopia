@@ -13,6 +13,10 @@
 <hr>
 <h4>Showing <%="#{@quote.comments.length}"%> comments</h4>
 <hr>
+<% if user_signed_in? %>
+<%= render 'comments/form', :object => @comment %>
+<hr>
+<% end %>
 <% @quote.comments.reverse.each do |comment| %>
     <%= div_for(comment) do %>
         <strong><%= comment.user.email %></strong><br/>
