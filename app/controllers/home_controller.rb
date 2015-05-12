@@ -6,7 +6,7 @@ class HomeController < ApplicationController
           value_sum from votes group by quote_id) as sums on quotes.id
           = sums.quote_id")
                       .joins(:author)
-                      .order("sums.value_sum DESC")
+                      .order("COALESCE(sums.value_sum,0) DESC")
                       .select("quotes.id, quotes.content, authors.name")
                       .all.page(params[:page])
       @tab_id = "all-time"
@@ -29,7 +29,7 @@ class HomeController < ApplicationController
          value_sum from votes WHERE created_at >= " + @interval_check +
          " group by quote_id) as sums on quotes.id = sums.quote_id")
                        .joins(:author)
-                       .order("sums.value_sum DESC")
+                       .order("COALESCE(sums.value_sum,0) DESC")
                        .select("quotes.id, quotes.content, authors.name")
                        .all.page(params[:page])
 
