@@ -22,4 +22,6 @@
 
 <br>
 
-<%= link_to 'New Category', new_category_path %>
+<% if user_signed_in? %>
+    <%= render 'categories/form', :object => @category %>
+<% end %>

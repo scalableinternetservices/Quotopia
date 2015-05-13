@@ -10,6 +10,7 @@ class CategoriesController < ApplicationController
                       .select("categories.*")
                       .order('category_id DESC')
                       .distinct
+    @category = Category.new
   end
 
   # GET /categories/1
