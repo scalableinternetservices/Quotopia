@@ -69,17 +69,25 @@
 
       <!-- visit the next 4 pages -->
       <for from="2" to="5" incr="1" var="pagenum">
-        <request subst="true"> <http url="/?page=%%_pagenum%%&#38;tab=trending"></http> </request>
+        <request subst="true">
+          <http url="/?page=%%_pagenum%%&#38;tab=trending" version='1.1' method='GET'></http>
+        </request>
         <!-- wait for up to 2 seconds, user is looking at quotes -->
         <thinktime value="2" random="true"></thinktime>
       </for>
 
       <!-- Look at new some quotes -->
       <for from="1" to="5" incr="1" var="pagenum">
-        <request subst="true"> <http url="/?page=%%_pagenum%%&#38;tab=new"></http> </request>
+        <request subst="true">
+          <http url="/?page=%%_pagenum%%&#38;tab=new" version='1.1' method='GET'></http>
+        </request>
         <!-- wait for up to 2 seconds, user is looking at quotes -->
         <thinktime value="2" random="true"></thinktime>
       </for>
+
+      <!-- Look at some authors -->
+      <request><http url="/authors" version='1.1' method='GET'></http></request>
+
     </session>
 
     <session name="authed-browse" probability="50" type="ts_http">
