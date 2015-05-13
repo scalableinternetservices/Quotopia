@@ -1,3 +1,6 @@
+<% 
+    display_author = true if local_assigns[:display_author].nil? 
+%>
 <% quotes.each do |quote| %>
     <div class="quote row vertical-align">
         <div class="row-same-height">
@@ -14,7 +17,9 @@
             <% div_id = "quote_#{quote.id}" %>
             <div class="panel-body quote-content" id="<%= div_id %>">
                 <%= quote.content %>
-                <div class="author-name">- <%= quote.name %> </div>
+                <% if display_author %>
+                    <div class="author-name">- <%= quote.name %> </div>
+                <% end %>
               <%= javascript_tag do %>
                   var curr = document.getElementById("<%= div_id %>");
                   if (isOverflowed(curr)) {

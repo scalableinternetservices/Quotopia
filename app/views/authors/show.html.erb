@@ -4,7 +4,7 @@
 <hr>
 
 <ul>
-    <%= render partial: "authors/quote_block", locals: {quotes: @author_quotes} %>
+    <%= render partial: "quotes/quote_block", locals: {quotes: @author_quotes, display_author: false} %>
 </ul>
 
 <!--<%= link_to 'Edit', edit_author_path(@author) %> -->
