@@ -1,0 +1,7 @@
+<% categories.each_with_index do |category, index| %>
+    <tr>
+      <td><%= index+1 %></td>
+      <td><%= link_to category.content.capitalize, category %></td>
+      <td><%= category.quotes.length %></td>
+    </tr>
+<% end %>

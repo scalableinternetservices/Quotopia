@@ -5,4 +5,5 @@ class Category < ActiveRecord::Base
 
   validates :content, presence: true
   validates :content, uniqueness: { case_sensitive: false }
+
 end

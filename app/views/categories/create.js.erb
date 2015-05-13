@@ -1,0 +1,7 @@
+$("#category-table > tbody").html(
+        "<%= j render(
+        partial: "category",
+        locals: {categories: @sorted})%>"
+);
+
+$("#category_content").val('');
