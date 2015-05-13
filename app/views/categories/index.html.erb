@@ -1,23 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Categories</h1>
+<h1>Which Categories?</h1>
+<hr>
 
-<table>
+<table class="table table-bordered">
   <thead>
-    <tr>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
+    <th>Rank</th>
+    <th>Name</th>
+    <th>Quotes</th>
   </thead>
-
   <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= category.content %></td>
-        <td><%= link_to 'Show', category %></td>
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% @sorted.each_with_index do |category, index| %>
+        <tr>
+          <td><%= index+1 %></td>
+          <td><%= link_to category.content.capitalize, category %></td>
+          <td><%= category.quotes.length %></td>
+        </tr>
     <% end %>
   </tbody>
 </table>
