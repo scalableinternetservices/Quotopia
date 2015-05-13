@@ -12,6 +12,20 @@
   width: 100% !important;
 }
 
+.pagination {
+  margin-left: 50%;
+  float:left
+}
+
+.page-number {
+  float:left;
+  margin: 11px 5px 0px 5px
+}
+
+.left-arrow {
+  float:left;
+}
+
 .quote {
     margin-bottom: 10px;
     div#quote-panel.col-xs-8.quote-text.panel.panel-default.center{

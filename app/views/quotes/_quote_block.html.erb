@@ -1,3 +1,6 @@
+<% 
+    display_author = true if local_assigns[:display_author].nil? 
+%>
 <% quotes.each do |quote| %>
     <div class="quote row vertical-align">
         <div class="row-same-height">
@@ -14,8 +17,10 @@
             <% div_id = "quote_#{quote.id}" %>
             <div onclick="location.href='<%=quote_path(quote.id)%>';" style="cursor: pointer;" class="panel-body quote-content no-highlight" id="<%= div_id %>">
                 <%= quote.content %>
+                <% if display_author %>
+                    <div class="author-name">-  <a class="no-bubble" href="<%= author_path(quote.author_id) %>"><%= quote.author_name %></a> </div>
+                <% end %>
                 <br>
-                <div class="author-name">-  <a class="no-bubble" href="<%= author_path(quote.author_id) %>"><%= quote.author_name %></a> </div>
               <%= javascript_tag do %>
                   $('.no-bubble').click(function(event) {
                     event.stopImmediatePropagation();

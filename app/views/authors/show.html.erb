@@ -4,20 +4,23 @@
 <hr>
 
 <ul>
-    <%= render partial: "authors/quote_block", locals: {quotes: @author_quotes} %>
+    <%= render partial: "quotes/quote_block", locals: {quotes: @author_quotes, display_author: false} %>
 </ul>
 
 <!--<%= link_to 'Edit', edit_author_path(@author) %> -->
 
 <% unless @author_quotes.nil? %>
     <div>
-        <%= paginate @author_quotes, :params => {:tab => "authors"} %>
-        <%= page_entries_info @author_quotes %>
+      <div class="pagination">
+        <%= link_to_previous_page @author_quotes, '<i class="fa fa-angle-double-left fa-3x"></i>'.html_safe, {:class => "left-arrow"} %>
+        <div class="page-number"><%= params[:page] %></div>
+        <%= link_to_next_page @author_quotes, '<i class="fa fa-angle-double-right fa-3x"></i>'.html_safe %>
+      </div>
     </div>
 <% end %>
 
 <br>
-<div>
-    <%= link_to 'Back', url_for(:action => 'index', :anchor => 'authors', :controller => 'home') %>
-</div>
+<!--<div>-->
+    <!--<%= link_to 'Back', url_for(:action => 'index', :anchor => 'authors', :controller => 'home') %>-->
+<!--</div>-->
 
