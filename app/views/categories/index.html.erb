@@ -3,20 +3,14 @@
 <h1>Which Categories?</h1>
 <hr>
 
-<table class="table table-bordered">
+<table class="table table-bordered" id="category-table">
   <thead>
     <th>Rank</th>
     <th>Name</th>
     <th>Quotes</th>
   </thead>
   <tbody>
-    <% @sorted.each_with_index do |category, index| %>
-        <tr>
-          <td><%= index+1 %></td>
-          <td><%= link_to category.content.capitalize, category %></td>
-          <td><%= category.quotes.length %></td>
-        </tr>
-    <% end %>
+    <%= render partial: "category", locals: {categories: @sorted} %>
   </tbody>
 </table>
 

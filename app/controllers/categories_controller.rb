@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
     @categories = Category.all
     @sorted = Category.joins("LEFT JOIN categorizations on categorizations.category_id = categories.id")
                       .select("categories.*")
-                      .order('category_id DESC')
+                      .order('category_id DESC, created_at')
                       .distinct
     @category = Category.new
   end
@@ -35,8 +35,13 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
+        @sorted = Category.joins("LEFT JOIN categorizations on categorizations.category_id = categories.id")
+                      .select("categories.*")
+                      .order('category_id DESC, created_at')
+                      .distinct
         format.html { redirect_to @category, notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @category }
+        format.js {}
       else
         format.html { render :new }
         format.json { render json: @category.errors, status: :unprocessable_entity }
