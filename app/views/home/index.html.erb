@@ -30,7 +30,6 @@
   <div class="nav">
       <ul class="nav nav-tabs nav-justified" role="tablist" id="quoteTabs">
           <li role="presentation">
-             <!-- used to be <a href="#trending" aria-controls="trending" role="tab" data-toggle="tab"> -->
               <a href="?tab=trending" aria-controls="trending">Trending</a>
           </li>
           <li role="presentation">
@@ -44,47 +43,20 @@
 </div>
 <br>
 
-<!-- @quotes is populated depending on the "tab" parameter(defaults to trending) -->
 <div class="row" id="quotes">
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active">
           <%= render partial: "quotes/quote_block", locals: {quotes: @quotes} %>
           <% unless @quotes.nil? %>
-              <div>
-                <%= paginate @quotes, :params => {:tab => @tab_id} %>
-                <%= page_entries_info @quotes %>
+              <div class="pagination">
+                <%= link_to_previous_page @quotes, '<i class="fa fa-angle-double-left fa-3x"></i>'.html_safe, {:class => "left-arrow"} %>
+                <div class="page-number"><%= params[:page] %></div>
+                <%= link_to_next_page @quotes, '<i class="fa fa-angle-double-right fa-3x"></i>'.html_safe %>
               </div>
           <% end %>
-        </div>
         </div>
     </div>
 </div>
 
-<% @tab_id = params[:tab] ? "#quoteTabs a[href=" + %Q(##{params[:tab]}) + "]" : "#quoteTabs a:trending" %>
+<br>
 
-<% content_for :footer do %>
-    <script>
-        $(function () {
-            $('#<%= @tab_id %>').tab('show');
-        })
-    </script>
-<% end %>
-
-
-<!-- A lot faster when left inline instead of in a separate js file -->
-<script type="text/javascript">
-    $(function() {
-        // Javascript to enable link to tab
-        var hash = document.location.hash;
-        if (hash) {
-            console.log(hash);
-            $('.nav-tabs a[href='+hash+']').tab('show');
-        }
-
-        // Change hash for page-reload
-        $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-            window.location.hash = e.target.hash;
-        });
-    });
-
-</script>
