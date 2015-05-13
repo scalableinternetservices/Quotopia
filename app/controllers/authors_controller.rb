@@ -5,7 +5,13 @@ class AuthorsController < ApplicationController
   # GET /authors
   # GET /authors.json
   def index
-    @authors = Author.all
+    @authors = Author.joins(:quotes)
+                     .select("authors.id as id, authors.name as author_name, count(*) as num_quotes")
+                     .group("author_id")
+                     .order("num_quotes desc")
+
+    @authors2 = Author.all
+    @author = Author.new
   end
 
   # GET /authors/1
