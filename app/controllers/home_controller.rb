@@ -13,7 +13,7 @@ class HomeController < ApplicationController
     elsif params[:tab] == "new"
         @quotes = Quote.joins(:author)
                      .select("quotes.id, quotes.content, authors.name")
-                     .order("quotes.created_at")
+                     .order("quotes.created_at DESC")
                      .all.page(params[:page])
         @tab_id = "new"
 
