@@ -38,6 +38,11 @@
   </div>
 </div>
 <br>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
 
 <!-- @quotes is populated depending on the "tab" parameter(defaults to trending) -->
 <div class="row" id="quotes">
@@ -49,7 +54,7 @@
                 <%= paginate @quotes, :params => {:tab => @tab_id} %>
                 <%= page_entries_info @quotes %>
                 <%= link_to new_quote_path do %>
-                  <i class="fa fa-plus fa-2x pull-right" ></i>
+                  <i class="fa fa-plus fa-2x pull-right" data-toggle="tooltip" title="Add a quote"></i>
                 <% end %>
               </div>
           <% end %>
