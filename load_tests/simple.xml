@@ -1,57 +1,29 @@
-<?xml version="1.0"?>
-<!DOCTYPE tsung SYSTEM "/home/ec2-user/opt/tsung-1.5.0/share/tsung/tsung-1.0.dtd">
-<tsung loglevel="notice" version="1.0">
+<?xml version="1.0"?><tsung loglevel="info" version="1.0" dumptraffic="true">
 
-  <!-- Client side setup -->
   <clients>
-    <client host="localhost" use_controller_vm="true" maxusers='15000'/>
+    <client host="localhost" use_controller_vm="true" maxusers="15000"/>
   </clients>
 
-  <!-- Server side setup, make sure to set the DNS(or replace the hostname here)  -->
   <servers>
-    <server host="quotopia.raycoll.me" port="80" type="tcp"></server>
+    <server host="quotopia.raycoll.me" port="80" type="tcp"/>
   </servers>
 
 
   <load>
     <arrivalphase phase="1" duration="30" unit="second">
-      <users arrivalrate="1" unit="second"></users>
+      <users arrivalrate="1" unit="second"/>
     </arrivalphase>
     <arrivalphase phase="2" duration="30" unit="second">
-      <users arrivalrate="2" unit="second"></users>
+      <users arrivalrate="2" unit="second"/>
     </arrivalphase>
     <arrivalphase phase="3" duration="30" unit="second">
-      <users arrivalrate="4" unit="second"></users>
+      <users arrivalrate="4" unit="second"/>
     </arrivalphase>
-<!--
-   <arrivalphase phase="4" duration="30" unit="second">
-     <users arrivalrate="8" unit="second"></users>
-   </arrivalphase>
-   <arrivalphase phase="5" duration="30" unit="second">
-     <users arrivalrate="16" unit="second"></users>
-   </arrivalphase>
-   <arrivalphase phase="6" duration="30" unit="second">
-     <users arrivalrate="32" unit="second"></users>
-   </arrivalphase>
-   <arrivalphase phase="7" duration="30" unit="second">
-     <users arrivalrate="64" unit="second"></users>
-   </arrivalphase>
-   <arrivalphase phase="8" duration="30" unit="second">
-     <users arrivalrate="128" unit="second"></users>
-   </arrivalphase>
-   <arrivalphase phase="9" duration="30" unit="second">
-     <users arrivalrate="256" unit="second"></users>
-   </arrivalphase>
-   <arrivalphase phase="10" duration="30" unit="second">
-     <users arrivalrate="512" unit="second"></users>
-   </arrivalphase>
--->
-  </load>
+</load>
 
   <options>
-    <!-- Set connection timeout to 2 seconds -->
-    <option name="glocal_ack_timeout" value="2000"></option>
-
+    <option name="glocal_ack_timeout" value="2000"/>
+    <option name="file_server" id="users" value="../data/users.csv"/>
     <option type="ts_http" name="user_agent">
       <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
     </option>
@@ -59,108 +31,79 @@
 
   <sessions>
     <session name="unauthed" probability="50" type="ts_http">
-      <!-- start at the home page -->
       <request>
-        <http url='/' version='1.1' method='GET'></http>
+        <http url="/" version="1.1" method="GET"/>
       </request>
 
-      <!-- wait for up to 2 seconds, user is looking at quotes -->
-      <thinktime value="2" random="true"></thinktime>
+      <thinktime value="2" random="true"/>
 
-      <!-- visit the next 4 pages -->
       <for from="2" to="5" incr="1" var="pagenum">
         <request subst="true">
-          <http url="/?page=%%_pagenum%%&#38;tab=trending" version='1.1' method='GET'></http>
+          <http url="/?page=%%_pagenum%%&amp;tab=trending" version="1.1" method="GET"/>
         </request>
-        <!-- wait for up to 2 seconds, user is looking at quotes -->
-        <thinktime value="2" random="true"></thinktime>
+        <thinktime value="2" random="true"/>
       </for>
 
-      <!-- Look at new some quotes -->
       <for from="1" to="5" incr="1" var="pagenum">
         <request subst="true">
-          <http url="/?page=%%_pagenum%%&#38;tab=new" version='1.1' method='GET'></http>
+          <http url="/?page=%%_pagenum%%&amp;tab=new" version="1.1" method="GET"/>
         </request>
-        <!-- wait for up to 2 seconds, user is looking at quotes -->
-        <thinktime value="2" random="true"></thinktime>
+        <thinktime value="2" random="true"/>
       </for>
 
-      <!-- Look at some authors -->
-      <request><http url="/authors" version='1.1' method='GET'></http></request>
+      <request><http url="/authors" version="1.1" method="GET"/></request>
 
     </session>
 
     <session name="authed-browse" probability="50" type="ts_http">
-      <!-- Get random user credentials for this session -->
-      <setdynvars sourcetype="file" fileid="../data/users.csv" delimiter="," order="random">
-       <var name="user_password" />
-       <var name="user_name" />
+      <setdynvars sourcetype="file" fileid="users" delimiter="," order="random">
+       <var name="user_name"/>
+       <var name="user_password"/>
       </setdynvars>
 
-      <!-- Go to home page -->
       <request>
-        <http url='/' version='1.1' method='GET'></http>
+        <http url="/" version="1.1" method="GET"/>
       </request>
 
-      <!-- Login -->
       <request>
-        <http url='/sign_in' version='1.1' method='GET'></http>
+        <http url="/users/sign_in" version="1.1" method="GET"/>
       </request>
-      <request>
-        <http url='/sign_in' version='1.1' method='POST'
-          content="user%5Bemail%5D=%%_user_name%%&#38;user%5Bpassword%5D=%%_user_password%%&#38;user%5Bremember_me%5D=0&#38;button=">
+      <request subst="true">
+        <http url="/users/sign_in" version="1.1" method="POST" contents="user%5Bemail%5D=%%_user_name%%&amp;user%5Bpassword%5D=%%_user_password%%&amp;user%5Bremember_me%5D=0&amp;button=">
         </http>
       </request>
 
-      <!-- View Some Quotes -->
-      <!-- visit the next 4 pages of trending -->
       <for from="2" to="5" incr="1" var="pagenum">
-        <!-- wait for up to 2 seconds, user is looking at quotes -->
-        <request subst="true"> <http url="/?page=%%_pagenum%%&#38;tab=trending"></http> </request>
-        <thinktime value="2" random="true"></thinktime>
+        <request subst="true"> <http url="/?page=%%_pagenum%%&amp;tab=trending"/> </request>
+        <thinktime value="2" random="true"/>
       </for>
 
-      <!-- Look at 3 pages of new quotes -->
-      <for from="1" to="2" incr="3" var="pagenum">
-        <request subst="true"> <http url="/?page=%%_pagenum%%&#38;tab=new"></http> </request>
-        <!-- wait for up to 2 seconds, user is looking at quotes -->
-        <thinktime value="2" random="true"></thinktime>
+      <for from="1" to="2" incr="1" var="pagenum">
+        <request subst="true"> <http url="/?page=%%_pagenum%%&amp;tab=new"/> </request>
+        <thinktime value="2" random="true"/>
       </for>
 
-      <!-- Look at 1 page of all time quotes -->
-      <request> <http url="/?tab=all-time"></http> </request>
-      <!-- wait for up to 2 seconds, user is looking at quotes -->
-      <thinktime value="2" random="true"></thinktime>
+      <request> <http url="/?tab=all-time"/> </request>
+      <thinktime value="2" random="true"/>
 
-      <!-- Possibly, create a new quote -->
       <setdynvars sourcetype="random_string" length="55">
-        <var name="quote_content" />
+        <var name="quote_content"/>
       </setdynvars>
       <setdynvars sourcetype="random_string" length="13">
-        <var name="quote_author" />
+        <var name="quote_author"/>
       </setdynvars>
       <request subst="true">
-        <http url='/quotes/new' version='1.1' method='GET'></http>
-        <http url='/quotes' version='1.1' method='POST'
-          content="quote%5Bcontent%5D=%%_quote_content%%&#38;quote%5Bauthor_attributes%5D%5Bname%5D=%%_quote_author%%&#38;quote%5Bcategory_list%5D=&#38;button=">
+        <http url="/quotes/new" version="1.1" method="GET"/>
+      </request>
+      <request subst="true">
+        <http url="/quotes" version="1.1" method="POST" contents="quote%5Bcontent%5D=%%_quote_content%%&amp;quote%5Bauthor_attributes%5D%5Bname%5D=%%_quote_author%%&amp;quote%5Bcategory_list%5D=&amp;button=">
         </http>
       </request>
 
-      <!-- Search for our freshly created quote -->
       <request subst="true">
-        <http url='/quotes?search=%_quote_content%' version='1.1' method='GET'></http>
+        <http url="/quotes?search=%%_quote_content%%" version="1.1" method="GET"/>
       </request>
 
-      <!-- Possibly, like quote(s) -->
-
-      <!-- View authors of quote(s) they liked -->
-    </session>
-    <!--
-    <session name="authed-browse-create-quote" type="ts_http">
-    </session>
-    <session name="create-acct-browse" type="ts_http">
-    </session>
-    <session name="authed-browse=" type="ts_http">
-    -->
-  </sessions>
+      </session>
+    </sessions>
 </tsung>
