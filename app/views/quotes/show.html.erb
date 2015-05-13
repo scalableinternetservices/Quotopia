@@ -25,7 +25,9 @@
     <h4>Showing <%="#{@quote.comments.length}"%> comments</h4>
 -->
 <hr>
-<a id='see-more' onclick="showComments();">Show More Comments</a>
+<% unless @quote.comments.size <= 5 %>
+    <a id='see-more' onclick="showComments();">Show More Comments</a>
+<% end %>
 <% @quote.comments.each_with_index do |comment, index| %>
     <% 
         @class = ""
