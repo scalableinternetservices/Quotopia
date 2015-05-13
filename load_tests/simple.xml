@@ -58,19 +58,7 @@
   </options>
 
   <sessions>
-    <!--
-    <session name="unauthed-browse" type="ts_http">
-    </session>
-    <session name="authed-browse" type="ts_http">
-    </session>
-    <session name="authed-browse-create-quote" type="ts_http">
-    </session>
-    <session name="create-acct-browse" type="ts_http">
-    </session>
-    <session name="authed-browse=" type="ts_http">
-    -->
-    <session name="http-example" probability="100" type="ts_http">
-
+    <session name="unauthed" probability="50" type="ts_http">
       <!-- start at the home page -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
@@ -92,16 +80,79 @@
         <!-- wait for up to 2 seconds, user is looking at quotes -->
         <thinktime value="2" random="true"></thinktime>
       </for>
-
-      <!-- Uncomment the following to debug print your dynamic variables  -->
-      <!--
-      <setdynvars sourcetype="eval" code="fun( {Pid, DynVars} ) ->
-        io:format([126, $p, 126, $n, 126, $n], [DynVars]),
-        ok end.">
-        <var name="dump" />
-      </setdynvars>
-      -->
-
     </session>
+
+    <session name="authed-browse" probability="50" type="ts_http">
+      <!-- Get random user credentials for this session -->
+      <setdynvars sourcetype="file" fileid="../data/users.csv" delimiter="," order="random">
+       <var name="user_password" />
+       <var name="user_name" />
+      </setdynvars>
+
+      <!-- Go to home page -->
+      <request>
+        <http url='/' version='1.1' method='GET'></http>
+      </request>
+
+      <!-- Login -->
+      <request>
+        <http url='/sign_in' version='1.1' method='GET'></http>
+      </request>
+      <request>
+        <http url='/sign_in' version='1.1' method='POST'
+          content="user%5Bemail%5D=%%_user_name%%&#38;user%5Bpassword%5D=%%_user_password%%&#38;user%5Bremember_me%5D=0&#38;button=">
+        </http>
+      </request>
+
+      <!-- View Some Quotes -->
+      <!-- visit the next 4 pages of trending -->
+      <for from="2" to="5" incr="1" var="pagenum">
+        <!-- wait for up to 2 seconds, user is looking at quotes -->
+        <request subst="true"> <http url="/?page=%%_pagenum%%&#38;tab=trending"></http> </request>
+        <thinktime value="2" random="true"></thinktime>
+      </for>
+
+      <!-- Look at 3 pages of new quotes -->
+      <for from="1" to="2" incr="3" var="pagenum">
+        <request subst="true"> <http url="/?page=%%_pagenum%%&#38;tab=new"></http> </request>
+        <!-- wait for up to 2 seconds, user is looking at quotes -->
+        <thinktime value="2" random="true"></thinktime>
+      </for>
+
+      <!-- Look at 1 page of all time quotes -->
+      <request> <http url="/?tab=all-time"></http> </request>
+      <!-- wait for up to 2 seconds, user is looking at quotes -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- Possibly, create a new quote -->
+      <setdynvars sourcetype="random_string" length="55">
+        <var name="quote_content" />
+      </setdynvars>
+      <setdynvars sourcetype="random_string" length="13">
+        <var name="quote_author" />
+      </setdynvars>
+      <request subst="true">
+        <http url='/quotes/new' version='1.1' method='GET'></http>
+        <http url='/quotes' version='1.1' method='POST'
+          content="quote%5Bcontent%5D=%%_quote_content%%&#38;quote%5Bauthor_attributes%5D%5Bname%5D=%%_quote_author%%&#38;quote%5Bcategory_list%5D=&#38;button=">
+        </http>
+      </request>
+
+      <!-- Search for our freshly created quote -->
+      <request subst="true">
+        <http url='/quotes?search=%_quote_content%' version='1.1' method='GET'></http>
+      </request>
+
+      <!-- Possibly, like quote(s) -->
+
+      <!-- View authors of quote(s) they liked -->
+    </session>
+    <!--
+    <session name="authed-browse-create-quote" type="ts_http">
+    </session>
+    <session name="create-acct-browse" type="ts_http">
+    </session>
+    <session name="authed-browse=" type="ts_http">
+    -->
   </sessions>
 </tsung>
