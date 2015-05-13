@@ -13,7 +13,8 @@
         <div class="col-xs-8 col-xs-height quote-text panel panel-default center" id="quote-panel">
             <% div_id = "quote_#{quote.id}" %>
             <div onclick="location.href='<%=quote_path(quote.id)%>';" style="cursor: pointer;" class="panel-body quote-content no-highlight" id="<%= div_id %>">
-              <%= quote.content %>
+                <%= quote.content %>
+                <br>
                 <div class="author-name">-  <a class="no-bubble" href="<%= author_path(quote.author_id) %>"><%= quote.author_name %></a> </div>
               <%= javascript_tag do %>
                   $('.no-bubble').click(function(event) {
