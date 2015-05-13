@@ -12,14 +12,17 @@
         </div>
         <div class="col-xs-8 col-xs-height quote-text panel panel-default center" id="quote-panel">
             <% div_id = "quote_#{quote.id}" %>
-            <div class="panel-body quote-content" id="<%= div_id %>">
-                <%= quote.content %>
-                <div class="author-name">- <%= quote.name %> </div>
+            <div onclick="location.href='<%=quote_path(quote.id)%>';" style="cursor: pointer;" class="panel-body quote-content no-highlight" id="<%= div_id %>">
+              <%= quote.content %>
+                <div class="author-name">-  <a class="no-bubble" href="<%= author_path(quote.author_id) %>"><%= quote.author_name %></a> </div>
               <%= javascript_tag do %>
+                  $('.no-bubble').click(function(event) {
+                    event.stopImmediatePropagation();
+                  });
                   var curr = document.getElementById("<%= div_id %>");
                   if (isOverflowed(curr)) {
-                    $("<a class='see-more' onclick='showMoreOrLess(this);'>Show More</a>").insertAfter(curr);
-                    curr.classList.add("fade-overflow");
+                  $("<a class='see-more' onclick='showMoreOrLess(this);'>Show More</a>").insertAfter(curr);
+                  curr.classList.add("fade-overflow");
                   }
               <% end %>
             </div>
@@ -42,7 +45,6 @@
           <form action="<%= quote_path(quote.id)%>">
             <button type="submit" class="btn btn-default" formtarget="_blank">
               <span class="fa fa-2x fa-comment" aria-hidden="true"></span>
-            </input>
           </form>
             </div>
         </div>

@@ -8,3 +8,4 @@ function validate()
         return false;
     }
 }
+
