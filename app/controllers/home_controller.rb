@@ -7,12 +7,12 @@ class HomeController < ApplicationController
           = sums.quote_id")
                       .joins(:author)
                       .order("COALESCE(sums.value_sum,0) DESC")
-                      .select("quotes.id, quotes.content, authors.name")
+                      .select("quotes.id, quotes.content, authors.name as author_name, authors.id as author_id")
                       .all.page(params[:page])
       @tab_id = "all-time"
     elsif params[:tab] == "new"
         @quotes = Quote.joins(:author)
-                     .select("quotes.id, quotes.content, authors.name")
+                     .select("quotes.id, quotes.content, authors.name as author_name, authors.id as author_id")
                      .order("quotes.created_at DESC")
                      .all.page(params[:page])
         @tab_id = "new"
@@ -30,7 +30,7 @@ class HomeController < ApplicationController
          " group by quote_id) as sums on quotes.id = sums.quote_id")
                        .joins(:author)
                        .order("COALESCE(sums.value_sum,0) DESC")
-                       .select("quotes.id, quotes.content, authors.name")
+                       .select("quotes.id, quotes.content, authors.name as author_name, authors.id as author_id")
                        .all.page(params[:page])
 
        @tab_id = "trending"
