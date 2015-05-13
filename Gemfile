@@ -46,6 +46,12 @@ gem 'omniauth-twitter'
 gem 'twitter'
 gem 'omniauth'
 
+# Fabricator to create test data
+gem 'fabrication'
+
+# Faker to help Fabricator
+gem 'faker'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -66,6 +72,5 @@ end
 group :production do
   gem 'mysql2'
 end
-
 
 gem 'mocha', group: :test
