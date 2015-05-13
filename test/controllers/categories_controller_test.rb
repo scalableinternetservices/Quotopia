@@ -8,6 +8,7 @@ class CategoriesControllerTest < ActionController::TestCase
     @update = {
         content: "New Category"
     }
+    sign_in users(:lonelyguy)
   end
 
   test "should get index" do

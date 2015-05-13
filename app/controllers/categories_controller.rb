@@ -1,10 +1,15 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, :only => [:new, :edit, :update, :destroy]
 
   # GET /categories
   # GET /categories.json
   def index
     @categories = Category.all
+    @sorted = Category.joins("LEFT JOIN categorizations on categorizations.category_id = categories.id")
+                      .select("categories.*")
+                      .order('category_id DESC')
+                      .distinct
   end
 
   # GET /categories/1
