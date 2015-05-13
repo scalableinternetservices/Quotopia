@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
-<h2><%= "\"#{@quote.content}\""%>&nbsp;&nbsp;&nbsp;<i><small><%= link_to @quote.author.name, author_path(@quote.author) %></small></i></h2>
-<!--<strong><i><%= link_to @quote.author.name, author_path(@quote.author) %></i></strong>-->
+<h2 class="quote-content"><%= "\"#{@quote.content}\""%>&nbsp;&nbsp;&nbsp;<i><small><%= link_to @quote.author.name, author_path(@quote.author), {:class => "author-name"}%></small></i></h2>
 <hr class="no-padding">
 <p style="font-size: 10px; float: right">Submitted by: <%= @quote.user.email %></p>
 <br>
@@ -10,22 +9,44 @@
         <%= link_to category.content.capitalize, category_path(category)%><%=',' unless category.equal? @quote.categories.last %>
     <% end %>
 </p>
-<hr>
-<h4>Showing <%="#{@quote.comments.length}"%> comments</h4>
-<hr>
-<% if user_signed_in? %>
-<%= render 'comments/form', :object => @comment %>
-<hr>
+<%= javascript_tag do %>
+    function showComments() {
+        $("div.comment-hide").toggleClass("comment-hide-show");
+        
+        var $see_more = $("#see-more")
+        if ($see_more.text() == "Show More Comments")
+            $see_more.text("Show Less Comments");
+        else
+            $see_more.text("Show More Comments");
+    }
 <% end %>
-<% @quote.comments.reverse.each do |comment| %>
-    <%= div_for(comment) do %>
-        <strong><%= comment.user.email %></strong><br/>
-        <sup>From <%= time_ago_in_words(comment.created_at)%> ago</sup>
+<!--
+<hr>
+    <h4>Showing <%="#{@quote.comments.length}"%> comments</h4>
+-->
+<hr>
+<a id='see-more' onclick="showComments();">Show More Comments</a>
+<% @quote.comments.each_with_index do |comment, index| %>
+    <% 
+        @class = ""
+        if index < @quote.comments.size - 5 
+            @class += "comment-hide"
+        end
+    %>
+    <%= div_for(comment, class: @class) do %>
+        <sup>
+            <strong><%= comment.user.email %></strong> 
+            From <%= time_ago_in_words(comment.created_at)%> ago
+        </sup>
         <div>
           <%= comment.content %>
         </div>
     <% end %>
-    <hr>
+<% end %>
+
+<% if user_signed_in? %>
+<%= render 'comments/form', :object => @comment %>
+<hr>
 <% end %>
 
 <%= link_to 'Edit', edit_quote_path(@quote) %> |
