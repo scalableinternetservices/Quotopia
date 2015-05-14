@@ -49,9 +49,9 @@ $(document).ready(function(){
           <%= render partial: "quotes/quote_block", locals: {quotes: @quotes} %>
           <% unless @quotes.nil? %>
               <div class="pagination">
-                <%= link_to_previous_page @quotes, '<i class="fa fa-angle-double-left fa-3x"></i>'.html_safe, {:class => "left-arrow"} %>
+                <div class="left-arrow"><%= link_to_previous_page @quotes, '<i class="fa fa-angle-double-left fa-3x"></i>'.html_safe, :params => {:tab => @tab_id } %></div>
                 <div class="page-number"><%= params[:page] %></div>
-                <%= link_to_next_page @quotes, '<i class="fa fa-angle-double-right fa-3x"></i>'.html_safe %>
+                <%= link_to_next_page @quotes, '<i class="fa fa-angle-double-right fa-3x"></i>'.html_safe, :params => {:tab => @tab_id } %>
                 <%= link_to new_quote_path do %>
                   <i class="fa fa-plus fa-2x pull-right" data-toggle="tooltip" title="Add a quote"></i>
                 <% end %>
@@ -59,7 +59,6 @@ $(document).ready(function(){
           <% end %>
         </div>
     </div>
-
 </div>
 
 <br>
