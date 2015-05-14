@@ -1,3 +1,6 @@
+<% 
+    display_author = true if local_assigns[:display_author].nil? 
+%>
 <% quotes.each do |quote| %>
     <div class="quote row vertical-align">
         <div class="row-same-height">
@@ -5,17 +8,19 @@
             <% if user_signed_in? %>
                 <%= render partial: "votes/quote_vote", locals: {quote: quote, current_user_id: current_user.id} %>
             <% else %>
-                <span class="fa fa-2x fa-chevron-up gray" aria-hidden="true"></span>
+                <span class="fa fa-2x fa-chevron-up gray" aria-hidden="true" data-toggle="tooltip" data-trigger="hover" title="Sign in to upvote"></span>
                 <h4 class="vote-count"><%= Vote.quote_count(quote.id) %> </h4>
-                <span class="fa fa-2x fa-chevron-down gray" aria-hidden="true"></span>
+                <span class="fa fa-2x fa-chevron-down gray" aria-hidden="true" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Sign in to downvote"></span>
             <% end %>
         </div>
         <div class="col-xs-8 col-xs-height quote-text panel panel-default center" id="quote-panel">
             <% div_id = "quote_#{quote.id}" %>
             <div onclick="location.href='<%=quote_path(quote.id)%>';" style="cursor: pointer;" class="panel-body quote-content no-highlight" id="<%= div_id %>">
                 <%= quote.content %>
+                <% if display_author %>
+                    <div class="author-name">-  <a class="no-bubble" href="<%= author_path(quote.author_id) %>"><%= quote.author_name %></a> </div>
+                <% end %>
                 <br>
-                <div class="author-name">-  <a class="no-bubble" href="<%= author_path(quote.author_id) %>"><%= quote.author_name %></a> </div>
               <%= javascript_tag do %>
                   $('.no-bubble').click(function(event) {
                     event.stopImmediatePropagation();
@@ -39,7 +44,7 @@
                     <%= render partial: "favorite_quotes/favorite_block", locals: {quote_id: quote.id, favorite: @favorite, current_user_id: current_user.id} %>
                 </div>      
             <% else %>
-                <button type="submit" class="btn btn-default disabled">
+                 <button style="cursor: default;pointer-events: auto;" type="submit" class="btn btn-default disabled" data-toggle="tooltip" data-trigger="hover" title="Sign in to favorite">
                     <span class="fa fa-2x fa-heart-o" aria-hidden="true"></span>
                 </button>
             <% end %>
