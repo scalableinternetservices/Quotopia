@@ -4,7 +4,7 @@
 <hr>
 
 <ul>
-  <%= render partial: "categories/quote_block", locals: {quotes: @search_quotes} %>
+  <%= render partial: "quotes/quote_block", locals: {quotes: @quotes} %>
 </ul>
 
 <!--<%= link_to 'Edit', edit_category_path(@category) %> |-->
@@ -13,7 +13,7 @@
     <div>
       <!--<%= paginate @quotes, :params => {:tab => "categories"} %>-->
       <!--<%= page_entries_info @quotes %>-->
-      <div class="pagination">
+      <div class="pages">
         <%= link_to_previous_page @quotes, '<i class="fa fa-angle-double-left fa-3x"></i>'.html_safe, {:class => "left-arrow"} %>
         <div class="page-number"><%= params[:page] %></div>
         <%= link_to_next_page @quotes, '<i class="fa fa-angle-double-right fa-3x"></i>'.html_safe %>
