@@ -17,7 +17,14 @@
 </table>
 
 <br>
-
+<%= stylesheet_link_tag "dataTables.fontAwesome.css" %>
+<%= javascript_include_tag "jquery.dataTables.min" %>
+<%= javascript_include_tag "dataTables.bootstrap" %>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#author-table').DataTable();
+    });
+</script>
 <% if user_signed_in? %>
     <%= render 'authors/form', :object => @author %>
 <% end %>
