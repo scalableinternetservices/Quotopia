@@ -36,7 +36,7 @@
 
 <% unless @search_quotes.nil? %>
     <div>
-      <div class="pagination">
+      <div class="pages">
         <div class="left-arrow"><%= link_to_previous_page @search_quotes, '<i class="fa fa-angle-double-left fa-3x"></i>'.html_safe, :params => {:search => params[:search]} %></div>
         <div class="page-number"><%= params[:page] %></div>
         <%= link_to_next_page @search_quotes, '<i class="fa fa-angle-double-right fa-3x"></i>'.html_safe, :params => {:search => params[:search]} %>
