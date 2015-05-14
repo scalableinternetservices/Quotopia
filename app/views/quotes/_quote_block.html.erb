@@ -8,9 +8,9 @@
             <% if user_signed_in? %>
                 <%= render partial: "votes/quote_vote", locals: {quote: quote, current_user_id: current_user.id} %>
             <% else %>
-                <span class="fa fa-2x fa-chevron-up gray" aria-hidden="true"></span>
+                <span class="fa fa-2x fa-chevron-up gray" aria-hidden="true" data-toggle="tooltip" data-trigger="hover" title="Sign in to upvote"></span>
                 <h4 class="vote-count"><%= Vote.quote_count(quote.id) %> </h4>
-                <span class="fa fa-2x fa-chevron-down gray" aria-hidden="true"></span>
+                <span class="fa fa-2x fa-chevron-down gray" aria-hidden="true" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Sign in to downvote"></span>
             <% end %>
         </div>
         <div class="col-xs-8 col-xs-height quote-text panel panel-default center" id="quote-panel">
@@ -44,7 +44,7 @@
                     <%= render partial: "favorite_quotes/favorite_block", locals: {quote_id: quote.id, favorite: @favorite, current_user_id: current_user.id} %>
                 </div>      
             <% else %>
-                <button type="submit" class="btn btn-default disabled">
+                 <button style="cursor: default;pointer-events: auto;" type="submit" class="btn btn-default disabled" data-toggle="tooltip" data-trigger="hover" title="Sign in to favorite">
                     <span class="fa fa-2x fa-heart-o" aria-hidden="true"></span>
                 </button>
             <% end %>
