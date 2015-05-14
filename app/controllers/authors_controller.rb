@@ -2,10 +2,19 @@ class AuthorsController < ApplicationController
   before_action :set_author, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, :only => [:new, :edit, :update, :destroy]
 
+  def getAuthorsOrdered
+    @authors = Author.joins("LEFT JOIN quotes on quotes.author_id = authors.id")
+                     .select("authors.id as id, authors.name as author_name, count(quotes.author_id) as num_quotes")
+                     .group("authors.id")
+                     .order("num_quotes desc")
+  end 
   # GET /authors
   # GET /authors.json
   def index
-    @authors = Author.all
+    @authors = getAuthorsOrdered
+
+    @authors2 = Author.all
+    @author = Author.new
   end
 
   # GET /authors/1
@@ -30,8 +39,11 @@ class AuthorsController < ApplicationController
 
     respond_to do |format|
       if @author.save
+        @authors = getAuthorsOrdered
+
         format.html { redirect_to @author, notice: 'Author was successfully created.' }
         format.json { render :show, status: :created, location: @author }
+        format.js {}
       else
         format.html { render :new }
         format.json { render json: @author.errors, status: :unprocessable_entity }

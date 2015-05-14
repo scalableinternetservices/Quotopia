@@ -48,7 +48,7 @@ $(document).ready(function(){
         <div role="tabpanel" class="tab-pane active">
           <%= render partial: "quotes/quote_block", locals: {quotes: @quotes} %>
           <% unless @quotes.nil? %>
-              <div class="pagination">
+              <div class="pages">
                 <div class="left-arrow"><%= link_to_previous_page @quotes, '<i class="fa fa-angle-double-left fa-3x"></i>'.html_safe, :params => {:tab => @tab_id } %></div>
                 <div class="page-number"><%= params[:page] %></div>
                 <%= link_to_next_page @quotes, '<i class="fa fa-angle-double-right fa-3x"></i>'.html_safe, :params => {:tab => @tab_id } %>

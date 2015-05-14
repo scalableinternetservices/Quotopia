@@ -1,0 +1,8 @@
+$("#author-table > tbody").html(
+        "<%= j render(
+        partial: "author",
+        locals: {authors: @authors})%>"
+);
+
+$("#author_name").val("");
+

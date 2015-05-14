@@ -11,3 +11,6 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 Rails.application.config.assets.precompile += %w( validate.js )
+Rails.application.config.assets.precompile += %w( jquery.dataTables.min.js )
+Rails.application.config.assets.precompile += %w( dataTables.bootstrap.js )
+Rails.application.config.assets.precompile += %w( dataTables.fontAwesome.css ) 
