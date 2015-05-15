@@ -14,16 +14,16 @@
   <% if @search_quotes.present? %>
       <%= render partial: "quotes/quote_block", locals: {quotes: @search_quotes} %>
   <% elsif @has_search %>
-      <p>There are no quotes containing the term(s) <%= params[:search] %>.</p>
+      <p>There are no quotes containing the term(s) <%= params[:q] %>.</p>
   <% end %>
 </div>
 
 <% unless @search_quotes.nil? %>
     <div>
       <div class="pages">
-        <div class="left-arrow"><%= link_to_previous_page @search_quotes, '<i class="fa fa-angle-double-left fa-3x"></i>'.html_safe, :params => {:search => params[:search]} %></div>
+        <div class="left-arrow"><%= link_to_previous_page @search_quotes, '<i class="fa fa-angle-double-left fa-3x"></i>'.html_safe, :params => {:q => params[:q]} %></div>
         <div class="page-number"><%= params[:page] %></div>
-        <%= link_to_next_page @search_quotes, '<i class="fa fa-angle-double-right fa-3x"></i>'.html_safe, :params => {:search => params[:search]} %>
+        <%= link_to_next_page @search_quotes, '<i class="fa fa-angle-double-right fa-3x"></i>'.html_safe, :params => {:q => params[:q]} %>
       </div>
     </div>
 <% end %>
