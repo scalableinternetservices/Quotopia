@@ -1,4 +1,4 @@
-$(document).ready(function(){ 
+var init_typeahead = function(){ 
 
   var suggestions = new Bloodhound({
         datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.value);},
@@ -27,5 +27,7 @@ $(document).ready(function(){
         displayKey: 'value',
         source: suggestions.ttAdapter()
     }); 
-});
+};
 
+$(document).on('page:load', init_typeahead);
+$(document).ready(init_typeahead);
