@@ -36,10 +36,12 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (6.0.0)
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    buftok (0.2.0)
     builder (3.2.2)
     byebug (4.0.5)
       columnize (= 0.9.0)
@@ -53,6 +55,8 @@ GEM
     columnize (0.9.0)
     commonjs (0.2.7)
     debug_inspector (0.0.2)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -60,6 +64,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    equalizer (0.0.11)
     erubis (2.7.0)
     execjs (2.5.2)
     fast_stack (0.1.0)
@@ -67,8 +72,14 @@ GEM
       rake-compiler
     flamegraph (0.1.0)
       fast_stack
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    hashie (3.4.1)
+    http (0.5.1)
+      http_parser.rb
+    http_parser.rb (0.6.0)
     i18n (0.7.0)
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
@@ -93,14 +104,30 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    memoizable (0.4.2)
+      thread_safe (~> 0.3, >= 0.3.1)
+    metaclass (0.0.4)
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.6.0)
+    mocha (1.1.0)
+      metaclass (~> 0.0.1)
     multi_json (1.11.0)
+    multipart-post (2.0.0)
     mysql (2.9.1)
     mysql2 (0.3.18)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    oauth (0.4.7)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
+      rack (~> 1.0)
+    omniauth-oauth (1.1.0)
+      oauth
+      omniauth (~> 1.0)
+    omniauth-twitter (1.0.1)
+      multi_json (~> 1.3)
+      omniauth-oauth (~> 1.0)
     orm_adapter (0.5.0)
     rack (1.6.0)
     rack-mini-profiler (0.9.3)
@@ -151,6 +178,7 @@ GEM
     seed_dump (3.2.2)
       activerecord (~> 4)
       activesupport (~> 4)
+    simple_oauth (0.2.0)
     spring (1.3.4)
     sprockets (3.0.0)
       rack (~> 1.0)
@@ -166,6 +194,17 @@ GEM
     tilt (1.4.1)
     turbolinks (2.5.3)
       coffee-rails
+    twitter (5.3.1)
+      addressable (~> 2.3)
+      buftok (~> 0.2.0)
+      descendants_tracker (~> 0.0.1)
+      equalizer (~> 0.0.9)
+      faraday (>= 0.8, < 0.10)
+      http (~> 0.5.0)
+      http_parser.rb (~> 0.6.0)
+      json (~> 1.8)
+      memoizable (~> 0.4.0)
+      simple_oauth (~> 0.2.0)
     twitter-bootstrap-rails (3.2.0)
       actionpack (~> 4.1)
       execjs (~> 2.2)
@@ -200,9 +239,12 @@ DEPENDENCIES
   jquery-rails
   kaminari
   less-rails
+  mocha
   mysql
   mysql2
   rack-mini-profiler
+  omniauth
+  omniauth-twitter
   rails (= 4.2.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
@@ -210,6 +252,7 @@ DEPENDENCIES
   spring
   therubyracer
   turbolinks
+  twitter
   twitter-bootstrap-rails
   twitter-typeahead-rails
   uglifier (>= 1.3.0)
