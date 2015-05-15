@@ -6,6 +6,7 @@ class QuotesController < ApplicationController
 
   # GET /quotes
   # GET /quotes.json
+  # Deprecated
   def index
     @has_search = false
 

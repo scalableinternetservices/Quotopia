@@ -29,6 +29,9 @@ gem 'seed_dump'
 # Use kaminari as the pagination engine
 gem 'kaminari'
 
+# twitter-typeahead-rails for typeahead
+gem 'twitter-typeahead-rails'
+
 # mysql gem driver for prod and test
 gem 'mysql'
 # Use ActiveModel has_secure_password
