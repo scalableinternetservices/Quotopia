@@ -17,11 +17,14 @@ class SearchesController < ApplicationController
                          .where("authors.name LIKE ?", "%#{@q}%")
         
         @categories = Category.select("categories.content as value")
-                                .where("categories.content LIKE ?", "%#{@q}%")
+                              .where("categories.content LIKE ?", "%#{@q}%")
         
-
+        #Uncomment this to add searching on Quotes.content
+        #@quotes = Quote.select("quotes.content as value")
+        #               .where("quotes.content LIKE ?", "%#{@q}%")
+        
         #might want to ensure capitalization in @categories?
-        puts render json: @authors + @categories
+        puts render json: @authors + @categories #+ @quotes
 
     end
 end 
