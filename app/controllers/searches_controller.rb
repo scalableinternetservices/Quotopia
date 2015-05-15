@@ -11,8 +11,18 @@ class SearchesController < ApplicationController
       end
     end
 
-    def search_typeahead
-        q = params[:query]
+    def typeahead
+        @q = params[:q]
+        @authors = Author.select("authors.name as value")
+                         .where("authors.name LIKE ?", "%#{@q}%")
+        
+        @categories = Category.select("categories.content as value")
+                                .where("categories.content LIKE ?", "%#{@q}%")
+        
+
+        #might want to ensure capitalization in @categories?
+        puts render json: @authors + @categories
+
     end
 end 
 
