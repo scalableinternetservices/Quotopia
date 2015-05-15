@@ -6,6 +6,9 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  */
+#q {
+  border-radius: 0px;
+}    
 .has-warning .twitter-typeahead .tt-input,
 .has-warning .twitter-typeahead .tt-hint {
   border-color: #8a6d3b;
