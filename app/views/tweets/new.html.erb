@@ -1,6 +1,6 @@
 <p>
-  <%= form_for :tweet, url: tweets_path, method: :post do |f| %>
-      <%= f.text_field :message %>
+  <%= form_for :tweet, url: {action: "create"}, method: :post do |f| %>
+      <%= f.text_field :content %>
       <%= f.submit "Send Tweet" %>
   <% end %>
 </p>

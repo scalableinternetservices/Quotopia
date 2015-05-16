@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get 'tweets/new'
+  get '/tweets/new', to: 'tweets#new'
 
-  get 'tweets/create'
+  post '/tweets/create', to: 'tweets#create'
 
   resources :authentications
   get 'home/index'

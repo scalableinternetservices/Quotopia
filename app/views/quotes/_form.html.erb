@@ -38,13 +38,13 @@
       Submit
     <% end%>
 
-    <!--<% if !current_user.nil? %>-->
+    <% if !current_user.provider.nil? && current_user.provider.include?("twitter") %>
         <p>Click The link below to send a tweet.</p>
-        <%= link_to "Send a Tweet", new_tweet_path %>
-
-    <!--<% else %>-->
-        <!--<p>You must log in to send a tweet.</p>-->
-    <!--<% end %>-->
+        <%= link_to "Send a Tweet", '/tweets/new' %>
+    <% else %>
+        <p>You must log in to send a tweet.</p>
+        <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
+    <% end %>
 
     <%= f.submit 'Cancel', :name => 'cancel', class: "btn btn-default", style: "float: right"%>
 
