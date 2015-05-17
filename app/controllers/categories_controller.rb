@@ -6,10 +6,10 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   def index
     @categories = Category.all
-    @sorted = Category.joins("LEFT JOIN categorizations on categorizations.category_id = categories.id")
-                      .select("categories.*")
-                      .order('category_id DESC, created_at')
-                      .distinct
+    @sorted = Category.select("categories.*, sum((case when categorizations.category_id is not null then 1 else 0 end)) AS category_count")
+                  .joins("LEFT JOIN categorizations ON categorizations.category_id = categories.id")
+                  .group(:id)
+                  .order("category_count DESC, created_at")
     @category = Category.new
   end
 
@@ -38,10 +38,10 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        @sorted = Category.joins("LEFT JOIN categorizations on categorizations.category_id = categories.id")
-                      .select("categories.*")
-                      .order('category_id DESC, created_at')
-                      .distinct
+        @sorted = Category.select("categories.*, sum((case when categorizations.category_id is not null then 1 else 0 end)) AS category_count")
+                      .joins("LEFT JOIN categorizations ON categorizations.category_id = categories.id")
+                      .group(:id)
+                      .order("category_count DESC, created_at")
         format.html { redirect_to @category, notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @category }
         format.js {}
