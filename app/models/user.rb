@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :favorite_quotes
   has_many :favorites, through: :favorite_quotes, source: :quote  # quotes that a user favorites
+
   # has_many :submissions
   # has_many :quotes, through: :submissions
   # has_many :submissions, class_name: 'Quote', foreign_key: 'quote_id' if keep tracking of user-submissions does not work
@@ -44,7 +45,12 @@ class User < ActiveRecord::Base
       config.access_token_secret = oauth_secret
     end
 
-    client.update(tweet)
+    if tweet.empty?
+
+    else
+      client.update(tweet)
+    end
+
     return
   end
 

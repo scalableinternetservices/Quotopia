@@ -4,11 +4,11 @@ class TweetsController < ApplicationController
   end
 
   def create
-      current_user.tweet(twitter_params[:content])
-      redirect_to :root
+      current_user.tweet(twitter_params[:message])
+      return
   end
 
   def twitter_params
-    params.require(:tweet).permit(:content)
+    params.require(:tweet).permit(:message)
   end
 end

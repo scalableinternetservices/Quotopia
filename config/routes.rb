@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get '/tweets/new', to: 'tweets#new'
 
+  get 'twitter/callback', to: 'sessions#create'
   post '/tweets/create', to: 'tweets#create'
 
   resources :authentications
