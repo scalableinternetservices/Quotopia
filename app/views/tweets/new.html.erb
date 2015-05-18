@@ -1,9 +1,7 @@
 <p>
-  <%= form_for :tweet, url: {action: "create"}, method: :post, :html => {:name => "tweet-form",
-                     :onsubmit => "return (validate_form());"} do |fm| %>
+  <%= form_tag tweets_create_path, method: :post, multipart: true, :html => {:name => "tweet-form"} %>
       <p>Maximum 140 Characters</p>
-      <%= fm.text_field :message, :pattern => ".{0,140}", name: "tweet" %>
-      <%= fm.submit "Send Tweet" %>
-  <% end %>
+      <%= text_field_tag "message", params[:message], required: true, :pattern => ".{0,140}", size: 140, maxlength: 140 %>
+      <%= submit_tag "Send Tweet" %>
 </p>
 
