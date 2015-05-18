@@ -78,4 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.logger = ActiveSupport::Logger.new('log/production.log')
+
+  config.twitter_key = "kx5uJtaMv21ofApEkTxWn6McD"
+  config.twitter_secret = "KK8ctf6DXs9LZ5znaDcammgbzK61BrXnXtKX5jTZi3msH4rdYd"
 end
