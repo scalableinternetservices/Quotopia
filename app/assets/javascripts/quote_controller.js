@@ -1,8 +1,4 @@
- function isOverflowed(elem) {
-    return elem.scrollHeight > elem.clientHeight || elem.scrollWidth > elem.clientWidth;
-}
-
-function showMoreOrLess( elem ) {
+ function showMoreOrLess( elem ) {
 
     var link=elem;
 
@@ -23,3 +19,25 @@ function showMoreOrLess( elem ) {
 
 }
 
+
+var checkOverflow;
+checkOverflow = function() {
+
+  var elems = document.getElementsByClassName("pls");
+  for(var i =0; i < elems.length; i++){
+    /*
+    console.log("scrollH " + elems[i].scrollHeight);
+    console.log("clientH " + elems[i].clientHeight);
+    console.log("scrollW " + elems[i].scrollWidth);
+    console.log("clientW " + elems[i].clientWidth);
+    */
+    if (elems[i].scrollHeight > elems[i].clientHeight || elems[i].scrollWidth > elems[i].clientWidth) {
+        $("<a class='see-more' onclick='showMoreOrLess(this);'>Show More</a>").insertAfter(elems[i]);
+        elems[i].classList.add("fade-overflow");
+    }
+  }
+
+};
+
+$(document).ready(checkOverflow);
+$(document).on('page:load', checkOverflow);

@@ -15,7 +15,7 @@
         </div>
         <div class="col-xs-8 col-xs-height quote-text panel panel-default center" id="quote-panel">
             <% div_id = "quote_#{quote.id}" %>
-            <div onclick="location.href='<%=quote_path(quote.id)%>';" style="cursor: pointer;" class="panel-body quote-content no-highlight" id="<%= div_id %>">
+            <div onclick="location.href='<%=quote_path(quote.id)%>';" style="cursor: pointer;" class="panel-body quote-content no-highlight pls">
                 <%= quote.content %>
                 <% if display_author %>
                     <div class="author-name">-  <a class="no-bubble" href="<%= author_path(quote.author_id) %>"><%= quote.author_name %></a> </div>
@@ -25,11 +25,7 @@
                   $('.no-bubble').click(function(event) {
                     event.stopImmediatePropagation();
                   });
-                  var curr = document.getElementById("<%= div_id %>");
-                  if (isOverflowed(curr)) {
-                  $("<a class='see-more' onclick='showMoreOrLess(this);'>Show More</a>").insertAfter(curr);
-                  curr.classList.add("fade-overflow");
-                  }
+
               <% end %>
             </div>
         </div>
