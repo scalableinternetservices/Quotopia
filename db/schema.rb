@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150510205907) do
+ActiveRecord::Schema.define(version: 20150515082122) do
 
   create_table "authors", force: :cascade do |t|
     t.text     "name",       limit: 65535
@@ -87,6 +87,10 @@ ActiveRecord::Schema.define(version: 20150510205907) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
+    t.string   "oauth_token",            limit: 255
+    t.string   "oauth_secret",           limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

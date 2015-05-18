@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get '/tweets/new', to: 'tweets#new'
+
+  get 'twitter/callback', to: 'sessions#create'
+  post '/tweets/create', to: 'tweets#create'
+  get '/tweets/error', to: 'tweets#error'
+
+  resources :authentications
   get 'home/index'
   get '/vote/quote_count/:quote_id', to: 'votes#quote_count'
   get '/favorite_quotes/user', to: 'favorite_quotes#user'
@@ -13,7 +20,7 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :authors
-  devise_for :users
+  devise_for :users, controllers: {:omniauth_callbacks => "omniauth_callbacks"}
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

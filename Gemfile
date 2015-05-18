@@ -41,6 +41,10 @@ gem 'mysql'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# twitter integration
+gem 'omniauth-twitter'
+gem 'twitter'
+gem 'omniauth'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -63,3 +67,5 @@ group :production do
   gem 'mysql2'
 end
 
+
+gem 'mocha', group: :test

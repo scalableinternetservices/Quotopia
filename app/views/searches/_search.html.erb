@@ -1,12 +1,12 @@
 <%= form_tag('/search', :method => "get", id: "search-form",
-             :class => "form-inline", :name => "search-form", :onsubmit => "return (validate());") do %>
+             :class => "form-inline", :name => "search-form") do %>
     <div class="input-group">
       <span class="input-group-addon searchbar" id="search-label">Search</span>
 
       <div class="form-group searchbar-text" name="search-bar">
         <%= text_field_tag :q, params[:q],
                            placeholder: "Search Quotes or Authors",
-                           class: "form-control searchbar-text" %>
+                           class: "form-control searchbar-text", required: true %>
       </div>
       <span class="input-group-btn searchbar">
           <button type="submit" class="btn btn-default">

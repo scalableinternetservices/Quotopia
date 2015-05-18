@@ -42,4 +42,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.logger = ActiveSupport::Logger.new('log/development.log')
+
+  config.twitter_key = "kx5uJtaMv21ofApEkTxWn6McD"
+  config.twitter_secret = "KK8ctf6DXs9LZ5znaDcammgbzK61BrXnXtKX5jTZi3msH4rdYd"
 end
