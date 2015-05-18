@@ -3,5 +3,6 @@
       <p>Maximum 140 Characters</p>
       <%= text_field_tag "message", params[:message], required: true, :pattern => ".{0,140}", size: 140, maxlength: 140 %>
       <%= submit_tag "Send Tweet" %>
+
 </p>
 

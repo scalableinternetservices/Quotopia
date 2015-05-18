@@ -5,7 +5,10 @@ class TweetsController < ApplicationController
   end
 
   def create
-      current_user.tweet(twitter_params[:message])
+      @response = current_user.tweet(twitter_params[:content])
+      if @response.nil?
+        redirect_to tweets_error_path
+      end
       return
   end
 
