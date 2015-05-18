@@ -45,13 +45,8 @@ class User < ActiveRecord::Base
       config.access_token_secret = oauth_secret
     end
 
-    begin
-      client.update(tweet)
-    rescue Twitter::Error::Forbidden
-      return nil
-    end
-
+    client.update(tweet)
     return
-   end
+  end
 
 end
