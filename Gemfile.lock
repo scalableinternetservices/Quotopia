@@ -67,13 +67,13 @@ GEM
     equalizer (0.0.11)
     erubis (2.7.0)
     execjs (2.5.2)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     fast_stack (0.1.0)
       rake
       rake-compiler
     flamegraph (0.1.0)
       fast_stack
-    faraday (0.9.1)
-      multipart-post (>= 1.2, < 3)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     hashie (3.4.1)
@@ -242,9 +242,9 @@ DEPENDENCIES
   mocha
   mysql
   mysql2
-  rack-mini-profiler
   omniauth
   omniauth-twitter
+  rack-mini-profiler
   rails (= 4.2.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
