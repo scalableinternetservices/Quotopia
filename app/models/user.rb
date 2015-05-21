@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:twitter]
 
+  attr_accessor :twitter_errors
+
 
   has_many :quotes
   has_many :votes
@@ -45,7 +47,11 @@ class User < ActiveRecord::Base
       config.access_token_secret = oauth_secret
     end
 
-    client.update(tweet)
+    begin
+      client.update(tweet)
+    rescue
+      self.twitter_errors = "Twitter API Error!"
+    end
     return
   end
 
