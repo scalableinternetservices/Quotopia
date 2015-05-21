@@ -51,9 +51,10 @@
 <hr>
 <% end %>
 
-<% if !current_user.nil? && !current_user.provider.nil? && current_user.provider.include?("twitter") %>
-    <p>Click The link below to send a tweet.</p>
-    <%= link_to "Send a Tweet", tweets_new_path(message: @tweet) %>
+<% if !current_user.provider.nil? && current_user.provider.include?("twitter") %>
+    <!--<p>Click The link below to send a tweet.</p>-->
+    <!--<%= link_to "Send a Tweet", tweets_new_path(message: @tweet) %>-->
+    <%= render partial: 'tweets/form', locals: {tweet: @tweet} %>
 <% else %>
     <p>You must log in to send a tweet.</p>
     <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>

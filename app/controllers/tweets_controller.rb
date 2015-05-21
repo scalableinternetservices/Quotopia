@@ -6,6 +6,9 @@ class TweetsController < ApplicationController
 
   def create
       current_user.tweet(twitter_params[:message])
+      respond_to do |format|
+        format.js {}
+      end
       return
   end
 
