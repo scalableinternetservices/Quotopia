@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515082122) do
+ActiveRecord::Schema.define(version: 20150521051918) do
 
   create_table "authors", force: :cascade do |t|
     t.text     "name",       limit: 65535
@@ -21,12 +21,11 @@ ActiveRecord::Schema.define(version: 20150515082122) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "content",    limit: 255
-    t.integer  "quote_id",   limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
-  add_index "categories", ["quote_id"], name: "index_categories_on_quote_id", using: :btree
+  add_index "categories", ["content"], name: "index_categories_on_content", unique: true, using: :btree
 
   create_table "categorizations", force: :cascade do |t|
     t.integer  "quote_id",    limit: 4
@@ -108,7 +107,6 @@ ActiveRecord::Schema.define(version: 20150515082122) do
   add_index "votes", ["quote_id"], name: "index_votes_on_quote_id", using: :btree
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
-  add_foreign_key "categories", "quotes"
   add_foreign_key "categorizations", "categories"
   add_foreign_key "categorizations", "quotes"
   add_foreign_key "comments", "quotes"
