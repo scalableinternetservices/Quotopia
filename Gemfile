@@ -23,7 +23,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # devise for user accounts
 gem 'devise'
-gem 'seed_dump'
+
 # Use kaminari as the pagination engine
 gem 'kaminari'
 
@@ -56,16 +56,24 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
+  gem 'stackprof'
   # Rack mini profile for performance monitoring
   gem 'rack-mini-profiler'
-  
+
   # Flamegraphs for performance visualization
   gem 'flamegraph'
+
+  # Fabricator to create test data
+  gem 'fabrication'
+
+  # Faker to help Fabricator
+  gem 'faker'
+
+  gem 'seed_dump'
 end
 
 group :production do
   gem 'mysql2'
 end
-
 
 gem 'mocha', group: :test
