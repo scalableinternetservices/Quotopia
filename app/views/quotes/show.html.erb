@@ -24,10 +24,6 @@
             $see_more.text("Show More Comments");
     }
 <% end %>
-<!--
-<hr>
-    <h4>Showing <%="#{@quote.comments.length}"%> comments</h4>
--->
 <hr>
 <% unless @quote.comments.size <= 5 %>
     <a id='see-more' onclick="showComments();">Show More Comments</a>
@@ -57,7 +53,7 @@
 
 <% if !current_user.nil? && !current_user.provider.nil? && current_user.provider.include?("twitter") %>
     <p>Click The link below to send a tweet.</p>
-    <%= link_to "Send a Tweet", tweets_new_path(message: @quote.content) %>
+    <%= link_to "Send a Tweet", tweets_new_path(message: @tweet) %>
 <% else %>
     <p>You must log in to send a tweet.</p>
     <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
