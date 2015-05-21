@@ -15,24 +15,24 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test "category is not valid without unique content" do
-    category = Category.new(content: categories(:friendship).content, quote_id: categories(:friendship).quote_id)
+    category = Category.new(content: categories(:friendship).content)
     assert category.invalid?
     assert_equal ["has already been taken"], category.errors[:content]
   end
 
   test "should not save category without unique content" do
-    category = Category.new(content: categories(:friendship).content, quote_id: categories(:friendship).quote_id)
+    category = Category.new(content: categories(:friendship).content)
     assert_not category.save
   end
 
   test "category is not valid without unique content (case-insensitive)" do
-    category = Category.new(content: categories(:friendship).content.upcase, quote_id: categories(:friendship).quote_id)
+    category = Category.new(content: categories(:friendship).content.upcase)
     assert category.invalid?
     assert_equal ["has already been taken"], category.errors[:content]
   end
 
   test "should not save category without unique content (case-insensitive)" do
-    category = Category.new(content: categories(:friendship).content.upcase, quote_id: categories(:friendship).quote_id)
+    category = Category.new(content: categories(:friendship).content.upcase)
     assert_not category.save
   end
 end
