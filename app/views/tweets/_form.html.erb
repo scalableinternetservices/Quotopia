@@ -1,0 +1,6 @@
+<%= form_tag tweets_create_path, remote: true, method: :post, multipart: true, class: "tweet-form" %>
+<div class="form-group">
+  <label for="tweetMsg">Maximum 140 characters</label>
+  <%= text_field_tag "message", tweet, required: true, :pattern => ".{0,140}", size: 140, maxlength: 140, class: "form-control" %>
+</div>
+<%= submit_tag "Send Tweet", class: "btn btn-primary btn-sm" %>

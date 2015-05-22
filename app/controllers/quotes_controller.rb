@@ -22,6 +22,8 @@ class QuotesController < ApplicationController
   # GET /quotes/1.json
   def show
     @comment = Comment.new
+    @categories = @quote.categories.map {|c| '#' + c.content}.join(' ')
+    @tweet = "#{@quote.content} - #{@quote.author.name} #{@categories}".truncate(140)
   end
 
 

@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<div id="alert-placeholder"></div>
 <h2 class="quote-content"><%= "\"#{@quote.content}\""%>&nbsp;&nbsp;&nbsp;
     <br>
     <i><small class="author-name">- <%= link_to @quote.author.name, author_path(@quote.author)%></small></i>
@@ -24,10 +25,6 @@
             $see_more.text("Show More Comments");
     }
 <% end %>
-<!--
-<hr>
-    <h4>Showing <%="#{@quote.comments.length}"%> comments</h4>
--->
 <hr>
 <% unless @quote.comments.size <= 5 %>
     <a id='see-more' onclick="showComments();">Show More Comments</a>
@@ -56,8 +53,9 @@
 <% end %>
 
 <% if !current_user.nil? && !current_user.provider.nil? && current_user.provider.include?("twitter") %>
-    <p>Click The link below to send a tweet.</p>
-    <%= link_to "Send a Tweet", tweets_new_path(message: @quote.content) %>
+    <!--<p>Click The link below to send a tweet.</p>-->
+    <!--<%= link_to "Send a Tweet", tweets_new_path(message: @tweet) %>-->
+    <%= render partial: 'tweets/form', locals: {tweet: @tweet} %>
 <% else %>
     <p>You must log in to send a tweet.</p>
     <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
