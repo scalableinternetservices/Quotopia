@@ -19,3 +19,4 @@
 *.swp
 # Ignore .idea project files
 .idea/*
+secrets.yml
