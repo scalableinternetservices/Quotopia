@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:twitter]
 
+  attr_accessor :twitter_errors
+
 
   has_many :quotes
   has_many :votes
@@ -20,6 +22,8 @@ class User < ActiveRecord::Base
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
+      user.email = auth.info.nickname
+      #puts auth.info.nickname
       user.password = Devise.friendly_token[0,20]
       user.oauth_token = auth.credentials.token
       user.oauth_secret = auth.credentials.secret
@@ -32,7 +36,9 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.twitter_data"]
-        user.email = data["email"] if user.email.blank?
+        #user.email = data[:info][:nickname] if user.email.blank?
+        user.email = @user_data[:info][:nickname] if user.email.blank?
+        puts user.email
       end
     end
   end
@@ -45,7 +51,11 @@ class User < ActiveRecord::Base
       config.access_token_secret = oauth_secret
     end
 
-    client.update(tweet)
+    begin
+      client.update(tweet)
+    rescue
+      self.twitter_errors = "Twitter API Error!"
+    end
     return
   end
 
