@@ -37,13 +37,15 @@
 
       <thinktime value="2" random="true"/>
 
+      <!-- Visit 4 more pages of trending -->
       <for from="2" to="5" incr="1" var="pagenum">
         <request subst="true">
           <http url="/?page=%%_pagenum%%&amp;tab=trending" version="1.1" method="GET"/>
         </request>
         <thinktime value="2" random="true"/>
-      </for>
+    </for>
 
+      <!-- Visit 5 pages of new quotes -->
       <for from="1" to="5" incr="1" var="pagenum">
         <request subst="true">
           <http url="/?page=%%_pagenum%%&amp;tab=new" version="1.1" method="GET"/>
@@ -51,6 +53,7 @@
         <thinktime value="2" random="true"/>
       </for>
 
+      <!-- Visit the authors page -->
       <request><http url="/authors" version="1.1" method="GET"/></request>
 
     </session>
@@ -65,6 +68,7 @@
         <http url="/" version="1.1" method="GET"/>
       </request>
 
+      <!-- Sign in as a random user from the data file -->
       <request>
         <http url="/users/sign_in" version="1.1" method="GET"/>
       </request>
@@ -73,36 +77,53 @@
         </http>
       </request>
 
+      <!-- Visit 4 more pages of trending -->
       <for from="2" to="5" incr="1" var="pagenum">
         <request subst="true"> <http url="/?page=%%_pagenum%%&amp;tab=trending"/> </request>
         <thinktime value="2" random="true"/>
       </for>
 
+      <!-- Visit 2 pages of new quotes -->
       <for from="1" to="2" incr="1" var="pagenum">
         <request subst="true"> <http url="/?page=%%_pagenum%%&amp;tab=new"/> </request>
         <thinktime value="2" random="true"/>
       </for>
 
+      <!-- Visit first page of all time quotes -->
       <request> <http url="/?tab=all-time"/> </request>
       <thinktime value="2" random="true"/>
 
+      <!-- Create a new quote -->
       <setdynvars sourcetype="random_string" length="55">
         <var name="quote_content"/>
       </setdynvars>
       <setdynvars sourcetype="random_string" length="13">
         <var name="quote_author"/>
       </setdynvars>
+      <setdynvars sourcetype="random_string" length="13">
+        <var name="category"/>
+      </setdynvars>
       <request subst="true">
         <http url="/quotes/new" version="1.1" method="GET"/>
       </request>
       <request subst="true">
-        <http url="/quotes" version="1.1" method="POST" contents="quote%5Bcontent%5D=%%_quote_content%%&amp;quote%5Bauthor_attributes%5D%5Bname%5D=%%_quote_author%%&amp;quote%5Bcategory_list%5D=&amp;button=">
+        <http url="/quotes" version="1.1" method="POST" contents="quote%5Bcontent%5D=%%_quote_content%%&amp;quote%5Bauthor_attributes%5D%5Bname%5D=%%_quote_author%%&amp;quote%5Bcategory_list%5D=%%_category%%&amp;button=">
         </http>
       </request>
 
+      <!-- Search for our just created quote -->
       <request subst="true">
         <http url="/quotes?search=%%_quote_content%%" version="1.1" method="GET"/>
       </request>
+
+      <!-- Visit categories page
+      <request> <http url="/categories"/> </request>
+      <thinktime value="2" random="true"/>
+      -->
+
+      <!-- Visit authors page -->
+      <request> <http url="/authors"/> </request>
+      <thinktime value="1" random="true"/>
 
       </session>
     </sessions>
